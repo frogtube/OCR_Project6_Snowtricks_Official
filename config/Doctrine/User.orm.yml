@@ -10,23 +10,23 @@ App\Entity\User:
       length: 100
     email:
       type: string
-      scale: 100
+      length: 100
     firstname:
       type: string
-      scale: 100
+      length: 100
     lastname:
       type: string
-      scale: 100
+      length: 100
     password:
       type: string
-      scale: 20
+      length: 20
     avatar:
       type: string
-      scale: 100
+      length: 100
       nullable: true
     role:
       type: string
-      scale: 100
+      length: 100
     active:
       type: boolean
     createdAt:

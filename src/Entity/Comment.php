@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace App\Entity;
 
 
 class Comment
@@ -9,11 +9,7 @@ class Comment
     private $content;
     private $createdAt;
 
-    // GETTERS
-    public function getId() { return $this->id; }
-    public function getContent() { return $this->content; }
-    public function getCreatedAt() { return $this->createdAt; }
-
+   // SETTERS
     public function setId($id)
     {
         $this->id = $id;
@@ -28,4 +24,21 @@ class Comment
     {
         $this->createdAt = $createdAt;
     }
+
+    // GETTERS
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
 }

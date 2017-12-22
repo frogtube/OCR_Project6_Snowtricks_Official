@@ -10,13 +10,6 @@ class Trick
     private $group;
     private $createdAt;
 
-    // GETTERS
-    public function getId() { return $this->id; }
-    public function getName() { return $this->name; }
-    public function getDescription() { return $this->description; }
-    public function getGroup() { return $this->group; }
-    public function getCreatedAt() { return $this->createdAt; }
-
     // SETTERS
     public function setId($id)
     {
@@ -42,4 +35,31 @@ class Trick
     {
         $this->createdAt = $createdAt;
     }
+
+    // GETTERS
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
 }

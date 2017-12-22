@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace App\Entity;
 
 
 class Video
@@ -8,11 +8,6 @@ class Video
     private $id;
     private $embed;
     private $caption;
-
-    // GETTERS
-    public function getId() { return $this->id; }
-    public function getEmbed() { return $this->embed; }
-    public function getCaption() { return $this->caption; }
 
     // SETTERS
     public function setId($id)
@@ -29,4 +24,21 @@ class Video
     {
         $this->caption = $caption;
     }
+
+    // GETTERS
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getEmbed()
+    {
+        return $this->embed;
+    }
+
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+
 }

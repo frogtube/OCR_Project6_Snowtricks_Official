@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace App\Entity;
 
 
 class User
@@ -15,18 +15,6 @@ class User
     private $role;
     private $active;
     private $createdAt;
-
-    // GETTERS
-    public function getId() { return $this->id; }
-    public function getUsername() { return $this->username; }
-    public function getEmail() { return $this->email; }
-    public function getFirstname() { return $this->firstname; }
-    public function getLastname() { return $this->lastname; }
-    public function getPassword() { return $this->password; }
-    public function getAvatar() { return $this->avatar; }
-    public function getRole() { return $this->role; }
-    public function getActive() { return $this->active; }
-    public function getCreatedAt() { return $this->createdAt; }
 
     // SETTERS
     public function setId($id)
@@ -77,6 +65,57 @@ class User
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    // GETTERS
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 
 }

@@ -1,0 +1,19 @@
+App\Entity\Trick:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      length: 100
+    description:
+      type: text
+      length: 2000
+    group:
+      type: string
+      lenght: 100
+    createdAt:
+      type: datetime
+

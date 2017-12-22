@@ -16,4 +16,9 @@ App\Entity\Trick:
       lenght: 100
     createdAt:
       type: datetime
-
+  manyToOne:
+    user:
+      targetEntity: App\Entity\User
+      inversedBy: tricks
+      joinColumn:
+        nullable: true

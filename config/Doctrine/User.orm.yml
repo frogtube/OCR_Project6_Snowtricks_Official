@@ -31,3 +31,7 @@ App\Entity\User:
       type: boolean
     createdAt:
       type: datetime
+  oneToMany:
+    tricks:
+      targetEntity: App\Entity\Trick
+      mappedBy: user

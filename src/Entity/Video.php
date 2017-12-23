@@ -8,6 +8,7 @@ class Video
     private $id;
     private $embed;
     private $caption;
+    private $trick;
 
     // SETTERS
     public function setId($id)
@@ -25,6 +26,11 @@ class Video
         $this->caption = $caption;
     }
 
+    public function setTrick($trick)
+    {
+        $this->trick = $trick;
+    }
+
     // GETTERS
     public function getId()
     {
@@ -39,6 +45,11 @@ class Video
     public function getCaption()
     {
         return $this->caption;
+    }
+
+    public function getTrick()
+    {
+        return $this->trick;
     }
 
 }

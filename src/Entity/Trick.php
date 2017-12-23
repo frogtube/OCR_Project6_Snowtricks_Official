@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Trick
 {
     private $id;
@@ -10,6 +12,16 @@ class Trick
     private $group;
     private $createdAt;
     private $user;
+    private $comments;
+    private $videos;
+    private $images;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->images = new ArrayCollection();
+    }
 
     // SETTERS
     public function setId($id)
@@ -35,6 +47,11 @@ class Trick
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     // GETTERS
@@ -63,4 +80,23 @@ class Trick
         return $this->createdAt;
     }
 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    public function getImages()
+    {
+        return $this->images;
+    }
 }

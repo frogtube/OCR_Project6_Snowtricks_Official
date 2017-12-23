@@ -35,3 +35,10 @@ App\Entity\User:
     tricks:
       targetEntity: App\Entity\Trick
       mappedBy: user
+    comments:
+      targetEntity: App\Entity\Comment
+      mappedBy: user
+  oneToOne:
+    image:
+      targetEntity: Image
+      mappedBy: user

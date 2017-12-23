@@ -22,3 +22,14 @@ App\Entity\Trick:
       inversedBy: tricks
       joinColumn:
         nullable: true
+  oneToMany:
+    comments:
+      targetEntity: App\Entity\Comment
+      mappedBy: trick
+    videos:
+      targetEntity: App\Entity\Video
+      mappedBy: trick
+    images:
+      targetEntity: App\Entity\Image
+      mappedBy: trick
+

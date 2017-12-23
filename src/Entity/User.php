@@ -18,10 +18,14 @@ class User
     private $active;
     private $createdAt;
     private $tricks;
+    private $comments;
+    private $image;
+
 
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     // SETTERS
@@ -73,6 +77,11 @@ class User
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 
     // GETTERS
@@ -129,6 +138,16 @@ class User
     public function getTricks()
     {
         return $this->tricks;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
 }

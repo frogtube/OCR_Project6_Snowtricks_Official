@@ -8,6 +8,8 @@ class Comment
     private $id;
     private $content;
     private $createdAt;
+    private $trick;
+    private $user;
 
    // SETTERS
     public function setId($id)
@@ -25,6 +27,16 @@ class Comment
         $this->createdAt = $createdAt;
     }
 
+    public function setTrick($trick)
+    {
+        $this->trick = $trick;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
     // GETTERS
     public function getId()
     {
@@ -39,6 +51,16 @@ class Comment
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    public function getTrick()
+    {
+        return $this->trick;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
 
 }

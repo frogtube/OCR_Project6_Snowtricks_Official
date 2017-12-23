@@ -12,5 +12,11 @@ App\Entity\Video:
       type: string
       length: 100
       nullable: true
+  manyToOne:
+      trick:
+        targetEntity: App\Entity\Trick
+        inversedBy: videos
+        joinColumn:
+          nullable: true
 
 

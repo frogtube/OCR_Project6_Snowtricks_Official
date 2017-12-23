@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class User
 {
     private $id;
@@ -15,6 +17,12 @@ class User
     private $role;
     private $active;
     private $createdAt;
+    private $tricks;
+
+    public function __construct()
+    {
+        $this->tricks = new ArrayCollection();
+    }
 
     // SETTERS
     public function setId($id)
@@ -116,6 +124,11 @@ class User
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    public function getTricks()
+    {
+        return $this->tricks;
     }
 
 }

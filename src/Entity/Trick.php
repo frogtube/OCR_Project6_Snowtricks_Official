@@ -9,6 +9,7 @@ class Trick
     private $description;
     private $group;
     private $createdAt;
+    private $user;
 
     // SETTERS
     public function setId($id)

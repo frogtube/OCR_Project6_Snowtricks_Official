@@ -1,0 +1,44 @@
+App\Entity\User:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    username:
+      type: string
+      length: 100
+    email:
+      type: string
+      length: 100
+    firstname:
+      type: string
+      length: 100
+    lastname:
+      type: string
+      length: 100
+    password:
+      type: string
+      length: 20
+    avatar:
+      type: string
+      length: 100
+      nullable: true
+    role:
+      type: string
+      length: 100
+    active:
+      type: boolean
+    createdAt:
+      type: datetime
+  oneToMany:
+    tricks:
+      targetEntity: App\Entity\Trick
+      mappedBy: user
+    comments:
+      targetEntity: App\Entity\Comment
+      mappedBy: user
+  oneToOne:
+    image:
+      targetEntity: Image
+      mappedBy: user

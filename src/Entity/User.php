@@ -1,7 +1,9 @@
 <?php
 
-namespace Entity;
+namespace App\Entity;
 
+
+use Doctrine\Common\Collections\ArrayCollection;
 
 class User
 {
@@ -15,18 +17,16 @@ class User
     private $role;
     private $active;
     private $createdAt;
+    private $tricks;
+    private $comments;
+    private $image;
 
-    // GETTERS
-    public function getId() { return $this->id; }
-    public function getUsername() { return $this->username; }
-    public function getEmail() { return $this->email; }
-    public function getFirstname() { return $this->firstname; }
-    public function getLastname() { return $this->lastname; }
-    public function getPassword() { return $this->password; }
-    public function getAvatar() { return $this->avatar; }
-    public function getRole() { return $this->role; }
-    public function getActive() { return $this->active; }
-    public function getCreatedAt() { return $this->createdAt; }
+
+    public function __construct()
+    {
+        $this->tricks = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     // SETTERS
     public function setId($id)
@@ -77,6 +77,77 @@ class User
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    // GETTERS
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getTricks()
+    {
+        return $this->tricks;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
 }

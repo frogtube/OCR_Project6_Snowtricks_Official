@@ -1,0 +1,22 @@
+App\Entity\Video:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    embed:
+      type: string
+      length: 200
+    caption:
+      type: string
+      length: 100
+      nullable: true
+  manyToOne:
+      trick:
+        targetEntity: App\Entity\Trick
+        inversedBy: videos
+        joinColumn:
+          nullable: true
+
+

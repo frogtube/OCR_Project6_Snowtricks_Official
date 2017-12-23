@@ -1,0 +1,26 @@
+App\Entity\Comment:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    content:
+      type: text
+      length: 2000
+    createdAt:
+      type: datetime
+  manyToOne:
+    trick:
+      targetEntity: App\Entity\Trick
+      inversedBy: comment
+      joinColumn:
+        nullable: true
+    user:
+      targetEntity: App\Entity\User
+      inversedBy: comment
+      joinColumn:
+        nullable: true
+
+
+

@@ -1,0 +1,28 @@
+App\Entity\Image:
+  type: entity
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    filename:
+      type: string
+      length: 100
+    caption:
+      type: string
+      length: 100
+      nullable: true
+  manyToOne:
+    trick:
+      targetEntity: App\Entity\Trick
+      inversedBy: images
+      joinColumn:
+        nullable: true
+  oneToOne:
+    user:
+      targetEntity: App\Entity\User
+      inversedBy: cart
+      joinColumn:
+        nullable: true
+
+

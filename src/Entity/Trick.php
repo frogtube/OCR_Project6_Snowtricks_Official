@@ -24,78 +24,78 @@ class Trick
     }
 
     // SETTERS
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    public function setGroup($group)
+    public function setGroup(string $group): void
     {
         $this->group = $group;
     }
 
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function setUser($user)
+    public function setUser(string $user): void
     {
         $this->user = $user;
     }
 
     // GETTERS
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getGroup()
+    public function getGroup(): ?string
     {
         return $this->group;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
 
-    public function getUser()
+    public function getUser(): ?int
     {
         return $this->user;
     }
 
-    public function getComments()
+    public function getComments(): ArrayCollection
     {
         return $this->comments;
     }
 
-    public function getVideos()
+    public function getVideos(): ArrayCollection
     {
         return $this->videos;
     }
 
-    public function getImages()
+    public function getImages(): ArrayCollection
     {
         return $this->images;
     }

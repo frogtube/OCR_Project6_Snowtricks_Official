@@ -11,43 +11,43 @@ class Video
     private $trick;
 
     // SETTERS
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    public function setEmbed($embed)
+    public function setEmbed(string $embed): void
     {
         $this->embed = $embed;
     }
 
-    public function setCaption($caption)
+    public function setCaption(string $caption): void
     {
         $this->caption = $caption;
     }
 
-    public function setTrick($trick)
+    public function setTrick(int $trick): void
     {
         $this->trick = $trick;
     }
 
     // GETTERS
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmbed()
+    public function getEmbed(): ?string
     {
         return $this->embed;
     }
 
-    public function getCaption()
+    public function getCaption(): ?string
     {
         return $this->caption;
     }
 
-    public function getTrick()
+    public function getTrick(): ?int
     {
         return $this->trick;
     }

@@ -29,123 +29,123 @@ class User
     }
 
     // SETTERS
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    public function setFirstname($firstname)
+    public function setFirstname(string $firstname): void
     {
         $this->firstname = $firstname;
     }
 
-    public function setLastname($lastname)
+    public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
     }
 
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
 
-    public function setAvatar($avatar)
+    public function setAvatar(string $avatar): void
     {
         $this->avatar = $avatar;
     }
 
-    public function setRole($role)
+    public function setRole(string $role): void
     {
         $this->role = $role;
     }
 
-    public function setActive($active)
+    public function setActive(string $active): void
     {
         $this->active = $active;
     }
 
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function setImage($image)
+    public function setImage(int $image): void
     {
         $this->image = $image;
     }
 
     // GETTERS
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
-    public function getRole()
+    public function getRole(): ?string
     {
         return $this->role;
     }
 
-    public function getActive()
+    public function getActive(): ?bool
     {
         return $this->active;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
 
-    public function getTricks()
+    public function getTricks(): ?ArrayCollection
     {
         return $this->tricks;
     }
 
-    public function getComments()
+    public function getComments(): ?ArrayCollection
     {
         return $this->comments;
     }
 
-    public function getImage()
+    public function getImage(): ?int
     {
         return $this->image;
     }

@@ -1,3 +1,12 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+trick_list:
+    path: /
+    controller: App\Controller\TrickController::listAction
+
+trick_create:
+    path: /trick/new
+    controller: App\Controller\TrickController::createAction
+
+trick_show:
+    path: /trick/{trickName}
+    controller: App\Controller\TrickController::showAction
+

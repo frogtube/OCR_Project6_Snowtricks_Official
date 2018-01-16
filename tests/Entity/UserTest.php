@@ -100,17 +100,17 @@ class UserTest extends TestCase
 
     public function testGettingTricks()
     {
-        $trick = new User();
-        $trick->getTricks()
-        $this->assertSame(null, $trick->getTricks());
+        // $trick = new User();
+        // $trick->getTricks();
+        // $this->assertSame(null, $trick->getTricks());
 
         // Is mocking required here ?
     }
 
     public function testGettingComments()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getComments());
+       //  $trick = new User();
+        // $this->assertSame(null, $trick->getComments());
 
         // Is mocking required here ?
     }

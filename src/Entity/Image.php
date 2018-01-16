@@ -17,48 +17,48 @@ class Image
         $this->id = $id;
     }
 
-    public function setFilename($filename)
+    public function setFilename(string $filename): void
     {
         $this->filename = $filename;
     }
 
-    public function setCaption($caption)
+    public function setCaption(string $caption): void
     {
         $this->caption = $caption;
     }
 
-    public function setTrick($trick)
+    public function setTrick(int $trick): void
     {
         $this->trick = $trick;
     }
 
-    public function setUser($user)
+    public function setUser(int $user): void
     {
         $this->user = $user;
     }
 
     // GETTERS
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getFilename()
+    public function getFilename(): ?string
     {
         return $this->filename;
     }
 
-    public function getCaption()
+    public function getCaption(): ?string
     {
         return $this->caption;
     }
 
-    public function getTrick()
+    public function getTrick(): ?int
     {
         return $this->trick;
     }
 
-    public function getUser()
+    public function getUser(): ?int
     {
         return $this->user;
     }

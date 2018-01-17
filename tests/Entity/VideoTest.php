@@ -2,6 +2,7 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Trick;
 use App\Entity\Video;
 use PHPUnit\Framework\TestCase;
 
@@ -36,11 +37,11 @@ class VideoTest extends TestCase
 
     public function testSettingTrick()
     {
-        $trick = new Video();
-        $this->assertSame(null, $trick->getTrick());
+        $trick = new Trick();
+        $video = new Video();
 
-        $trick->setTrick(12);
-        $this->assertSame(12, $trick->getTrick());
+        $video->setTrick($trick);
+        $this->assertSame($trick, $video->getTrick());
     }
 
 

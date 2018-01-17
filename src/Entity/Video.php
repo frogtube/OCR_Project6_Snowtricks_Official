@@ -26,7 +26,7 @@ class Video
         $this->caption = $caption;
     }
 
-    public function setTrick(int $trick): void
+    public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }
@@ -47,7 +47,7 @@ class Video
         return $this->caption;
     }
 
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }

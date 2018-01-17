@@ -2,7 +2,9 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Image;
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use function Sodium\add;
 
@@ -10,110 +12,90 @@ class UserTest extends TestCase
 {
     public function testSettingUsername()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getUsername());
+        $user = new User();
+        $this->assertSame(null, $user->getUsername());
 
-        $trick->setUsername('arnold34');
-        $this->assertSame('arnold34', $trick->getUsername());
+        $user->setUsername('arnold34');
+        $this->assertSame('arnold34', $user->getUsername());
     }
 
     public function testSettingEmail()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getEmail());
+        $user = new User();
+        $this->assertSame(null, $user->getEmail());
 
-        $trick->setEmail('arnold34@gmail.com');
-        $this->assertSame('arnold34@gmail.com', $trick->getEmail());
+        $user->setEmail('arnold34@gmail.com');
+        $this->assertSame('arnold34@gmail.com', $user->getEmail());
     }
 
     public function testSettingFirstname()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getFirstname());
+        $user = new User();
+        $this->assertSame(null, $user->getFirstname());
 
-        $trick->setFirstname('arnold');
-        $this->assertSame('arnold', $trick->getFirstname());
+        $user->setFirstname('arnold');
+        $this->assertSame('arnold', $user->getFirstname());
     }
 
     public function testSettingLastname()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getLastname());
+        $user = new User();
+        $this->assertSame(null, $user->getLastname());
 
-        $trick->setLastname('willy');
-        $this->assertSame('willy', $trick->getLastname());
+        $user->setLastname('willy');
+        $this->assertSame('willy', $user->getLastname());
     }
 
     public function testSettingPassword()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getPassword());
+        $user = new User();
+        $this->assertSame(null, $user->getPassword());
 
-        $trick->setPassword('Ilovedogs');
-        $this->assertSame('Ilovedogs', $trick->getPassword());
+        $user->setPassword('Ilovedogs');
+        $this->assertSame('Ilovedogs', $user->getPassword());
     }
 
     public function testSettingAvatar()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getAvatar());
+        $user = new User();
+        $this->assertSame(null, $user->getAvatar());
 
-        $trick->setAvatar('puppy.jpg');
-        $this->assertSame('puppy.jpg', $trick->getAvatar());
+        $user->setAvatar('puppy.jpg');
+        $this->assertSame('puppy.jpg', $user->getAvatar());
     }
 
     public function testSettingRole()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getRole());
+        $user = new User();
+        $this->assertSame(null, $user->getRole());
 
-        $trick->setRole('admin');
-        $this->assertSame('admin', $trick->getRole());
+        $user->setRole('admin');
+        $this->assertSame('admin', $user->getRole());
     }
 
     public function testSettingActive()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getActive());
+        $user = new User();
+        $this->assertSame(null, $user->getActive());
 
-        $trick->setActive(true);
-        $this->assertSame(true, $trick->getActive());
+        $user->setActive(true);
+        $this->assertSame(true, $user->getActive());
     }
 
     public function testSettingCreatedAt()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getCreatedAt());
-
-        $trick->setCreatedAt('2017-12-27 14:43:12');
-        $this->assertSame('2017-12-27 14:43:12', $trick->getCreatedAt());
+        $date = new \DateTime('2017-12-27 14:43:12');
+        $user = new User();
+        $user->setCreatedAt($date);
+        $this->assertSame($date, $user->getCreatedAt());
     }
 
     public function testSettingImage()
     {
-        $trick = new User();
-        $this->assertSame(null, $trick->getImage());
-
-        $trick->setImage(4);
-        $this->assertSame(4, $trick->getImage());
+        $image = new Image();
+        $user = new User();
+        $user->setImage($image);
+        $this->assertSame($image, $user->getImage());
     }
-
-    public function testGettingTricks()
-    {
-        // $trick = new User();
-        // $trick->getTricks();
-        // $this->assertSame(null, $trick->getTricks());
-
-        // Is mocking required here ?
-    }
-
-    public function testGettingComments()
-    {
-       //  $trick = new User();
-        // $this->assertSame(null, $trick->getComments());
-
-        // Is mocking required here ?
-    }
-
 
 }

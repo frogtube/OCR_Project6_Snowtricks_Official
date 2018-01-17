@@ -44,12 +44,12 @@ class Trick
         $this->group = $group;
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function setUser(string $user): void
+    public function setUser(User $user): void
     {
         $this->user = $user;
     }
@@ -75,12 +75,12 @@ class Trick
         return $this->group;
     }
 
-    public function getCreatedAt(): ?string
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
     }

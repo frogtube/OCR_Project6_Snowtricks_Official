@@ -27,12 +27,12 @@ class Image
         $this->caption = $caption;
     }
 
-    public function setTrick(int $trick): void
+    public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }
 
-    public function setUser(int $user): void
+    public function setUser(?User $user): void
     {
         $this->user = $user;
     }
@@ -53,12 +53,12 @@ class Image
         return $this->caption;
     }
 
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
     }

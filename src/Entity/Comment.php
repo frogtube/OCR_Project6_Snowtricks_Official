@@ -22,17 +22,17 @@ class Comment
         $this->content = $content;
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function setTrick(int $trick): void
+    public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }
 
-    public function setUser(int $user): void
+    public function setUser(User $user): void
     {
         $this->user = $user;
     }

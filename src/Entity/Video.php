@@ -26,7 +26,7 @@ class Video
         $this->caption = $caption;
     }
 
-    public function setTrick(int $trick): void
+    public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }

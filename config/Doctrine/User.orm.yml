@@ -1,5 +1,5 @@
 App\Entity\User:
-  table: app_users
+  table: app_user
   type: entity
   id:
     id:

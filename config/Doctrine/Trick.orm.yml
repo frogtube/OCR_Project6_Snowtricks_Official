@@ -12,6 +12,7 @@ App\Entity\Trick:
       type: text
       length: 2000
     group:
+      column: trick_group
       type: string
       lenght: 100
     createdAt:

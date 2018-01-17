@@ -21,7 +21,6 @@ class User
     private $comments;
     private $image;
 
-
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
@@ -74,7 +73,7 @@ class User
         $this->active = $active;
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }

@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Trick;
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class TrickTest extends TestCase
@@ -36,22 +37,18 @@ class TrickTest extends TestCase
 
     public function testSettingCreatedAt()
     {
+        $date = new \DateTime('2017-12-27 14:43:12');
         $trick = new Trick();
-        $this->assertSame(null, $trick->getCreatedAt());
-
-        $trick->setCreatedAt('2017-12-27 14:43:12');
-        $this->assertSame('2017-12-27 14:43:12', $trick->getCreatedAt());
+        $trick->setCreatedAt($date);
+        $this->assertSame($date, $trick->getCreatedAt());
     }
 
     public function testSettingUser()
     {
+        $user = new User();
         $trick = new Trick();
-        $this->assertSame(null, $trick->getUser());
-
-        $trick->setUser(5);
-        $this->assertSame(5, $trick->getUser());
+        $trick->setUser($user);
+        $this->assertSame($user, $trick->getUser());
     }
-
-
 
 }

@@ -47,7 +47,7 @@ class Video
         return $this->caption;
     }
 
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }

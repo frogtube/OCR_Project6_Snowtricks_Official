@@ -3,6 +3,8 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Comment;
+use App\Entity\Trick;
+use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class CommentTest extends TestCase
@@ -18,29 +20,26 @@ class CommentTest extends TestCase
 
     public function testSettingCreatedAt()
     {
-        $trick = new Comment();
-        $this->assertSame(null, $trick->getCreatedAt());
-
-        $trick->setCreatedAt('2017-12-27 14:43:12');
-        $this->assertSame('2017-12-27 14:43:12', $trick->getCreatedAt());
+        $date = new \DateTime('2017-12-27 14:43:12');
+        $comment = new Comment();
+        $comment->setCreatedAt($date);
+        $this->assertSame($date, $comment->getCreatedAt());
     }
 
     public function testSettingUser()
     {
-        $trick = new Comment();
-        $this->assertSame(null, $trick->getUser());
-
-        $trick->setUser(6);
-        $this->assertSame(6, $trick->getUser());
+        $user = new User();
+        $comment = new Comment();
+        $comment->setUser($user);
+        $this->assertSame($user, $comment->getUser());
     }
 
     public function testSettingTrick()
     {
-        $trick = new Comment();
-        $this->assertSame(null, $trick->getTrick());
-
-        $trick->setTrick(8);
-        $this->assertSame(8, $trick->getTrick());
+        $trick = new Trick();
+        $comment = new Comment();
+        $comment->setTrick($trick);
+        $this->assertSame($trick, $comment->getTrick());
     }
 
 }

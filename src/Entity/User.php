@@ -17,9 +17,9 @@ class User
     private $role;
     private $active;
     private $createdAt;
+    private $image;
     private $tricks;
     private $comments;
-    private $image;
 
     public function __construct()
     {
@@ -68,7 +68,7 @@ class User
         $this->role = $role;
     }
 
-    public function setActive(string $active): void
+    public function setActive(bool $active): void
     {
         $this->active = $active;
     }
@@ -78,7 +78,7 @@ class User
         $this->createdAt = $createdAt;
     }
 
-    public function setImage(int $image): void
+    public function setImage(Image $image): void
     {
         $this->image = $image;
     }
@@ -129,9 +129,14 @@ class User
         return $this->active;
     }
 
-    public function getCreatedAt(): ?string
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
     }
 
     public function getTricks(): ?ArrayCollection
@@ -144,9 +149,6 @@ class User
         return $this->comments;
     }
 
-    public function getImage(): ?int
-    {
-        return $this->image;
-    }
+
 
 }

@@ -3,6 +3,12 @@
 {% block title %}Liste des tricks{% endblock %}
 
 {% block body %}
-    <h1>Liste des tricks</h1>
-
+    {% for trick in tricks %}
+        <ul>
+            <li>
+                <p><a href="/trick/{{ trick.id }}">{{ trick.name }}</a></p>
+                <p>Created on {{ trick.createdAt | date("d/m/Y") }}</p>
+            </li>
+        </ul>
+    {% endfor %}
 {% endblock %}

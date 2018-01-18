@@ -3,6 +3,8 @@
 {% block title %}Liste des tricks{% endblock %}
 
 {% block body %}
-    <h1>Trick 1</h1>
-
+    {# @var trick Trick #}
+    <h1>{{ trick.name }}</h1>
+    <h2>{{ trick.group }}</h2>
+    <p>{{ trick.description }}</p>
 {% endblock %}

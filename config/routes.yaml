@@ -7,6 +7,6 @@ trick_create:
     controller: App\Controller\TrickController::createAction
 
 trick_show:
-    path: /trick/{trickName}
+    path: /trick/{slug}
     controller: App\Controller\TrickController::showAction
 

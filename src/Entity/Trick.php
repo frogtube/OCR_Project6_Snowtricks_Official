@@ -8,6 +8,7 @@ class Trick
 {
     private $id;
     private $name;
+    private $slug;
     private $description;
     private $group;
     private $createdAt;
@@ -32,6 +33,11 @@ class Trick
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     public function setDescription(string $description): void
@@ -63,6 +69,11 @@ class Trick
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 
     public function getDescription(): ?string

@@ -17,6 +17,13 @@ class TrickTest extends TestCase
         $this->assertSame('backflip', $trick->getName());
     }
 
+    public function testSettingSlug()
+    {
+        $trick = new Trick();
+        $trick->setSlug('backflip');
+        $this->assertSame('backflip', $trick->getSlug());
+    }
+
     public function testSettingDescription()
     {
         $trick = new Trick();

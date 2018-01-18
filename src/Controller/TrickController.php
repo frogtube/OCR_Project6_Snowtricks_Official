@@ -23,18 +23,9 @@ class TrickController extends Controller
 
     public function showAction($slug) {
 
-        $trickName = str_replace('_', ' ', $slug);
         $trick = $this->getDoctrine()
             ->getRepository(Trick::class)
-            ->findOneBy(array(
-                'name' => $trickName,
-            ));
-
-        $comments = $this->getDoctrine()
-            ->getRepository(Comment::class)
-            ->findBy(array(
-                'trick' => $trick->getId()
-            ));
+            ->getTrickWithComments($slug);
 
         if(!$trick) {
             throw $this->createNotFoundException('No trick found for id'.$trickName);
@@ -42,7 +33,6 @@ class TrickController extends Controller
 
         return $this->render('trick/showTrick.html.twig', array(
             'trick' => $trick,
-            'comments' => $comments
         ));
     }
 

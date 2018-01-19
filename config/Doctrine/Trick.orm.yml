@@ -1,11 +1,15 @@
 App\Entity\Trick:
   type: entity
+  repositoryClass: App\Repository\TrickRepository
   id:
     id:
       type: integer
       generator: { strategy: AUTO }
   fields:
     name:
+      type: string
+      length: 100
+    slug:
       type: string
       length: 100
     description:

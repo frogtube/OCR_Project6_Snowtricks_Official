@@ -12,10 +12,6 @@ class Image
     private $user;
 
     // SETTERS
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     public function setFilename(string $filename): void
     {

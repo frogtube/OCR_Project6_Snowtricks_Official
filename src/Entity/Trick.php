@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class Trick
 {
     private $id;
     private $name;
+    private $slug;
     private $description;
     private $group;
     private $createdAt;
@@ -24,14 +26,15 @@ class Trick
     }
 
     // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 
     public function setDescription(string $description): void
@@ -65,6 +68,11 @@ class Trick
         return $this->name;
     }
 
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -85,17 +93,17 @@ class Trick
         return $this->user;
     }
 
-    public function getComments(): ArrayCollection
+    public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function getVideos(): ArrayCollection
+    public function getVideos(): Collection
     {
         return $this->videos;
     }
 
-    public function getImages(): ArrayCollection
+    public function getImages(): Collection
     {
         return $this->images;
     }

@@ -13,12 +13,12 @@ App\Entity\Comment:
   manyToOne:
     trick:
       targetEntity: App\Entity\Trick
-      inversedBy: comment
+      inversedBy: comments
       joinColumn:
         nullable: true
     user:
       targetEntity: App\Entity\User
-      inversedBy: comment
+      inversedBy: comments
       joinColumn:
         nullable: true
 

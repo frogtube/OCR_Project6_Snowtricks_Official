@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 
 class TrickRepository extends EntityRepository
 {
-    public function getTrickWithComments($slug)
+    public function getTrickWithCommentsImagesAndVideos($slug)
     {
         return $this->createQueryBuilder('trick')
             ->where('trick.slug = :slug')

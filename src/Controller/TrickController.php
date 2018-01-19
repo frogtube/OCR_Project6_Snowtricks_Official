@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 
-use App\Entity\Comment;
 use App\Entity\Trick;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class TrickController extends Controller
 {
@@ -27,7 +25,7 @@ class TrickController extends Controller
 
         $trick = $this->getDoctrine()
             ->getRepository(Trick::class)
-            ->getTrickWithComments($slug);
+            ->getTrickWithCommentsImagesAndVideos($slug);
 
         if(!$trick) {
             throw $this->createNotFoundException('No trick found for id'.$trickName);

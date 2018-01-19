@@ -11,10 +11,6 @@ class Video
     private $trick;
 
     // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function setEmbed(string $embed): void
     {

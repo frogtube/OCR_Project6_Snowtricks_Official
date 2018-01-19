@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class Trick
 {
@@ -25,10 +26,6 @@ class Trick
     }
 
     // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function setName(string $name): void
     {
@@ -96,17 +93,17 @@ class Trick
         return $this->user;
     }
 
-    public function getComments(): ArrayCollection
+    public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function getVideos(): ArrayCollection
+    public function getVideos(): Collection
     {
         return $this->videos;
     }
 
-    public function getImages(): ArrayCollection
+    public function getImages(): Collection
     {
         return $this->images;
     }

@@ -13,6 +13,8 @@ class TrickRepository extends EntityRepository
             ->where('trick.slug = :slug')
             ->setParameter('slug', $slug)
             ->leftJoin('trick.comments', 'comments')
+            ->leftJoin('trick.images', 'images')
+            ->leftJoin('trick.videos', 'videos')
             ->getQuery()
             ->getOneOrNullResult();
     }

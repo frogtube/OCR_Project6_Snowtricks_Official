@@ -12,10 +12,6 @@ class Comment
     private $user;
 
    // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function setContent(string $content): void
     {

@@ -28,10 +28,6 @@ class User
     }
 
     // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function setUsername(string $username): void
     {
@@ -124,7 +120,7 @@ class User
         return $this->role;
     }
 
-    public function getActive(): ?bool
+    public function isActive(): ?bool
     {
         return $this->active;
     }

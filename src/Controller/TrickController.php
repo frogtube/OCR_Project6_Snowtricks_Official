@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TrickController extends Controller
 {
+
     public function listAction() {
 
         $tricks = $this->getDoctrine()
@@ -20,6 +21,7 @@ class TrickController extends Controller
             'tricks' => $tricks,
         ));
     }
+
 
     public function showAction($slug) {
 
@@ -34,6 +36,7 @@ class TrickController extends Controller
         return $this->render('trick/showTrick.html.twig', array(
             'trick' => $trick,
         ));
+
     }
 
     public function createAction() {

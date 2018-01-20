@@ -9,18 +9,23 @@ App\Entity\Trick:
     name:
       type: string
       length: 100
+      nullable: false
     slug:
       type: string
       length: 100
+      nullable: true
     description:
       type: text
       length: 2000
+      nullable: false
     group:
       column: trick_group
       type: string
       lenght: 100
+      nullable: false
     createdAt:
       type: datetime
+      nullable: false
   manyToOne:
     user:
       targetEntity: App\Entity\User
@@ -31,10 +36,13 @@ App\Entity\Trick:
     comments:
       targetEntity: App\Entity\Comment
       mappedBy: trick
+      nullable: true
     videos:
       targetEntity: App\Entity\Video
       mappedBy: trick
+      nullable: true
     images:
       targetEntity: App\Entity\Image
       mappedBy: trick
+      nullable: true
 

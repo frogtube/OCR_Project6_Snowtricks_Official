@@ -4,5 +4,7 @@
 
 {% block body %}
     <h1>Ajout d'un nouveau trick</h1>
-
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 {% endblock %}

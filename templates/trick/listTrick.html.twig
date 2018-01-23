@@ -3,11 +3,26 @@
 {% block title %}Liste des tricks{% endblock %}
 
 {% block body %}
+
+    <form action={{ path('trick_create') }}>
+        <input type="submit" value="New trick" />
+    </form>
+
     {% for trick in tricks %}
         <ul>
             <li>
                 <p><a href="{{ path('trick_show', { 'slug':trick.slug }) }}">{{ trick.name }}</a></p>
                 <p>Created on {{ trick.createdAt | date("d/m/Y") }}</p>
+
+                <form action={{ path('trick_edit', { 'slug':trick.slug }) }}>
+                    <input type="submit" value="Edit" />
+                </form>
+
+                <h2>Les images</h2>
+                {% for image in trick.images|slice(0, 1) %}
+                    <p>{{ image.caption }}</p>
+                {% endfor %}
+
             </li>
         </ul>
     {% endfor %}

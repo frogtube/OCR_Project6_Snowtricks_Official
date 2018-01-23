@@ -3,7 +3,10 @@
 namespace App\Form;
 
 
+use App\Entity\Image;
 use App\Entity\Trick;
+use App\Repository\TrickGroupRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,10 +18,16 @@ class TrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextType::class)
-            ->add('group', TextType::class)
-            ->add('save', SubmitType::class);
+            ->add('name')
+            ->add('description')
+            ->add('trickGroup', EntityType::class, array(
+                'class' => 'App\Entity\TrickGroup',
+                'placeholder' => 'Choose a type of trick',
+                'query_builder' => function(TrickGroupRepository $trickGroupRepository) {
+                    return $trickGroupRepository->getTrickGroupsAlphabetically();
+                }
+
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

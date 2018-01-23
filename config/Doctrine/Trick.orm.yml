@@ -10,18 +10,15 @@ App\Entity\Trick:
       type: string
       length: 100
       nullable: false
+      unique: true
     slug:
       type: string
       length: 100
       nullable: true
+      unique: true
     description:
       type: text
       length: 2000
-      nullable: false
-    group:
-      column: trick_group
-      type: string
-      lenght: 100
       nullable: false
     createdAt:
       type: datetime
@@ -29,6 +26,11 @@ App\Entity\Trick:
   manyToOne:
     user:
       targetEntity: App\Entity\User
+      inversedBy: tricks
+      joinColumn:
+        nullable: true
+    trickGroup:
+      targetEntity: App\Entity\TrickGroup
       inversedBy: tricks
       joinColumn:
         nullable: true

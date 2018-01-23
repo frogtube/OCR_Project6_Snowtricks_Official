@@ -1,0 +1,9 @@
+App\Entity\Trick:
+    properties:
+        name:
+            - NotBlank: { message: "Ton nouveau trick possède bien un nom ?" }
+        description:
+            - NotBlank: { message: "Penses bien à décrir un minimum le trick pour que l'on sache de quoi il sagit" }
+        trickGroup:
+            - NotBlank: { message: "Il te faut absolument saisir un type de trick" }
+

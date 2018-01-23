@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit trick{% endblock %}
+
+{% block body %}
+    <h1>Ajout d'un nouveau trick</h1>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Edit</button>
+    {{ form_end(form) }}
+{% endblock %}

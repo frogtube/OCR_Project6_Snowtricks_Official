@@ -1,10 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des tricks{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}New trick{% endblock %}
 
 {% block body %}
+
     <h1>Ajout d'un nouveau trick</h1>
+
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name, {
+            'label': 'Nom du trick'
+        }) }}
+
+        {{ form_row(form.trickGroup, {
+            'label': 'Type de trick'
+        }) }}
+
+        {{ form_row(form.description, {
+            'label': 'Description du trick'
+        }) }}
+
+        <button type="submit" formnovalidate>Save</button>
+
     {{ form_end(form) }}
+
 {% endblock %}

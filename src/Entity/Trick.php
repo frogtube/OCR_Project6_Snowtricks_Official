@@ -11,8 +11,8 @@ class Trick
     private $name;
     private $slug;
     private $description;
-    private $group;
     private $createdAt;
+    private $trickGroup;
     private $user;
     private $comments;
     private $videos;
@@ -42,14 +42,14 @@ class Trick
         $this->description = $description;
     }
 
-    public function setGroup(string $group): void
-    {
-        $this->group = $group;
-    }
-
     public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function setTrickGroup(TrickGroup $trickGroup): void
+    {
+        $this->trickGroup = $trickGroup;
     }
 
     public function setUser(User $user): void
@@ -78,14 +78,14 @@ class Trick
         return $this->description;
     }
 
-    public function getGroup(): ?string
-    {
-        return $this->group;
-    }
-
     public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getTrickGroup(): ?TrickGroup
+    {
+        return $this->trickGroup;
     }
 
     public function getUser(): ?User

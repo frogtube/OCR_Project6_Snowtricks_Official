@@ -10,3 +10,6 @@ trick_show:
     path: /trick/{slug}
     controller: App\Controller\TrickController::showAction
 
+trick_edit:
+    path: /trick/{slug}/edit
+    controller: App\Controller\TrickController::editAction

@@ -13,23 +13,25 @@ use Symfony\Component\HttpFoundation\Response;
 class TrickController extends Controller
 {
 
+    // Controller of HomePage listing the tricks
     public function listAction() {
 
         $tricks = $this->getDoctrine()
             ->getRepository(Trick::class)
-            ->findAll();
+            ->getTricksWithImage();
+
 
         return $this->render('trick/listTrick.html.twig', array(
             'tricks' => $tricks,
         ));
     }
 
-
+    // Controller displaying a unique Trick with full details
     public function showAction($slug) {
 
         $trick = $this->getDoctrine()
             ->getRepository(Trick::class)
-            ->getTrickWithComments($slug);
+            ->getTrickWithCommentsImagesAndVideos($slug);
 
         if(!$trick) {
             throw $this->createNotFoundException('No trick found for id'.$slug);
@@ -41,36 +43,68 @@ class TrickController extends Controller
 
     }
 
+    // Controller displaying the form to create a new Trick
     public function createAction(Request $request) {
 
-        $trick = new Trick();
-        $trick->setCreatedAt(new \DateTime('now'));
 
-        $form = $this->createForm(TrickType::class, $trick);
-
-        // var_dump($trick);
-
+        $form = $this->createForm(TrickType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+        // Validation and submission of the form
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $trick = $form->getData();
-
+            $trick->setCreatedAt(new \DateTime('now'));
             // Creating slug by replacing name spaces with a dash
-            $trick->setSlug(str_replace(' ', '-', $trick->getName()));
-            //ADD HERE THE $trick->setUser WITH THE COOKIE
-
-
+            $trick->setSlug(strtolower(str_replace(' ', '-', $trick->getName())));
+            //ADD HERE THE $trick->setUser using COOKIE
+            // dump($trick); die;
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('trick_show', [
-                'slug' => $trick->getSlug()
-            ]);
+            $this->addFlash(
+                'success',
+                'Your new trick is saved'
+            );
+
+            return $this->redirectToRoute('trick_list');
         }
 
+        return $this->render('trick/newTrick.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 
+    public function editAction(Request $request, $slug)
+    {
+        $trick = $this->getDoctrine()
+            ->getRepository(Trick::class)
+            ->getTrick($slug);
+
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        // Validation and submission of the form
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $trick = $form->getData();
+            $trick->setCreatedAt(new \DateTime('now'));
+            // Creating slug by replacing name spaces with a dash
+            $trick->setSlug(strtolower(str_replace(' ', '-', $trick->getName())));
+            //ADD HERE THE $trick->setUser using COOKIE
+            // dump($trick); die;s
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Your new trick is saved'
+            );
+
+            return $this->redirectToRoute('trick_list');
+        }
 
         return $this->render('trick/newTrick.html.twig', array(
             'form' => $form->createView(),

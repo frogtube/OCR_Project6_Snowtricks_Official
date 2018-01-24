@@ -11,7 +11,7 @@ class Comment
     private $trick;
     private $user;
 
-   // SETTERS
+    // SETTERS
 
     public function setContent(string $content): void
     {

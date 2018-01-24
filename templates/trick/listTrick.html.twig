@@ -17,6 +17,9 @@
                 <form action={{ path('trick_edit', { 'slug':trick.slug }) }}>
                     <input type="submit" value="Edit" />
                 </form>
+                <form action={{ path('trick_delete', { 'slug':trick.slug }) }}>
+                    <input type="submit" value="Delete" />
+                </form>
 
                 <h2>Les images</h2>
                 {% for image in trick.images|slice(0, 1) %}

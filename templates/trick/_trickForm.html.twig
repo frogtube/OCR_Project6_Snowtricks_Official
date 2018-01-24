@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name, {
+            'label': 'Nom du trick'
+        }) }}
+
+        {{ form_row(form.trickGroup, {
+            'label': 'Type de trick'
+        }) }}
+
+        {{ form_row(form.description, {
+            'label': 'Description du trick'
+        }) }}
+
+<button type="submit" formnovalidate>Save</button>
+
+{{ form_end(form) }}

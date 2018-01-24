@@ -4,8 +4,5 @@
 
 {% block body %}
     <h1>Ajout d'un nouveau trick</h1>
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Edit</button>
-    {{ form_end(form) }}
+    {{ include('trick/_trickForm.html.twig') }}
 {% endblock %}

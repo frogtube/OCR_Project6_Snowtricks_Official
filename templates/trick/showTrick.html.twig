@@ -8,11 +8,6 @@
     <h2>{{ trick.trickGroup }}</h2>
     <p>{{ trick.description }}</p>
 
-    <h2>Vos commentaires</h2>
-    {% for comment in trick.comments %}
-        <p>{{ comment.content }}</p>
-    {% endfor %}
-
     <h2>Les images</h2>
     {% for image in trick.images %}
         <p>{{ image.caption }}</p>
@@ -22,5 +17,16 @@
     {% for video in trick.videos %}
         <p>{{ video.caption }}</p>
     {% endfor %}
+
+    <h2>Vos commentaires</h2>
+    {% for comment in trick.comments %}
+        <p>
+            {{ comment.createdAt|date("d/m/Y") }} : {{ comment.content }}
+        </p>
+    {% endfor %}
+
+    <h1>Ajout d'un nouveau commentaire</h1>
+
+    {{ include('trick/_commentForm.html.twig') }}
 
 {% endblock %}

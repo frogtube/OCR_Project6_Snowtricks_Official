@@ -17,9 +17,7 @@ class ImageType extends AbstractType
         $builder
             ->add('filename', TextType::class)
             ->add('caption', TextType::class)
-            ->add('save', SubmitType::class);
-
-
+        ;
     }
 
 

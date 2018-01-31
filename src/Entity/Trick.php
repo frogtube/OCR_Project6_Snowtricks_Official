@@ -57,6 +57,10 @@ class Trick
         $this->user = $user;
     }
 
+    public function setImages(Image $image): void
+    {
+        $this->images[] = $image;
+    }
     // GETTERS
     public function getId(): ?int
     {
@@ -68,7 +72,7 @@ class Trick
         return $this->name;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }

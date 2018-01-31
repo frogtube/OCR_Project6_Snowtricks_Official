@@ -17,3 +17,7 @@ trick_edit:
 trick_delete:
     path: /trick/{slug}/delete
     controller: App\Controller\TrickController::deleteAction
+
+user_create:
+    path: /user/new
+    controller: App\Controller\UserController:createAction

@@ -29,22 +29,27 @@ App\Entity\Trick:
       inversedBy: tricks
       joinColumn:
         nullable: true
+      cascade: ["persist", "remove"]
     trickGroup:
       targetEntity: App\Entity\TrickGroup
       inversedBy: tricks
       joinColumn:
         nullable: true
+      cascade: ["persist", "remove"]
   oneToMany:
     comments:
       targetEntity: App\Entity\Comment
       mappedBy: trick
       nullable: true
+      cascade: ["persist", "remove"]
     videos:
       targetEntity: App\Entity\Video
       mappedBy: trick
       nullable: true
+      cascade: ["persist", "remove"]
     images:
       targetEntity: App\Entity\Image
       mappedBy: trick
       nullable: true
+      cascade: ["persist", "remove"]
 

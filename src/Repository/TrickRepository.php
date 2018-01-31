@@ -44,6 +44,7 @@ class TrickRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
+    /* NOT USED
     public function countExistingTricks($slug)
     {
         return $this->createQueryBuilder('trick')
@@ -53,5 +54,6 @@ class TrickRepository extends EntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+    */
 
 }

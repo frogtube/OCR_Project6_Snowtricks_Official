@@ -14,8 +14,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 10; $i++) {
 
             $trick = new Trick();
-            $trick->setName('Trick ' . $i);
-            $trick->setSlug('Trick-' . $i);
+            $trick->setName('trick ' . $i);
+            $trick->setSlug('trick-' . $i);
             $trick->setCreatedAt(new \DateTime('now'));
             $trick->setUser($this->getReference('user-fixture '.mt_rand(0,3)));
             $trick->setTrickGroup(($this->getReference('trickGroup-fixture '.mt_rand(0,3))));

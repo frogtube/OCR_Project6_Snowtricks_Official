@@ -56,10 +56,6 @@ class TrickController extends Controller
             return $this->redirectToRoute('trick_show', array('slug' => $trick->getSlug()));
         }
 
-
-
-
-
         return $this->render('trick/showTrick.html.twig', array(
             'trick' => $trick,
             'form' => $form->createView(),
@@ -77,21 +73,18 @@ class TrickController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $trick = $form->getData();
+            $trick->setName(ucfirst($trick->getName()));
             // Creating slug by replacing name spaces with a dash
             $trick->setSlug(strtolower(str_replace(' ', '-', $trick->getName())));
             $trick->setCreatedAt(new \DateTime('now'));
             //ADD HERE THE $trick->setUser using COOKIE
+            $images = $trick->getImages();
 
-            // If new Trick already exists, redirection to the list of trick with error message
-            if ($this->isTrickAlreadyExisting($trick->getSlug())){
-                $this->addFlash(
-                    'error',
-                    'Your trick '.$trick->getName().' already exists'
-                );
-                return $this->redirectToRoute('trick_list');
+            foreach ($images as $image)
+            {
+                $image->setTrick($trick);
             }
 
-            // If the new trick does not exists, it is added to db
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
@@ -123,6 +116,8 @@ class TrickController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $trick = $form->getData();
+
+            $trick->setName(ucfirst($trick->getName()));
             $trick->setCreatedAt(new \DateTime('now'));
             // Creating slug by replacing name spaces with a dash
             $trick->setSlug(strtolower(str_replace(' ', '-', $trick->getName())));
@@ -162,17 +157,6 @@ class TrickController extends Controller
         );
 
         return $this->redirectToRoute('trick_list');
-
-    }
-
-
-    public function isTrickAlreadyExisting($slug): bool
-    {
-        $trickCount = $this->getDoctrine()
-            ->getRepository(Trick::class)
-            ->countExistingTricks($slug);
-
-        return ($trickCount != 0) ? true : false;
 
     }
 

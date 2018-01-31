@@ -8,6 +8,7 @@ App\Entity\Comment:
     content:
       type: text
       length: 2000
+      nullable: false
     createdAt:
       type: datetime
   manyToOne:
@@ -16,11 +17,13 @@ App\Entity\Comment:
       inversedBy: comments
       joinColumn:
         nullable: true
+      cascade: ["persist", "remove"]
     user:
       targetEntity: App\Entity\User
       inversedBy: comments
       joinColumn:
         nullable: true
+      cascade: ["persist", "remove"]
 
 
 

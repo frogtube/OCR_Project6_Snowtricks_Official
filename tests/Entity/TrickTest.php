@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Trick;
+use App\Entity\TrickGroup;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -35,11 +36,10 @@ class TrickTest extends TestCase
 
     public function testSettingGroup()
     {
+        $trickGroup = new TrickGroup();
         $trick = new Trick();
-        $this->assertSame(null, $trick->getGroup());
-
-        $trick->setGroup('rotation');
-        $this->assertSame('rotation', $trick->getGroup());
+        $trick->setTrickGroup($trickGroup);
+        $this->assertSame($trickGroup, $trick->getTrickGroup());
     }
 
     public function testSettingCreatedAt()

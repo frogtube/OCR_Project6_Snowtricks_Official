@@ -1,6 +1,7 @@
 App\Entity\User:
   table: app_user
   type: entity
+  repositoryClass: App\Repository\UserRepository
   id:
     id:
       type: integer
@@ -30,16 +31,20 @@ App\Entity\User:
       length: 100
     active:
       type: boolean
+      default: false
     createdAt:
       type: datetime
   oneToMany:
     tricks:
       targetEntity: App\Entity\Trick
       mappedBy: user
+      cascade: ["persist", "remove"]
     comments:
       targetEntity: App\Entity\Comment
       mappedBy: user
+      cascade: ["persist", "remove"]
   oneToOne:
     image:
       targetEntity: Image
       mappedBy: user
+      cascade: ["persist", "remove"]

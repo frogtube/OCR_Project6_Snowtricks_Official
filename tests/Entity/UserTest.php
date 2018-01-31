@@ -76,10 +76,10 @@ class UserTest extends TestCase
     public function testSettingActive()
     {
         $user = new User();
-        $this->assertSame(null, $user->getActive());
+        $this->assertSame(null, $user->isActive());
 
         $user->setActive(true);
-        $this->assertSame(true, $user->getActive());
+        $this->assertSame(true, $user->isActive());
     }
 
     public function testSettingCreatedAt()

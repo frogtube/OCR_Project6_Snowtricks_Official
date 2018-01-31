@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.content, {
+            'label': 'Votre commentaire'
+        }) }}
+
+<button type="submit" formnovalidate>Save</button>
+
+{{ form_end(form) }}

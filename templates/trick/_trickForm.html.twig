@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name, {
+            'label': 'Nom du trick'
+        }) }}
+
+        {{ form_row(form.slug, {
+            'label': 'Url du trick'
+        }) }}
+
+
+        {{ form_row(form.description, {
+            'label': 'Description du trick'
+        }) }}
+
+        {{ form_row(form.images.filename, {
+            'label': 'Nom de limage'
+        }) }}
+
+        {{ form_row(form.images.caption, {
+            'label': 'Description de limage'
+        }) }}
+
+<button type="submit" formnovalidate>Save</button>
+
+{{ form_end(form) }}

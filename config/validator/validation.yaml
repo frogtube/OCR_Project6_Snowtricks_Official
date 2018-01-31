@@ -1,0 +1,26 @@
+App\Entity\Trick:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: { message: "Ton nouveau trick possède bien un nom ?" }
+        description:
+            - NotBlank: { message: "Penses bien à décrir un minimum le trick pour que l'on sache de quoi il sagit" }
+        trickGroup:
+            - NotBlank: { message: "Il te faut absolument saisir un type de trick" }
+
+App\Entity\Comment:
+    properties:
+        content:
+            - NotBlank: { message: "Ton commentaire est vide..." }
+
+App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+    properties:
+        username:
+            - NotBlank: { message: "Il te faut un pseudo ;)" }
+        email:
+            - NotBlank: { message: "Il entrer un pseudo" }
+        password:
+            - NotBlank: { message: "Il faut entrer ton mot de passe pour sécuriser ton compte" }

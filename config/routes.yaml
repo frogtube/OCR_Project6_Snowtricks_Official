@@ -10,3 +10,14 @@ trick_show:
     path: /trick/{slug}
     controller: App\Controller\TrickController::showAction
 
+trick_edit:
+    path: /trick/{slug}/edit
+    controller: App\Controller\TrickController::editAction
+
+trick_delete:
+    path: /trick/{slug}/delete
+    controller: App\Controller\TrickController::deleteAction
+
+user_create:
+    path: /user/new
+    controller: App\Controller\UserController:createAction

@@ -1,0 +1,18 @@
+App\Entity\TrickGroup:
+  type: entity
+  repositoryClass: App\Repository\TrickGroupRepository
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    group:
+      column: trick_group
+      type: string
+      length: 100
+  oneToMany:
+    tricks:
+      targetEntity: App\Entity\Trick
+      mappedBy: trickGroup
+      cascade: ["persist", "remove"]
+

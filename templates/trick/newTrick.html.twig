@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des tricks{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}New trick{% endblock %}
 
 {% block body %}
+
     <h1>Ajout d'un nouveau trick</h1>
+
+    {{ include('trick/_trickForm.html.twig') }}
+
 
 {% endblock %}

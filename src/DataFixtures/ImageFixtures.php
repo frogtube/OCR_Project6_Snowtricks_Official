@@ -11,7 +11,7 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 100; $i++) {
 
             $image = new Image();
             $image->setFilename('Image ' . $i);

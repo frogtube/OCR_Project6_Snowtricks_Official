@@ -9,32 +9,47 @@ App\Entity\Trick:
     name:
       type: string
       length: 100
+      nullable: false
+      unique: true
     slug:
       type: string
       length: 100
+      nullable: true
+      unique: true
     description:
       type: text
       length: 2000
-    group:
-      column: trick_group
-      type: string
-      lenght: 100
+      nullable: false
     createdAt:
       type: datetime
+      nullable: false
   manyToOne:
     user:
       targetEntity: App\Entity\User
       inversedBy: tricks
       joinColumn:
         nullable: true
+      cascade: ["persist", "remove"]
+    trickGroup:
+      targetEntity: App\Entity\TrickGroup
+      inversedBy: tricks
+      joinColumn:
+        nullable: true
+      cascade: ["persist", "remove"]
   oneToMany:
     comments:
       targetEntity: App\Entity\Comment
       mappedBy: trick
+      nullable: true
+      cascade: ["persist", "remove"]
     videos:
       targetEntity: App\Entity\Video
       mappedBy: trick
+      nullable: true
+      cascade: ["persist", "remove"]
     images:
       targetEntity: App\Entity\Image
       mappedBy: trick
+      nullable: true
+      cascade: ["persist", "remove"]
 

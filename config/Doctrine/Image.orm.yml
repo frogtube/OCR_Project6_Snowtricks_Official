@@ -18,12 +18,13 @@ App\Entity\Image:
       inversedBy: images
       joinColumn:
         nullable: true
-
+      cascade: ["persist", "remove"]
   oneToOne:
     user:
       targetEntity: App\Entity\User
       inversedBy: image
       joinColumn:
         nullable: true
+      cascade: ["persist", "remove"]
 
 

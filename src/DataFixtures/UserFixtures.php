@@ -19,7 +19,7 @@ class UserFixtures extends Fixture
             $user->setLastname('lastname'.$i);
             $user->setPassword('password'.$i);
             $user->setAvatar('avatar');
-            $user->setRole('admin');
+            $user->setRoles(array('ROLE_USER'));
             $user->setActive(true);
             $user->setCreatedAt(new \DateTime('now'));
             $this->addReference('user-fixture '.$i, $user);

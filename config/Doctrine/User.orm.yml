@@ -26,8 +26,8 @@ App\Entity\User:
       type: string
       length: 100
       nullable: true
-    role:
-      type: string
+    roles:
+      type: array
       length: 100
     active:
       type: boolean

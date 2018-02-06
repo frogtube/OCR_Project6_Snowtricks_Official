@@ -13,32 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-/**
-    private $username;
-    private $email;
-    private $firstname;
-    private $lastname;
-    private $password;
-    private $avatar;
-    private $role;
-    private $active;
-    private $createdAt;
-    private $image;
-    private $tricks;
-    private $comments;
-            **/
-
             ->add('username')
             ->add('email')
-            ->add('firstname')
-            ->add('lastname')
             ->add('password')
-            ->add('avatar')
         /**
             ->add('trickGroup', EntityType::class, array(
                 'class' => 'App\Entity\TrickGroup',

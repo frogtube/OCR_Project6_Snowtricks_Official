@@ -4,7 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
 
-        $form = $this->createForm(UserType::class);
+        $form = $this->createForm(RegistrationType::class);
         $form->handleRequest($request);
 
         // Validation and submission of the form

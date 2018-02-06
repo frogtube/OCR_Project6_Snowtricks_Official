@@ -4,9 +4,10 @@ namespace App\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface, \Serializable
+class User implements AdvancedUserInterface, \Serializable
 {
     private $id;
     private $username;
@@ -16,7 +17,7 @@ class User implements UserInterface, \Serializable
     private $password;
     private $avatar;
     private $roles;
-    private $active;
+    private $isActive;
     private $createdAt;
     private $image;
     private $tricks;
@@ -66,9 +67,9 @@ class User implements UserInterface, \Serializable
         $this->roles = $roles;
     }
 
-    public function setActive(bool $active): void
+    public function setIsActive(bool $active): void
     {
-        $this->active = $active;
+        $this->isActive = $active;
     }
 
     public function setCreatedAt(\DateTime $createdAt): void
@@ -124,7 +125,7 @@ class User implements UserInterface, \Serializable
 
     public function isActive(): ?bool
     {
-        return $this->active;
+        return $this->isActive;
     }
 
     public function getCreatedAt(): ?\DateTime
@@ -158,30 +159,44 @@ class User implements UserInterface, \Serializable
     {
     }
 
-    /** @see \Serializable::serialize() */
     public function serialize()
     {
         return serialize(array(
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt,
+            $this->isActive
         ));
     }
-
-    /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
         list (
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt
+            $this->isActive
             ) = unserialize($serialized);
     }
 
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
 
 
 }

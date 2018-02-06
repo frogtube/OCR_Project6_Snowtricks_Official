@@ -21,7 +21,7 @@ App\Entity\User:
       length: 100
     password:
       type: string
-      length: 20
+      length: 100
     avatar:
       type: string
       length: 100
@@ -29,7 +29,7 @@ App\Entity\User:
     roles:
       type: array
       length: 100
-    active:
+    isActive:
       type: boolean
       default: false
     createdAt:

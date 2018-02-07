@@ -16,9 +16,11 @@ App\Entity\User:
     firstname:
       type: string
       length: 100
+      nullable: true
     lastname:
       type: string
       length: 100
+      nullable: true
     password:
       type: string
       length: 100
@@ -31,7 +33,7 @@ App\Entity\User:
       length: 100
     isActive:
       type: boolean
-      default: false
+      default: true
     createdAt:
       type: datetime
   oneToMany:

@@ -21,6 +21,6 @@ App\Entity\User:
         username:
             - NotBlank: { message: "Il te faut un pseudo ;)" }
         email:
-            - NotBlank: { message: "Il entrer un pseudo" }
-        password:
+            - NotBlank: { message: "Il entrer un email" }
+        plainPassword:
             - NotBlank: { message: "Il faut entrer ton mot de passe pour sécuriser ton compte" }

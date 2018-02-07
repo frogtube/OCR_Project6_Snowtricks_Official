@@ -14,9 +14,10 @@ class User implements AdvancedUserInterface, \Serializable
     private $email;
     private $firstname;
     private $lastname;
+    private $plainPassword;
     private $password;
     private $avatar;
-    private $roles;
+    private $roles = [];
     private $isActive;
     private $createdAt;
     private $image;
@@ -50,6 +51,11 @@ class User implements AdvancedUserInterface, \Serializable
     public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
+    }
+
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     public function setPassword(string $password): void
@@ -108,6 +114,11 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->lastname;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -118,9 +129,9 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->avatar;
     }
 
-    public function getRoles()
+    public function getRoles(): ?array
     {
-        return array('ROLE_USER');
+        return $this->roles;
     }
 
     public function isActive(): ?bool

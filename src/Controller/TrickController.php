@@ -21,6 +21,7 @@ class TrickController extends Controller
             ->getRepository(Trick::class)
             ->getTricksWithImage();
 
+
         return $this->render('trick/listTrick.html.twig', array(
             'tricks' => $tricks,
         ));

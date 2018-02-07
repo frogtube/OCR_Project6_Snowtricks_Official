@@ -1,13 +1,14 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
     providers:
         our_db_provider:
             entity:
                 class: App\Entity\User
                 property: username
-    encoders:
-        App\Entity\User:
-                    algorithm: bcrypt
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -18,12 +19,10 @@ security:
                 login_path: login
                 check_path: login
             provider: our_db_provider
+            logout:
+              path:   /logout
+              target: /
 
-
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # https://symfony.com/doc/current/security/form_login_setup.html
+    # To be removed later on
+    access_control:
+            - { path: ^/admin, role: ROLE_ADMIN }

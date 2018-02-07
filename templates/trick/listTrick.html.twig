@@ -4,6 +4,23 @@
 
 {% block body %}
 
+    {% if is_granted('ROLE_USER') %}
+        <h1>Welcome {{ app.user.username }}!</h1>
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') == false %}
+        <form action={{ path('login') }}>
+            <input type="submit" value="Login" />
+        </form>
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') %}
+        <form action={{ path('logout') }}>
+            <input type="submit" value="Logout" />
+        </form>
+    {% endif %}
+
+
     <form action={{ path('trick_create') }}>
         <input type="submit" value="New trick" />
     </form>

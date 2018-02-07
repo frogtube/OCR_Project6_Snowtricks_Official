@@ -22,6 +22,9 @@ login:
     path: /login
     controller: App\Controller\SecurityController::login
 
+logout:
+    path: /logout
+
 admin:
     path: /admin
     controller: App\Controller\SecurityController::admin

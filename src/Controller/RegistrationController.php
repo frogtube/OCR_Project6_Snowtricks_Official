@@ -4,7 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
-use App\Form\RegistrationType;
+use App\Form\UserRegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -15,7 +15,7 @@ class RegistrationController extends Controller
     {
         // Building the form
         $user = new User();
-        $form = $this->createForm(RegistrationType::class, $user);
+        $form = $this->createForm(UserRegistrationType::class, $user);
 
         // Handling the submit on POST
         $form->handleRequest($request);
@@ -24,6 +24,7 @@ class RegistrationController extends Controller
             // Encoding the password
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+
 
             // Adding required fields
             $user->setCreatedAt(new \DateTime('now'));

@@ -18,7 +18,11 @@ trick_delete:
     path: /trick/{slug}/delete
     controller: App\Controller\TrickController::deleteAction
 
-registration:
+user_edit:
+    path: /user/edit
+    controller: App\Controller\UserController:editAction
+
+register:
     path: /register
     controller: App\Controller\RegistrationController:registrationAction
 

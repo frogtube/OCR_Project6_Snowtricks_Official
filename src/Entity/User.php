@@ -4,18 +4,21 @@ namespace App\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements AdvancedUserInterface, \Serializable
 {
     private $id;
     private $username;
     private $email;
     private $firstname;
     private $lastname;
+    private $plainPassword;
     private $password;
     private $avatar;
-    private $role;
-    private $active;
+    private $roles = [];
+    private $isActive;
     private $createdAt;
     private $image;
     private $tricks;
@@ -23,6 +26,7 @@ class User
 
     public function __construct()
     {
+        $this->isActive = true;
         $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -49,6 +53,11 @@ class User
         $this->lastname = $lastname;
     }
 
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
     public function setPassword(string $password): void
     {
         $this->password = $password;
@@ -59,14 +68,14 @@ class User
         $this->avatar = $avatar;
     }
 
-    public function setRole(string $role): void
+    public function setRoles(array $roles): void
     {
-        $this->role = $role;
+        $this->roles = $roles;
     }
 
-    public function setActive(bool $active): void
+    public function setIsActive(bool $active): void
     {
-        $this->active = $active;
+        $this->isActive = $active;
     }
 
     public function setCreatedAt(\DateTime $createdAt): void
@@ -105,6 +114,11 @@ class User
         return $this->lastname;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -115,14 +129,14 @@ class User
         return $this->avatar;
     }
 
-    public function getRole(): ?string
+    public function getRoles(): ?array
     {
-        return $this->role;
+        return $this->roles;
     }
 
     public function isActive(): ?bool
     {
-        return $this->active;
+        return $this->isActive;
     }
 
     public function getCreatedAt(): ?\DateTime
@@ -145,6 +159,55 @@ class User
         return $this->comments;
     }
 
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+            ) = unserialize($serialized);
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
 
 
 }

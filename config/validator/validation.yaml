@@ -19,8 +19,14 @@ App\Entity\User:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
     properties:
         username:
-            - NotBlank: { message: "Il te faut un pseudo ;)" }
+            - NotBlank:
+                message: "Il te faut un pseudo ;)"
+                groups: ['registration']
         email:
-            - NotBlank: { message: "Il entrer un pseudo" }
-        password:
-            - NotBlank: { message: "Il faut entrer ton mot de passe pour sécuriser ton compte" }
+            - NotBlank:
+                message: "Il entrer un email"
+                groups: ['registration']
+        plainPassword:
+            - NotBlank:
+                message: "Il faut entrer ton mot de passe pour sécuriser ton compte"
+                groups: ['registration']

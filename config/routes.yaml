@@ -18,6 +18,21 @@ trick_delete:
     path: /trick/{slug}/delete
     controller: App\Controller\TrickController::deleteAction
 
-user_create:
-    path: /user/new
-    controller: App\Controller\UserController:createAction
+user_edit:
+    path: /user/edit
+    controller: App\Controller\UserController:editAction
+
+register:
+    path: /register
+    controller: App\Controller\RegistrationController:registrationAction
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /logout
+
+admin:
+    path: /admin
+    controller: App\Controller\SecurityController::admin

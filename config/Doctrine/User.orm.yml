@@ -10,28 +10,32 @@ App\Entity\User:
     username:
       type: string
       length: 100
+      unique: true
     email:
       type: string
       length: 100
+      unique: true
     firstname:
       type: string
       length: 100
+      nullable: true
     lastname:
       type: string
       length: 100
+      nullable: true
     password:
       type: string
-      length: 20
+      length: 100
     avatar:
       type: string
       length: 100
       nullable: true
-    role:
-      type: string
+    roles:
+      type: array
       length: 100
-    active:
+    isActive:
       type: boolean
-      default: false
+      default: true
     createdAt:
       type: datetime
   oneToMany:

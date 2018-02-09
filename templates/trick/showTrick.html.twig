@@ -10,7 +10,7 @@
 
     <h2>Les images</h2>
     {% for image in trick.images %}
-        <p>{{ image.caption }}</p>
+        <img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
     {% endfor %}
 
     <h2>Les videos</h2>
@@ -21,7 +21,7 @@
     <h2>Vos commentaires</h2>
     {% for comment in trick.comments %}
         <p>
-            {{ comment.createdAt|date("d/m/Y") }} : {{ comment.content }}
+        {{ comment.user.username }}, le {{ comment.createdAt|date("d/m/Y") }} : {{ comment.content }}
         </p>
     {% endfor %}
 

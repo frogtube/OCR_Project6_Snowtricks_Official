@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}New user registration{% endblock %}
+
+{% block body %}
+
+    <h1>Formulaire d'enregistrement</h1>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.firstname, {
+        'label': 'Ton prénom'
+    }) }}
+
+    {{ form_row(form.lastname, {
+        'label': 'Ton nom'
+    }) }}
+
+    {{ form_row(form.email, {
+        'label': 'Ton email'
+    }) }}
+
+    <button type="submit" formnovalidate>Save</button>
+
+    {{ form_end(form) }}
+
+{% endblock %}

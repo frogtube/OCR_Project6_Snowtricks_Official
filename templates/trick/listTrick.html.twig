@@ -4,12 +4,33 @@
 
 {% block body %}
 
-    <form action={{ path('trick_create') }}>
-        <input type="submit" value="New trick" />
-    </form>
-    <form action={{ path('user_create') }}>
-        <input type="submit" value="New account" />
-    </form>
+    {% if is_granted('ROLE_USER') %}
+        <h1>Welcome {{ app.user.username }}!</h1>
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') == false %}
+        <form action={{ path('login') }}>
+            <input type="submit" value="Login" />
+        </form>
+        <form action={{ path('register') }}>
+            <input type="submit" value="Register" />
+        </form>
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') %}
+        <form action={{ path('logout') }}>
+            <input type="submit" value="Logout" />
+        </form>
+        <form action={{ path('user_edit') }}>
+            <input type="submit" value="Edit profile" />
+        </form>
+        <form action={{ path('trick_create') }}>
+            <input type="submit" value="New trick" />
+        </form>
+    {% endif %}
+
+
+
 
     {% for trick in tricks %}
         <ul>

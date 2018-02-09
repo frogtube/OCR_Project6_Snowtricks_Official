@@ -11,7 +11,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends Controller
 {
-    public function registrationAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registrationAction(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        \Swift_Mailer $mailer
+        )
     {
         // Building the form
         $user = new User();
@@ -34,10 +38,28 @@ class RegistrationController extends Controller
             $em->persist($user);
             $em->flush();
 
+            // Adding success flash message
             $this->addFlash(
                 'success',
                 'Congratulations '.$user->getUsername().'! Your account has been successfully created.'
             );
+
+            // Sending confirmation email
+            $username = $user->getUsername();
+            $email = $user->getEmail();
+            $message = (new \Swift_Message('Registration confirmation'))
+                ->setFrom('send@example.com')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'Emails/registration,html.twig',
+                        array('username' => $username)
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
 
             return $this->redirectToRoute('trick_list');
         }

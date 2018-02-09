@@ -25,6 +25,8 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $user = $form->getData();
+            $image = $user->getImage();
+            $image->setUser($user);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

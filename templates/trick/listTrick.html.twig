@@ -24,12 +24,13 @@
         <form action={{ path('user_edit') }}>
             <input type="submit" value="Edit profile" />
         </form>
+        <form action={{ path('trick_create') }}>
+            <input type="submit" value="New trick" />
+        </form>
     {% endif %}
 
 
-    <form action={{ path('trick_create') }}>
-        <input type="submit" value="New trick" />
-    </form>
+
 
     {% for trick in tricks %}
         <ul>

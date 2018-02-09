@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 
+use Symfony\Component\HttpFoundation\File\File;
+
 class Image
 {
     private $id;
@@ -13,7 +15,7 @@ class Image
 
     // SETTERS
 
-    public function setFilename(string $filename): void
+    public function setFilename($filename): void
     {
         $this->filename = $filename;
     }
@@ -39,7 +41,7 @@ class Image
         return $this->id;
     }
 
-    public function getFilename(): ?string
+    public function getFilename()
     {
         return $this->filename;
     }

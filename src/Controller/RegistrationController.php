@@ -25,7 +25,6 @@ class RegistrationController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
-
             // Adding required fields
             $user->setCreatedAt(new \DateTime('now'));
             $user->setRoles(array('ROLE_USER'));

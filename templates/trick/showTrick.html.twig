@@ -21,7 +21,7 @@
     <h2>Vos commentaires</h2>
     {% for comment in trick.comments %}
         <p>
-            {{ comment.createdAt|date("d/m/Y") }} : {{ comment.content }}
+        {{ comment.user.username }}, le {{ comment.createdAt|date("d/m/Y") }} : {{ comment.content }}
         </p>
     {% endfor %}
 

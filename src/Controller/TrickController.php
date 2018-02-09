@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\CommentType;
+use App\Form\TrickEditType;
 use App\Form\TrickType;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -121,7 +122,7 @@ class TrickController extends Controller
             ->getRepository(Trick::class)
             ->getTrick($slug);
 
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
 
         // Validation and submission of the form

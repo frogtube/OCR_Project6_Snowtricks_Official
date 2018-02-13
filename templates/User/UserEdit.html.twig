@@ -23,6 +23,12 @@
         'label': 'Ton email'
     }) }}
 
+    {{ form_row(form.image.filename, {
+        'label': 'Upload ton avatar'
+    }) }}
+
+    <img src="{{ asset('uploads/images/'~app.user.image.filename) }}" alt="{{ app.user.image.caption }}"/>
+
     <button type="submit" formnovalidate>Save</button>
 
     {{ form_end(form) }}

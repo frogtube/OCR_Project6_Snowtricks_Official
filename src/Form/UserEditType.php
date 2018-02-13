@@ -21,7 +21,7 @@ class UserEditType extends AbstractType
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
             ->add('email', EmailType::class)
-            ->add('image', FileType::class)
+            ->add('image', ImageType::class)
         ;
 
 

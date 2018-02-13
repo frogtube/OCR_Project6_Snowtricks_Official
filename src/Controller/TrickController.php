@@ -122,6 +122,7 @@ class TrickController extends Controller
             ->getRepository(Trick::class)
             ->getTrick($slug);
 
+
         $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
 

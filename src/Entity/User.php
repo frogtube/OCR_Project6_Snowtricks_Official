@@ -83,7 +83,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->createdAt = $createdAt;
     }
 
-    public function setImage(Image $image): void
+    public function setImage(Image $image = null): void
     {
         $this->image = $image;
     }

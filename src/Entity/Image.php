@@ -13,7 +13,17 @@ class Image
     private $trick;
     private $user;
 
+    public function __toString()
+    {
+        return $this->filename;
+    }
+
     // SETTERS
+
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
 
     public function setFilename($filename): void
     {

@@ -20,15 +20,6 @@ class TrickEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /*
-        $builder
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('image', FileType::class)
-
-        ;
-        */
         $builder
             ->add('name')
             ->add('description')
@@ -39,19 +30,8 @@ class TrickEditType extends AbstractType
                 'query_builder' => function(TrickGroupRepository $trickGroupRepository) {
                     return $trickGroupRepository->getTrickGroupsAlphabetically();
                 }))
+            ->add('images', ImageType::class)
         ;
-
-
-        /* Not necessary
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $user = $event->getData();
-            $form = $event->getForm();
-
-            if (!$user || null === $user->getPassword()) {
-                $form->add('plainPassword', TextType::class);
-            }
-        });
-        */
     }
 
     public function configureOptions(OptionsResolver $resolver)

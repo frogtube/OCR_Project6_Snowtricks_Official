@@ -18,6 +18,5 @@ App\Entity\Video:
         inversedBy: videos
         joinColumn:
           nullable: true
-        cascade: ["persist", "remove"]
 
 

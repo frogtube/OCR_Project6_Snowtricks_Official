@@ -21,7 +21,15 @@ class UserEditType extends AbstractType
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
             ->add('email', EmailType::class)
-            ->add('image', ImageType::class)
+
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+                $user = $event->getData();
+                $form = $event->getForm();
+                if(!$user->getImage()) {
+                    $form->add('image', ImageType::class);
+                }
+            });
+
         ;
 
 

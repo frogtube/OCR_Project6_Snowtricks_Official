@@ -209,5 +209,12 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->isActive;
     }
 
+    public function createUser($password, User $user)
+    {
+        $user->setPassword($password);
+        $user->setCreatedAt(new \DateTime('now'));
+        $user->setRoles(array('ROLE_USER'));
+    }
+
 
 }

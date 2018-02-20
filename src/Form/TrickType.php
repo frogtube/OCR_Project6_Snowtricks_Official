@@ -20,9 +20,7 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('slug', HiddenType::class)
             ->add('description')
-
             ->add('trickGroup', EntityType::class, array(
                 'class' => 'App\Entity\TrickGroup',
                 'placeholder' => 'Choose a type of trick',

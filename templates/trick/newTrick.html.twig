@@ -8,7 +8,29 @@
 
     <h1>Ajout d'un nouveau trick</h1>
 
-    {{ include('trick/_trickForm.html.twig') }}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name, {
+        'label': 'Nom du trick'
+    }) }}
+
+    {{ form_row(form.description, {
+        'label': 'Description du trick'
+    }) }}
+
+    {{ form_row(form.trickGroup, {
+        'label': 'Sélectionnez une catégorie de saut'
+    }) }}
+
+    {{ form_row(form.images.filename, {
+        'label': 'Image a la une'
+    }) }}
+
+
+    <button type="submit" formnovalidate>Save</button>
+
+    {{ form_end(form) }}
 
 
 {% endblock %}

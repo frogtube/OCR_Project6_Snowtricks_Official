@@ -21,46 +21,32 @@ class UserController extends Controller
     {
         $user = $this->getUser();
 
-        if($user->getImage()) {
-            $user->setImage(
-                new Image($this->getParameter('images_directory').'/'.$user->getImage()->getFilename())
-            );
-        }
-
         $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
-
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user = $form->getData();
-
             // If user uploads a picture
-            if($user->getImage()->getFilename() != null)
-            {
+            if($user->getImage()->getFilename() != null) {
 
                 // Checking if an avatar image already exists
                 $oldAvatar = $this->getDoctrine()
                     ->getRepository(Image::class)
                     ->getImageByUser($user);
-
                 // If it does, the avatar image is deleted
-                if ($oldAvatar)
-                {
+                if ($oldAvatar) {
                     $em = $this->getDoctrine()->getManager();
                     $em->remove($oldAvatar);
                     $em->flush();
                 }
 
-                // Image upload
-                /** @var Image $image */
-                $file = $user->getImage()->getFilename();
-                $filename = $fileUploader->upload($file);
-                $avatar = $user->getImage();
+                $image = $user->getImage();
+                $image->createAvatar($user, $fileUploader);
 
-                $avatar->setFilename($filename);
-                $avatar->setUser($user);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($image);
+                $em->flush();
             }
 
             // Deleting image entity if no file was uploaded
@@ -70,6 +56,7 @@ class UserController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
+
             $em->persist($user);
             $em->flush();
 
@@ -87,9 +74,20 @@ class UserController extends Controller
         ));
     }
 
-    public function admin()
+    public function deleteAvatarAction()
     {
-        return new Response('<html><body>Admin page!</body></html>');
+        $image = $this->getUser()->getImage();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($image);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'Votre avatar a bien ete supprimé'
+        );
+
+        return $this->redirectToRoute('user_edit');
 
     }
 }

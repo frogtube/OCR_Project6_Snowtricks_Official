@@ -23,11 +23,19 @@
         'label': 'Ton email'
     }) }}
 
-    {{ form_row(form.image.filename, {
-        'label': 'Upload ton avatar'
-    }) }}
+    {% if (user.image == null) %}
+        {{ form_row(form.image.filename, {
+            'label': 'Ton avatar'
+        }) }}
+    {% endif %}
 
-    <img src="{{ asset('uploads/images/'~app.user.image.filename) }}" alt="{{ app.user.image.caption }}"/>
+
+    {% if (user.image != null) %}
+
+        <img src="{{ asset('uploads/images/'~user.image.filename) }}" alt="{{ user.image.caption }}"/>
+        <a href="{{ path('user_avatar_delete') }}" type="button" class="btn">Delete</a>
+
+    {% endif %}
 
     <button type="submit" formnovalidate>Save</button>
 

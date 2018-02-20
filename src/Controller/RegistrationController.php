@@ -23,15 +23,13 @@ class RegistrationController extends Controller
 
         // Handling the submit on POST
         $form->handleRequest($request);
+
+        // Upon valid form submission
         if($form->isSubmitted() && $form->isValid()) {
 
             // Encoding the password
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
-
-            // Adding required fields
-            $user->setCreatedAt(new \DateTime('now'));
-            $user->setRoles(array('ROLE_USER'));
+            $user->createUser($password, $user);
 
             // Saving the user
             $em = $this->getDoctrine()->getManager();

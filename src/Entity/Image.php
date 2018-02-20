@@ -71,4 +71,21 @@ class Image
         return $this->user;
     }
 
+    public function createTrickImage(Image $image, Trick $trick, $fileUploader)
+    {
+        $file = $image->getFilename();
+        $filename = $fileUploader->upload($file);
+        $this->setFilename($filename);
+        $this->setTrick($trick);
+        $this->setCaption('Un snowboarder fait un '. $trick->getName());
+    }
+
+    public function createAvatar(User $user, $fileUploader)
+    {
+        $file = $user->getImage()->getFilename();
+        $filename = $fileUploader->upload($file);
+        $this->setFilename($filename);
+        $this->setUser($user);
+    }
+
 }

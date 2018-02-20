@@ -42,13 +42,10 @@ App\Entity\User:
     tricks:
       targetEntity: App\Entity\Trick
       mappedBy: user
-      cascade: ["persist", "remove"]
     comments:
       targetEntity: App\Entity\Comment
       mappedBy: user
-      cascade: ["persist", "remove"]
   oneToOne:
     image:
       targetEntity: Image
       mappedBy: user
-      cascade: ["persist", "remove"]

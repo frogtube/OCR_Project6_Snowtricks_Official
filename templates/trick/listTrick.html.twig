@@ -6,8 +6,9 @@
 
     {% if is_granted('ROLE_USER') %}
         <h1>Welcome {{ app.user.username }}!</h1>
-        <img src="{{ asset('uploads/images/'~app.user.image.filename) }}" alt="{{ app.user.image.caption }}"/>
-
+        {% if (app.user.image != null) %}
+            <img src="{{ asset('uploads/images/'~app.user.image.filename) }}" alt="{{ app.user.image.caption }}"/>
+        {% endif %}
     {% endif %}
 
     {% if is_granted('ROLE_USER') == false %}

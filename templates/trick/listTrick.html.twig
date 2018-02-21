@@ -6,6 +6,9 @@
 
     {% if is_granted('ROLE_USER') %}
         <h1>Welcome {{ app.user.username }}!</h1>
+        {% if (app.user.image != null) %}
+            <img src="{{ asset('uploads/images/'~app.user.image.filename) }}" alt="{{ app.user.image.caption }}"/>
+        {% endif %}
     {% endif %}
 
     {% if is_granted('ROLE_USER') == false %}
@@ -38,15 +41,17 @@
                 <p><a href="{{ path('trick_show', { 'slug':trick.slug }) }}">{{ trick.name }}</a></p>
                 <p>Created on {{ trick.createdAt | date("d/m/Y") }}</p>
 
-                <form action={{ path('trick_edit', { 'slug':trick.slug }) }}>
-                    <input type="submit" value="Edit" />
-                </form>
-                <form action={{ path('trick_delete', { 'slug':trick.slug }) }}>
-                    <input type="submit" value="Delete" />
-                </form>
+                {% if is_granted('ROLE_USER') %}
+                    <form action={{ path('trick_edit', { 'slug':trick.slug }) }}>
+                        <input type="submit" value="Edit" />
+                    </form>
+                    <form action={{ path('trick_delete', { 'slug':trick.slug }) }}>
+                        <input type="submit" value="Delete" />
+                    </form>
+                {% endif %}
 
                 {% for image in trick.images|slice(0, 1) %}
-                    <p>{{ image.caption }}</p>
+                    <img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
                 {% endfor %}
 
             </li>

@@ -29,13 +29,11 @@ App\Entity\Trick:
       inversedBy: tricks
       joinColumn:
         nullable: true
-      cascade: ["persist", "remove"]
     trickGroup:
       targetEntity: App\Entity\TrickGroup
       inversedBy: tricks
       joinColumn:
         nullable: true
-      cascade: ["persist", "remove"]
   oneToMany:
     comments:
       targetEntity: App\Entity\Comment
@@ -52,4 +50,5 @@ App\Entity\Trick:
       mappedBy: trick
       nullable: true
       cascade: ["persist", "remove"]
+
 

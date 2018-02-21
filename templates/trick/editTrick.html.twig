@@ -1,8 +1,48 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block title %}Edit trick{% endblock %}
 
 {% block body %}
-    <h1>Modification d'un nouveau trick</h1>
-    {{ include('trick/_trickForm.html.twig') }}
+
+    <h1>Modification d'un trick</h1>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name, {
+        'label': 'Nom du trick'
+    }) }}
+
+    {{ form_row(form.description, {
+        'label': 'Description du trick'
+    }) }}
+
+    {{ form_row(form.trickGroup, {
+        'label': 'Sélectionnez une catégorie de saut'
+    }) }}
+
+    {{ form_row(form.images, {
+        'label': 'Image'
+    }) }}
+
+    {% if (images != null) %}
+
+        {% for image in images %}
+            <ul>
+                <li>
+                    <img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
+                    <a href="{{ path('user_avatar_delete') }}" type="button" class="btn">Delete</a>
+                </li>
+            </ul>
+        {% endfor %}
+
+    {% endif %}
+
+
+    <button type="submit" formnovalidate>Save</button>
+
+    {{ form_end(form) }}
+
 {% endblock %}

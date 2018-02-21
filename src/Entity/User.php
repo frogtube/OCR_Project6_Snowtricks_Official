@@ -83,7 +83,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->createdAt = $createdAt;
     }
 
-    public function setImage(Image $image): void
+    public function setImage(Image $image = null): void
     {
         $this->image = $image;
     }
@@ -207,6 +207,13 @@ class User implements AdvancedUserInterface, \Serializable
     public function isEnabled()
     {
         return $this->isActive;
+    }
+
+    public function createUser($password, User $user)
+    {
+        $user->setPassword($password);
+        $user->setCreatedAt(new \DateTime('now'));
+        $user->setRoles(array('ROLE_USER'));
     }
 
 

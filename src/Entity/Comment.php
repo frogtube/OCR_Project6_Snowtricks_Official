@@ -59,4 +59,11 @@ class Comment
         return $this->user;
     }
 
+    public function createComment(Trick $trick, User $user)
+    {
+        $this->setCreatedAt(new \DateTime());
+        $this->setTrick($trick);
+        $this->setUser($user);
+    }
+
 }

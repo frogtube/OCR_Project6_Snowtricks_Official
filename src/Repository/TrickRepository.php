@@ -18,6 +18,17 @@ class TrickRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getTrickWithImage($slug)
+    {
+        return $this->createQueryBuilder('trick')
+            ->andwhere('trick.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->leftJoin('trick.images', 'image')
+            ->addSelect('image')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getTricksWithImage()
     {
         return $this->createQueryBuilder('trick')

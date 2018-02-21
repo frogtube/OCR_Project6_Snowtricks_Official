@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Trick
 {
@@ -26,7 +26,6 @@ class Trick
     }
 
     // SETTERS
-
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -57,10 +56,14 @@ class Trick
         $this->user = $user;
     }
 
-    public function setImages(Image $image): void
+    public function setImages($image): void
     {
+        if ($this->getImages()->contains($image)) {
+            return;
+        }
         $this->images[] = $image;
     }
+
     // GETTERS
     public function getId(): ?int
     {
@@ -97,18 +100,35 @@ class Trick
         return $this->user;
     }
 
+    /**
+     * @return  ArrayCollection|Comment[]
+     */
     public function getComments(): Collection
     {
         return $this->comments;
     }
 
+    /**
+     * @return ArrayCollection|Video[]
+     */
     public function getVideos(): Collection
     {
         return $this->videos;
     }
 
+    /**
+     * @return ArrayCollection|Image[]
+     */
     public function getImages(): Collection
     {
         return $this->images;
+    }
+
+    public function createTrick($trickName, User $user)
+    {
+        $this->setName(ucfirst($trickName));
+        $this->setSlug(strtolower(str_replace(' ', '-', $trickName)));
+        $this->setCreatedAt(new \DateTime());
+        $this->setUser($user);
     }
 }

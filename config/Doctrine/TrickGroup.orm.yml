@@ -14,5 +14,4 @@ App\Entity\TrickGroup:
     tricks:
       targetEntity: App\Entity\Trick
       mappedBy: trickGroup
-      cascade: ["persist", "remove"]
 

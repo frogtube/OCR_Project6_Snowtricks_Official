@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\CommentType;
@@ -12,7 +11,7 @@ use App\Form\TrickType;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 
 class TrickController extends Controller
 {
@@ -24,18 +23,17 @@ class TrickController extends Controller
             ->getRepository(Trick::class)
             ->getTricksWithImage();
 
-
         return $this->render('trick/listTrick.html.twig', array(
             'tricks' => $tricks,
         ));
     }
 
+
     // SHOWING A UNIQUE TRICK WITH FULL DATA
     public function showAction(Request $request, $slug) {
 
-        $trick = $this->getDoctrine()
-            ->getRepository(Trick::class)
-            ->getTrickWithCommentsImagesAndVideos($slug);
+        $trick = $this->getDoctrine()->getRepository(Trick::class)
+                                     ->getTrickWithCommentsImagesAndVideos($slug);
 
         if(!$trick) {
             throw $this->createNotFoundException('No trick found for slug'.$slug);
@@ -45,15 +43,14 @@ class TrickController extends Controller
         $form = $this->createForm(CommentType::class);
         $form->handleRequest($request);
 
-        // Validation and submission of the form
+        // Upon valid form submission
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Creating the comment
             $comment = $form->getData();
-            $comment->setCreatedAt(new \DateTime('now'));
-            $comment->setTrick($trick);
-            $comment->setUser($this->getUser());
-            //ADD HERE THE $trick->setUser using COOKIE
+            $comment->createComment($trick, $this->getUser());
 
+            // Persisting the comment
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
@@ -68,35 +65,19 @@ class TrickController extends Controller
 
     }
 
-    // DISPLAYING FORM TO CREATE NEW TRICK
-    public function createAction(Request $request, FileUploader $fileUploader) {
-
+    // DISPLAYING FORM TO CREATE A NEW TRICK
+    public function createAction(Request $request)
+    {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class);
-        $form->handleRequest($request);
-        $trick = $form->getData();
+        $form = $this->createForm(TrickType::class, $trick)
+                     ->handleRequest($request);
 
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-
-            // Adding required trick entity attributes
-            $trick->setName(ucfirst($trick->getName()));
-            $trick->setSlug(strtolower(str_replace(' ', '-', $trick->getName())));
-            $trick->setCreatedAt(new \DateTime('now'));
-            $trick->setUser($this->getUser());
-
-            // Image upload
-            $images = $trick->getImages();
-            /** @var Image $image */
-            foreach ($images as $image)
-            {
-                $file = $image->getFilename();
-                $filename = $fileUploader->upload($file);
-                $image->setFilename($filename);
-                $image->setTrick($trick);
-            }
+            // Creating the new trickAdding required trick entity attributes
+            $trick = $form->getData()->setUser($this->getUser());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
@@ -118,27 +99,24 @@ class TrickController extends Controller
     // DISPLAYING FORM TO EDIT AN EXISTING TRICK
     public function editAction(Request $request, $slug)
     {
-        $trick = $this->getDoctrine()
-            ->getRepository(Trick::class)
-            ->getTrick($slug);
+        $trick = $this->getDoctrine()->getRepository(Trick::class)
+                                     ->getTrickWithImage($slug);
 
-        $form = $this->createForm(TrickEditType::class, $trick);
-        $form->handleRequest($request);
+        foreach ($trick->getImages() as $image) {
+            $trick->setImages(new File(
+                $this->getParameter('images_directory').'/'.$image->getFilename()
+            ));
+        }
+
+        dump($trick); die();
+
+        $form = $this->createForm(TrickEditType::class, $trick)
+                     ->handleRequest($request);
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $trick = $form->getData();
-
-            $trick->setName(ucfirst($trick->getName()));
-            $trick->setCreatedAt(new \DateTime('now'));
-            // Creating slug by replacing name spaces with a dash
-            $trick->setSlug(strtolower(str_replace(' ', '-', $trick->getName())));
-            //ADD HERE THE $trick->setUser using COOKIE
-            // dump($trick); die;s
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($trick);
-            $em->flush();
+            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(
                 'success',
@@ -148,8 +126,9 @@ class TrickController extends Controller
             return $this->redirectToRoute('trick_list');
         }
 
-        return $this->render('trick/newTrick.html.twig', array(
+        return $this->render('trick/editTrick.html.twig', array(
             'form' => $form->createView(),
+            'trick' => $trick,
         ));
     }
 
@@ -171,16 +150,6 @@ class TrickController extends Controller
 
         return $this->redirectToRoute('trick_list');
 
-    }
-
-    /**
-     * @return string
-     */
-    private function generateUniqueFileName()
-    {
-        // md5() reduces the similarity of the file names generated by
-        // uniqid(), which is based on timestamps
-        return md5(uniqid());
     }
 
 }

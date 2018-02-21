@@ -22,6 +22,10 @@ user_edit:
     path: /user/edit
     controller: App\Controller\UserController:editAction
 
+user_avatar_delete:
+    path: /user/edit/delete
+    controller: App\Controller\UserController:deleteAvatarAction
+
 register:
     path: /register
     controller: App\Controller\RegistrationController:registrationAction

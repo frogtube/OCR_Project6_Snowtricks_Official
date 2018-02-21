@@ -23,7 +23,7 @@
         'label': 'Sélectionnez une catégorie de saut'
     }) }}
 
-    {{ form_row(form.images.filename, {
+    {{ form_row(form.images, {
         'label': 'Image a la une'
     }) }}
 
@@ -31,6 +31,10 @@
     <button type="submit" formnovalidate>Save</button>
 
     {{ form_end(form) }}
+
+
+{% endblock %}
+
 
 
 {% endblock %}

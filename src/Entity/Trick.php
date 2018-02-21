@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Trick
 {
@@ -26,7 +26,6 @@ class Trick
     }
 
     // SETTERS
-
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -132,12 +131,4 @@ class Trick
         $this->setCreatedAt(new \DateTime());
         $this->setUser($user);
     }
-
-    public function editTrick(Trick $trick)
-    {
-        $trick->setName(ucfirst($trick->getName()));
-        $trick->setCreatedAt(new \DateTime('now'));
-        $trick->setSlug(strtolower(str_replace(' ', '-', $trick->getName())));
-    }
-
 }

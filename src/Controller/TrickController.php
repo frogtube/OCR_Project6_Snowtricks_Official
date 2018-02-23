@@ -108,8 +108,6 @@ class TrickController extends Controller
             ));
         }
 
-        dump($trick); die();
-
         $form = $this->createForm(TrickEditType::class, $trick)
                      ->handleRequest($request);
 

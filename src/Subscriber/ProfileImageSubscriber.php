@@ -40,13 +40,11 @@ class ProfileImageSubscriber implements EventSubscriberInterface
      */
     public function onSubmit(FormEvent $event): void
     {
-        die();
         if (!$event->getData()) {
             return;
         }
 
         $filename = $this->fileUploader->upload($event->getData()); // Name of the local image
-        dump($filename); die();
 
         $image = new Image();
         $image->setFilename($filename); // Image entity created

@@ -131,4 +131,14 @@ class Trick
         $this->setCreatedAt(new \DateTime());
         $this->setUser($user);
     }
+
+    public function addImage(Image $image)
+    {
+        $this->images->add($image);
+    }
+
+    public function removeImage(Image $image)
+    {
+        $this->images->remove($image);
+    }
 }

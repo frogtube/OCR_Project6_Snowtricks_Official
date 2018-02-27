@@ -44,7 +44,8 @@ class ProfileImageSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $filename = $this->fileUploader->upload($event->getData()); // Name of the local image
+        dump($event->getData()->getFilename());
+        $filename = $this->fileUploader->upload($event->getData()->getFilename()); // Name of the local image
 
         $image = new Image();
         $image->setFilename($filename); // Image entity created

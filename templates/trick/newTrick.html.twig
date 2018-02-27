@@ -23,10 +23,6 @@
         'label': 'Sélectionnez une catégorie de saut'
     }) }}
 
-    {{ form_row(form.images, {
-        'label': 'Image a la une'
-    }) }}
-
     <div>
         <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
         </ul>

@@ -2,16 +2,13 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Image;
 use App\Entity\Trick;
+use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Form\TrickEditType;
-use App\Form\TrickType;
-use App\Service\FileUploader;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TrickController extends Controller
 {
@@ -72,12 +69,15 @@ class TrickController extends Controller
         $form = $this->createForm(TrickType::class, $trick)
                      ->handleRequest($request);
 
-
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
             // Creating the new trickAdding required trick entity attributes
-            $trick = $form->getData()->setUser($this->getUser());
+            $trick = $form->getData();
+            $trick->createTrick($trick->getName(), $this->getUser());
+
+            dump($trick); die();
+            $file = $trick->getImage();
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);

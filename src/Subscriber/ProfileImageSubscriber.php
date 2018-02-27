@@ -31,7 +31,7 @@ class ProfileImageSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::SUBMIT => 'onSubmit'
+            FormEvents::PRE_SUBMIT => 'onSubmit'
         ];
     }
 
@@ -44,14 +44,13 @@ class ProfileImageSubscriber implements EventSubscriberInterface
             return;
         }
 
-        dump($event->getData()->getFilename());
-        $filename = $this->fileUploader->upload($event->getData()->getFilename()); // Name of the local image
+        foreach ($event->getData() as $uploadedFile) {
 
-        $image = new Image();
-        $image->setFilename($filename); // Image entity created
-        $image->setUser($this->tokenStorage->getToken()->getUser()); // Image entity with User relationship
-
-        $event->getForm()->setData($image);
+            $filename = $this->fileUploader->upload($uploadedFile); // Name of the local image
+            $image = new Image();
+            $image->setFilename($filename); // Image entity created
+            $event->getForm()->getParent()->getData()->add($image);
+        }
     }
 
 }

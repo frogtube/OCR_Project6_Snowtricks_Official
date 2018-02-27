@@ -124,12 +124,11 @@ class Trick
         return $this->images;
     }
 
-    public function createTrick($trickName, User $user)
+    public function createTrick($trickName)
     {
         $this->setName(ucfirst($trickName));
         $this->setSlug(strtolower(str_replace(' ', '-', $trickName)));
         $this->setCreatedAt(new \DateTime());
-        $this->setUser($user);
     }
 
     public function addImage(Image $image)

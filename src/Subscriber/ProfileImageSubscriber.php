@@ -33,7 +33,7 @@ class ProfileImageSubscriber implements EventSubscriberInterface
     {
         return [
             FormEvents::PRE_SUBMIT => 'onSubmit',
-            FormEvents::SUBMIT => 'ssubmit',
+            FormEvents::SUBMIT => 'submit',
         ];
     }
 
@@ -46,29 +46,23 @@ class ProfileImageSubscriber implements EventSubscriberInterface
             return;
         }
 
-        foreach ($event->getData() as $uploadedFile) {
 
+        foreach ($event->getData() as $uploadedFile) {
             $filename = $this->fileUploader->upload($uploadedFile); // Name of the local image
             $this->filename = $filename;
-            dump($filename);
         }
     }
 
     /**
      * @param FormEvent $event
      */
-    public function ssubmit(FormEvent $event): void
+    public function submit(FormEvent $event): void
     {
         if (!$event->getData()) {
             return;
         }
 
         $event->getData()->setFilename($this->filename);
-
-        dump($event->getData());
-
-
-
 
     }
 

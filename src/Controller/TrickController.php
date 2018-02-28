@@ -72,16 +72,17 @@ class TrickController extends Controller
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Creating the new trickAdding required trick entity attributes
+            // Creating the new trick
             $trick = $form->getData();
+
+            // Adding required data to the new trick
             $trick->createTrick($trick->getName());
 
+            // Adding trick_id to image
             $images = $trick->getImages();
-
             foreach ($images as $image) {
                 $image->setTrick($trick);
             }
-
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);

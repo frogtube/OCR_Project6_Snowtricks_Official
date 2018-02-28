@@ -73,8 +73,8 @@ class Image
 
     public function createTrickImage(Image $image, Trick $trick, $fileUploader)
     {
-        $file = $image->getFilename();
-        $filename = $fileUploader->upload($file);
+        // $file = $image->getFilename();
+        // $filename = $fileUploader->upload($file);
         $this->setFilename($filename);
         $this->setTrick($trick);
         $this->setCaption('Un snowboarder fait un '. $trick->getName());

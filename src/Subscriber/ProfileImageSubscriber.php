@@ -13,6 +13,7 @@ class ProfileImageSubscriber implements EventSubscriberInterface
 {
     private $tokenStorage;
     private $fileUploader;
+    private $filename;
 
     /**
      * ProfileImageSubscriber constructor.
@@ -31,7 +32,8 @@ class ProfileImageSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::PRE_SUBMIT => 'onSubmit'
+            FormEvents::PRE_SUBMIT => 'onSubmit',
+            FormEvents::SUBMIT => 'ssubmit',
         ];
     }
 
@@ -47,10 +49,30 @@ class ProfileImageSubscriber implements EventSubscriberInterface
         foreach ($event->getData() as $uploadedFile) {
 
             $filename = $this->fileUploader->upload($uploadedFile); // Name of the local image
-            $image = new Image();
-            $image->setFilename($filename); // Image entity created
-            $event->getForm()->getParent()->getData()->add($image);
+            $this->filename = $filename;
+            dump($filename);
         }
     }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function ssubmit(FormEvent $event): void
+    {
+        if (!$event->getData()) {
+            return;
+        }
+
+        $event->getData()->setFilename($this->filename);
+
+        dump($event->getData());
+
+
+
+
+    }
+
+
+
 
 }

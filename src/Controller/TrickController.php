@@ -69,14 +69,11 @@ class TrickController extends Controller
         $form = $this->createForm(TrickType::class, $trick)
                      ->handleRequest($request);
 
-
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            dump($form->getData()); die();
             // Creating the new trickAdding required trick entity attributes
             $trick = $form->getData();
-
             $trick->createTrick($trick->getName());
 
             $images = $trick->getImages();

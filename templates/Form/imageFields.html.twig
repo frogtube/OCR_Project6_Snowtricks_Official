@@ -1,0 +1,9 @@
+{% block file_widget %}
+    {% spaceless %}
+
+        {% if image_url is not null %}
+            <img src="{{ asset(image_url) }}"/>
+        {% endif %}
+
+    {% endspaceless %}
+{% endblock %}

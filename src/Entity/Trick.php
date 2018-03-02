@@ -64,6 +64,14 @@ class Trick
         $this->images[] = $image;
     }
 
+    public function setVideos($video): void
+    {
+        if ($this->getVideos()->contains($video)) {
+            return;
+        }
+        $this->videos[] = $video;
+    }
+
     // GETTERS
     public function getId(): ?int
     {

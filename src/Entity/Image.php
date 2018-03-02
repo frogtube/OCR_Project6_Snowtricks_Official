@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Symfony\Component\HttpFoundation\File\File;
 
 class Image

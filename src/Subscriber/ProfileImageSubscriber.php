@@ -32,9 +32,26 @@ class ProfileImageSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::PRE_SUBMIT => 'onSubmit',
-            FormEvents::SUBMIT => 'submit',
+//            FormEvents::PRE_SET_DATA => 'preSetData',
+            FormEvents::PRE_SUBMIT => 'preSubmit',
+            FormEvents::SUBMIT => 'onSubmit',
         ];
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function preSubmit(FormEvent $event): void
+    {
+        if (!$event->getData()['filename']) {
+            return;
+        }
+
+        foreach ($event->getData() as $uploadedFile) {
+            $filename = $this->fileUploader->upload($uploadedFile); // Name of the local image
+            $this->filename = $filename;
+        }
+
     }
 
     /**
@@ -46,25 +63,25 @@ class ProfileImageSubscriber implements EventSubscriberInterface
             return;
         }
 
-
-        foreach ($event->getData() as $uploadedFile) {
-            $filename = $this->fileUploader->upload($uploadedFile); // Name of the local image
-            $this->filename = $filename;
-        }
-    }
-
-    /**
-     * @param FormEvent $event
-     */
-    public function submit(FormEvent $event): void
-    {
-        if (!$event->getData()) {
-            return;
-        }
-
         $event->getData()->setFilename($this->filename);
 
+
     }
+
+
+//    /**
+//     * @param FormEvent $event
+//     */
+//    public function preSetData(FormEvent $event): void
+//    {
+//        if (!$event->getData()) {
+//            return;
+//        }
+//
+//        $event->getData()->setFilename($this->filename);
+//    }
+
+
 
 
 

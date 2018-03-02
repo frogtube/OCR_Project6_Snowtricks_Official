@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' 'Form/imageFields.html.twig' %}
 
 {% block title %}Edit trick{% endblock %}
 
@@ -24,23 +24,37 @@
     }) }}
 
     {{ form_row(form.images, {
-        'label': 'Image'
+        'label': 'Images'
     }) }}
 
-    {#
-    {% if (images != null) %}
 
-        {% for image in images %}
-            <ul>
-                <li>
-                    <img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
-                    <a href="{{ path('user_avatar_delete') }}" type="button" class="btn">Delete</a>
-                </li>
-            </ul>
-        {% endfor %}
 
-    {% endif %}
-    #}
+
+    {#<div>#}
+        {#<ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">#}
+        {#</ul>#}
+    {#</div>#}
+
+
+
+
+    {# {% if (images != null) %} #}
+
+        {#{% for image in images %}#}
+            {#<ul>#}
+                {#<li>#}
+                    {#<img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>#}
+                    {#<a href="{{ path('user_avatar_delete') }}" type="button" class="btn">Delete</a>#}
+                {#</li>#}
+            {#</ul>#}
+        {#{% endfor %}#}
+
+    {#{% endif %}#}
+
+    {% for image in trick.images %}
+        <img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
+    {% endfor %}
+
 
 
     <button type="submit" formnovalidate>Save</button>

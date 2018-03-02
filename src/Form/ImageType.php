@@ -9,7 +9,6 @@ namespace App\Form;
     use Symfony\Component\OptionsResolver\OptionsResolver;
     use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-
 class ImageType extends AbstractType
 {
     private $profileImageSubscriber;
@@ -22,7 +21,10 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('filename', FileType::class) // Getting an UploadedFile
+            ->add('filename', FileType::class, [
+                'image_property' => 'filename',
+                'label' => false,
+            ]) // Getting an UploadedFile
             ->addEventSubscriber($this->profileImageSubscriber); // Converting into Image entity
         ;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\CommentType;
@@ -59,15 +60,16 @@ class TrickController extends Controller
             'trick' => $trick,
             'form' => $form->createView(),
         ));
-
     }
 
     // DISPLAYING FORM TO CREATE A NEW TRICK
     public function createAction(Request $request)
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick)
-                     ->handleRequest($request);
+
+        $form = $this->createForm(TrickType::class, $trick);
+
+                     $form->handleRequest($request);
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,10 +80,15 @@ class TrickController extends Controller
             // Adding required data to the new trick
             $trick->createTrick($trick->getName());
 
-            // Adding trick_id to image
+            // Setting trick_id to images
             $images = $trick->getImages();
             foreach ($images as $image) {
                 $image->setTrick($trick);
+            }
+            // Setting trick_id to videos
+            $videos = $trick->getVideos();
+            foreach ($videos as $video) {
+                $video->setTrick($trick);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -107,19 +114,24 @@ class TrickController extends Controller
         $trick = $this->getDoctrine()->getRepository(Trick::class)
                                      ->getTrickWithImage($slug);
 
+        $images = $trick->getImages();
+
+
+        // Create a File in the filename attribute of the Image entity
         foreach ($trick->getImages() as $image) {
-            $trick->setImages(new File(
-                $this->getParameter('images_directory').'/'.$image->getFilename()
-            ));
+            $file = new File($this->getParameter('images_directory').'/'.$image->getFilename());
+            $image->setFilename($file);
         }
 
-        $form = $this->createForm(TrickEditType::class, $trick)
-                     ->handleRequest($request);
+        $form = $this->createForm(TrickEditType::class, $trick);
+        $form->handleRequest($request);
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();
 
             $this->addFlash(
                 'success',
@@ -132,6 +144,7 @@ class TrickController extends Controller
         return $this->render('trick/editTrick.html.twig', array(
             'form' => $form->createView(),
             'trick' => $trick,
+            'images' => $images,
         ));
     }
 

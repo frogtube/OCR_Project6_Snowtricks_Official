@@ -23,9 +23,36 @@
         'label': 'Sélectionnez une catégorie de saut'
     }) }}
 
-    {{ form_row(form.images, {
-        'label': 'Images'
-    }) }}
+    {#{{ form_row(form.images, {#}
+        {#'label': 'Images'#}
+    {#}) }}#}
+    <h3>Images</h3>
+    <div class="row js-trick-image-wrapper">
+        {% for image in form.images %}
+            <div class="col-xs-4 js-trick-image-item">
+                <a href="#" class="js-remove-image pull-right">
+                    <span class="fa fa-close"></span>
+                </a>
+                {{ form_errors(form) }}
+                {{ form_row(form.images) }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Videos</h3>
+    <div class="row js-trick-video-wrapper">
+        {% for video in form.videos %}
+            <div class="col-xs-4 js-trick-video-item">
+                <a href="#" class="js-remove-video pull-right">
+                    <span class="fa fa-close"></span>
+                </a>
+                {{ form_errors(form) }}
+                {{ form_row(form.videos) }}
+            </div>
+        {% endfor %}
+    </div>
+
+
 
 
 
@@ -50,15 +77,60 @@
         {#{% endfor %}#}
 
     {#{% endif %}#}
+    {#{% for video in trick.videos %}#}
+        {#<iframe class="myIframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>#}
 
-    {% for image in trick.images %}
-        <img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
-    {% endfor %}
+        {#<script type="text/javascript">#}
+
+            {#var url = "{{ video.embed }}";#}
+            {#var id = url.split("?v=")[1];#}
+            {#var embedlink = "http://www.youtube.com/embed/" + id;#}
+            {#var ytube1 = document.getElementsByClassName("myIframe");#}
+            {#ytube1[{{loop.index0}}].src = embedlink;#}
+
+        {#</script>#}
+    {#{% endfor %}#}
+
+    {#{% for image in trick.images %}#}
+        {#<img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>#}
+    {#{% endfor %}#}
 
 
 
     <button type="submit" formnovalidate>Save</button>
 
     {{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        jQuery(document).ready(function() {
+            var $wrapper = $('.js-trick-video-wrapper');
+
+            $wrapper.on('click', '.js-remove-video', function(e) {
+                e.preventDefault();
+
+                $(this).closest('.js-trick-video-item')
+                    .fadeOut()
+                    .remove();
+            });
+        });
+
+        jQuery(document).ready(function() {
+            var $wrapper = $('.js-trick-image-wrapper');
+
+            $wrapper.on('click', '.js-remove-image', function(e) {
+                e.preventDefault();
+
+                $(this).closest('.js-trick-image-item')
+                    .fadeOut()
+                    .remove();
+            });
+        });
+    </script>
 
 {% endblock %}

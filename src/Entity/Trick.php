@@ -132,11 +132,12 @@ class Trick
         return $this->images;
     }
 
-    public function createTrick($trickName)
+    public function createTrick($trickName, $user)
     {
         $this->setName(ucfirst($trickName));
         $this->setSlug(strtolower(str_replace(' ', '-', $trickName)));
         $this->setCreatedAt(new \DateTime());
+        $this->setUser($user);
     }
 
     public function addImage(Image $image)
@@ -146,6 +147,23 @@ class Trick
 
     public function removeImage(Image $image)
     {
-        $this->images->remove($image);
+        if (!$this->images->contains($image)) {
+            return;
+        }
+        $this->images->removeElement($image);
+    }
+
+    public function addVideo(Video $video)
+    {
+        $this->videos->add($video);
+    }
+
+    public function removeVideo(Video $video)
+    {
+        if (!$this->videos->contains($video)) {
+            return;
+        }
+        $this->videos->removeElement($video);
+
     }
 }

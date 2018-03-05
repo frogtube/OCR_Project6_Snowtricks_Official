@@ -67,9 +67,8 @@ class TrickController extends Controller
     {
         $trick = new Trick();
 
-        $form = $this->createForm(TrickType::class, $trick);
-
-                     $form->handleRequest($request);
+        $form = $this->createForm(TrickType::class, $trick)
+                     ->handleRequest($request);
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,16 +77,14 @@ class TrickController extends Controller
             $trick = $form->getData();
 
             // Adding required data to the new trick
-            $trick->createTrick($trick->getName());
+            $trick->createTrick($trick->getName(), $this->getUser());
 
             // Setting trick_id to images
-            $images = $trick->getImages();
-            foreach ($images as $image) {
+            foreach ($trick->getImages() as $image) {
                 $image->setTrick($trick);
             }
             // Setting trick_id to videos
-            $videos = $trick->getVideos();
-            foreach ($videos as $video) {
+            foreach ($trick->getVideos() as $video) {
                 $video->setTrick($trick);
             }
 
@@ -114,20 +111,25 @@ class TrickController extends Controller
         $trick = $this->getDoctrine()->getRepository(Trick::class)
                                      ->getTrickWithImage($slug);
 
-        $images = $trick->getImages();
-
-
         // Create a File in the filename attribute of the Image entity
         foreach ($trick->getImages() as $image) {
             $file = new File($this->getParameter('images_directory').'/'.$image->getFilename());
             $image->setFilename($file);
         }
 
+        foreach ($trick->getVideos() as $video) {
+            $file = new File($video->getEmbed());
+            $image->setFilename($file);
+        }
+
+        dump($image, $video); die();
+
         $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
+
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
@@ -144,7 +146,6 @@ class TrickController extends Controller
         return $this->render('trick/editTrick.html.twig', array(
             'form' => $form->createView(),
             'trick' => $trick,
-            'images' => $images,
         ));
     }
 
@@ -165,7 +166,6 @@ class TrickController extends Controller
         );
 
         return $this->redirectToRoute('trick_list');
-
     }
 
 }

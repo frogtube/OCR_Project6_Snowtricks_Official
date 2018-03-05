@@ -30,6 +30,7 @@
 
     {% endfor %}
 
+
     <h2>Vos commentaires</h2>
     {% for comment in trick.comments %}
         <p>
@@ -37,8 +38,11 @@
         </p>
     {% endfor %}
 
-    <h1>Ajout d'un nouveau commentaire</h1>
+    {% if is_granted('ROLE_USER') %}
 
-    {{ include('trick/_commentForm.html.twig') }}
+        <h1>Ajout d'un nouveau commentaire</h1>
+        {{ include('trick/_commentForm.html.twig') }}
+
+    {% endif %}
 
 {% endblock %}

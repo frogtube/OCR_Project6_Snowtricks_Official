@@ -23,79 +23,34 @@
         'label': 'Sélectionnez une catégorie de saut'
     }) }}
 
-    {#{{ form_row(form.images, {#}
-        {#'label': 'Images'#}
-    {#}) }}#}
     <h3>Images</h3>
     <div class="row js-trick-image-wrapper">
-        {% for image in form.images %}
-            <div class="col-xs-4 js-trick-image-item">
-                <a href="#" class="js-remove-image pull-right">
-                    <span class="fa fa-close"></span>
-                </a>
-                {{ form_errors(form) }}
-                {{ form_row(form.images) }}
-            </div>
-        {% endfor %}
+        <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+            {% for image in form.images %}
+                <div class="col-xs-4 js-trick-image-item">
+                    <a href="#" class="js-remove-image pull-right">
+                        <span class="fa fa-close"></span>
+                    </a>
+                    {{ form_row(image) }}
+                </div>
+            {% endfor %}
+        </ul>
     </div>
+
 
     <h3>Videos</h3>
-    <div class="row js-trick-video-wrapper">
-        {% for video in form.videos %}
-            <div class="col-xs-4 js-trick-video-item">
-                <a href="#" class="js-remove-video pull-right">
-                    <span class="fa fa-close"></span>
-                </a>
-                {{ form_errors(form) }}
-                {{ form_row(form.videos) }}
-            </div>
-        {% endfor %}
+    <div class="js-trick-video-wrapper">
+        <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+            {% for video in form.videos %}
+                <div class="js-trick-video-item">
+                    <a href="#" class="js-remove-video pull-right">
+                        <span class="fa fa-close"></span>
+                    </a>
+                    {{ form_row(video) }}
+                </div>
+            {% endfor %}
+        </ul>
     </div>
-
-
-
-
-
-
-    {#<div>#}
-        {#<ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">#}
-        {#</ul>#}
-    {#</div>#}
-
-
-
-
-    {# {% if (images != null) %} #}
-
-        {#{% for image in images %}#}
-            {#<ul>#}
-                {#<li>#}
-                    {#<img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>#}
-                    {#<a href="{{ path('user_avatar_delete') }}" type="button" class="btn">Delete</a>#}
-                {#</li>#}
-            {#</ul>#}
-        {#{% endfor %}#}
-
-    {#{% endif %}#}
-    {#{% for video in trick.videos %}#}
-        {#<iframe class="myIframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>#}
-
-        {#<script type="text/javascript">#}
-
-            {#var url = "{{ video.embed }}";#}
-            {#var id = url.split("?v=")[1];#}
-            {#var embedlink = "http://www.youtube.com/embed/" + id;#}
-            {#var ytube1 = document.getElementsByClassName("myIframe");#}
-            {#ytube1[{{loop.index0}}].src = embedlink;#}
-
-        {#</script>#}
-    {#{% endfor %}#}
-
-    {#{% for image in trick.images %}#}
-        {#<img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>#}
-    {#{% endfor %}#}
-
-
 
     <button type="submit" formnovalidate>Save</button>
 
@@ -107,7 +62,25 @@
 {% block javascripts %}
     {{ parent() }}
 
+
     <script>
+
+
+    // SCRIPT TO REMOVE AN IMAGE
+        jQuery(document).ready(function() {
+            var $wrapper = $('.js-trick-image-wrapper');
+
+            $wrapper.on('click', '.js-remove-image', function(e) {
+                e.preventDefault();
+
+                $(this).closest('.js-trick-image-item')
+                    .fadeOut()
+                    .remove();
+            });
+        });
+
+
+    // JS TO REMOVE A VIDEO
         jQuery(document).ready(function() {
             var $wrapper = $('.js-trick-video-wrapper');
 
@@ -120,17 +93,109 @@
             });
         });
 
-        jQuery(document).ready(function() {
-            var $wrapper = $('.js-trick-image-wrapper');
+    // JS TO ADD A MEW IMAGE
+        var $collectionHolder;
 
-            $wrapper.on('click', '.js-remove-image', function(e) {
+        // setup an "add an image" link
+        var $addImageLink = $('<a href="#" class="add_image_link">Add an image</a>');
+        var $newLinkLi = $('<li></li>').append($addImageLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of images
+            $collectionHolder = $('ul.images');
+
+            // add the "add an image" anchor and li to the images ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addImageLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
-                $(this).closest('.js-trick-image-item')
-                    .fadeOut()
-                    .remove();
+                // add a new image form (see next code block)
+                addImageForm($collectionHolder, $newLinkLi);
             });
         });
+
+        function addImageForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your images field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add an image" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+
+    // JS TO ADD A NEW VIDEO
+        var $collectionHolder2;
+
+        // setup an "add a video" link
+        var $addVideoLink = $('<a href="#" class="add_video_link">Add a video</a>');
+        var $newLinkLi2 = $('<li></li>').append($addVideoLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of images
+            $collectionHolder2 = $('ul.videos');
+
+            // add the "add an image" anchor and li to the images ul
+            $collectionHolder2.append($newLinkLi2);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder2.data('index', $collectionHolder2.find(':input').length);
+
+            $addVideoLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new image form (see next code block)
+                addVideoForm($collectionHolder2, $newLinkLi2);
+            });
+        });
+
+        function addVideoForm($collectionHolder2, $newLinkLi2) {
+            // Get the data-prototype explained earlier
+            var prototype2 = $collectionHolder2.data('prototype');
+
+            // get the new index
+            var index2 = $collectionHolder2.data('index');
+
+            var newForm2 = prototype2;
+            // You need this only if you didn't set 'label' => false in your images field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm2 = newForm2.replace(/__name__/g, index2);
+
+            // increase the index with one for the next item
+            $collectionHolder2.data('index', index2 + 1);
+
+            // Display the form in the page in an li, before the "Add an image" link li
+            var $newFormLi2 = $('<li></li>').append(newForm2);
+            $newLinkLi2.before($newFormLi2);
+        }
     </script>
 
 {% endblock %}

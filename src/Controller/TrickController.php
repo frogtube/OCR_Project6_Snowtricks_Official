@@ -117,12 +117,7 @@ class TrickController extends Controller
             $image->setFilename($file);
         }
 
-        foreach ($trick->getVideos() as $video) {
-            $file = new File($video->getEmbed());
-            $image->setFilename($file);
-        }
 
-        dump($image, $video); die();
 
         $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
@@ -130,7 +125,12 @@ class TrickController extends Controller
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Setting trick_id to videos
+            foreach ($trick->getVideos() as $video) {
+                $video->setTrick($trick);
+            }
 
+            dump($form->getData()); die();
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();

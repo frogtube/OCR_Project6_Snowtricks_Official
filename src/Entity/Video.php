@@ -15,8 +15,9 @@ class Video
         return $this->embed;
     }
 
-    public function setEmbed(string $embed): void
+    public function setEmbed(string $url): void
     {
+        $embed = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/", $url);
         $this->embed = $embed;
     }
 

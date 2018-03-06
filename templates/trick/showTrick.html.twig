@@ -16,17 +16,9 @@
     <h2>Les videos</h2>
     {% for video in trick.videos %}
 
-        <iframe class="myIframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-
-        <script type="text/javascript">
-
-            var url = "{{ video.embed }}";
-            var id = url.split("?v=")[1];
-            var embedlink = "http://www.youtube.com/embed/" + id;
-            var ytube1 = document.getElementsByClassName("myIframe");
-            ytube1[{{loop.index0}}].src = embedlink;
-
-        </script>
+        <iframe width="420" height="315"
+                src="{{ video.embed }}">
+        </iframe>
 
     {% endfor %}
 

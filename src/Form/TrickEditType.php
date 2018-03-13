@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Trick;
+use App\Subscriber\EditTrickSubscriber;
 use Symfony\Component\Form\AbstractType;
 use App\Repository\TrickGroupRepository;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +15,13 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickEditType extends AbstractType
 {
+//    private $subscriber;
+//
+//    public function __construct(EditTrickSubscriber $subscriber)
+//    {
+//        $this->subscriber = $subscriber;
+//    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -30,7 +38,6 @@ class TrickEditType extends AbstractType
                 'entry_type' => ImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false,
                 'entry_options' => [
                     'label' => false
                 ],
@@ -39,12 +46,14 @@ class TrickEditType extends AbstractType
                 'entry_type' => VideoType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false,
                 'entry_options' => [
                     'label' => false
                 ],
             ])
         ;
+
+//        $builder->get('images')->addEventSubscriber($this->subscriber);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

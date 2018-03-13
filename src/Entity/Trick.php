@@ -57,12 +57,12 @@ class Trick
     }
 
     public function setImages($image): void
-    {
-        if ($this->getImages()->contains($image)) {
-            return;
-        }
-        $this->images[] = $image;
+{
+    if ($this->getImages()->contains($image)) {
+        return;
     }
+    $this->images[] = $image;
+}
 
     public function setVideos($video): void
     {

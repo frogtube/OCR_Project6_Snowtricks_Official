@@ -111,16 +111,16 @@ class TrickController extends Controller
         $trick = $this->getDoctrine()->getRepository(Trick::class)
                                      ->getTrickWithImage($slug);
 
+        $imagesDb = [];
         // Create a File in the filename attribute of the Image entity
         foreach ($trick->getImages() as $image) {
+            $imagesDb[$image->getId()] = $image->getFilename();
             $file = new File($this->getParameter('images_directory').'/'.$image->getFilename());
             $image->setFilename($file);
         }
 
-
-
-        $form = $this->createForm(TrickEditType::class, $trick);
-        $form->handleRequest($request);
+        $form = $this->createForm(TrickEditType::class, $trick)
+                     ->handleRequest($request);
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
@@ -130,7 +130,15 @@ class TrickController extends Controller
                 $video->setTrick($trick);
             }
 
-            dump($form->getData()); die();
+            // Restoring filename if image not deleted
+            foreach ($trick->getImages() as $image) {
+                if ($image->getFilename() == null && array_key_exists($image->getId(), $imagesDb)) {
+                    $image->setFilename($imagesDb[$image->getId()]);
+                }
+                $image->setTrick($trick);
+            }
+
+            dump($trick);
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();

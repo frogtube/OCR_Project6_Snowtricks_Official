@@ -22,7 +22,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('filename', FileType::class, [
-                'image_property' => 'filename',
+//                'image_property' => 'filename',
                 'label' => false,
             ]) // Getting an UploadedFile
             ->addEventSubscriber($this->profileImageSubscriber); // Converting into Image entity

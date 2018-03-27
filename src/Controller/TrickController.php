@@ -125,6 +125,7 @@ class TrickController extends Controller
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
+            dump($form); die();
             // Setting trick_id to videos
             foreach ($trick->getVideos() as $video) {
                 $video->setTrick($trick);
@@ -138,7 +139,8 @@ class TrickController extends Controller
                 $image->setTrick($trick);
             }
 
-            dump($trick);
+            dump($form->getData()); die();
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();

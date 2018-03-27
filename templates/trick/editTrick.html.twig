@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig'%}
 {#{% form_theme form 'bootstrap_4_layout.html.twig' 'Form/imageFields.html.twig' %}#}
+{#{% form_theme form 'bootstrap_4_layout.html.twig' 'Form/imageFields.html.twig' 'Form/videoFields.html.twig'%}#}
 
 {% block title %}Edit trick{% endblock %}
 
 {% block body %}
+    {#{% form_theme form 'Form/theme/_trickEditTypeTheme.html.twig' %}#}
+    {#{{ form(form) }}#}
 
     <h1>Modification d'un trick</h1>
 
@@ -33,6 +36,10 @@
                         <span class="fa fa-close"></span>
                     </a>
                     {{ form_row(image) }}
+                    {#<p>{{ image.method() }}</p>#}
+                    {% if image.image_url is defined %}
+                        <img src="{{ asset(image_url) }}"/>
+                    {% endif %}
                 </div>
             {% endfor %}
         </ul>

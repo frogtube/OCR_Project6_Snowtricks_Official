@@ -34,7 +34,7 @@ class ProfileImageSubscriber implements EventSubscriberInterface
         return [
             FormEvents::PRE_SUBMIT => 'preSubmit',
             FormEvents::SUBMIT => 'onSubmit',
-            FormEvents::POST_SET_DATA => 'postSetData',
+//            FormEvents::POST_SET_DATA => 'postSetData',
         ];
     }
 
@@ -67,32 +67,23 @@ class ProfileImageSubscriber implements EventSubscriberInterface
 
         $event->getData()->setFilename($this->filename);
 
-
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function postSetData(FormEvent $event): void
-    {
-//        if (!$event->getData() || !$event->getData()->getFilename()) {
-//            return;
-//        }
-//
-//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//
-//            $image = $event->getData();
-//            $imageName = $image->getFilename()->getFilename();
-//
-//            $image->setFilename($imageName);
-//        }
-    }
-
-
-
-
-
-
-
-
+//    /**
+//     * @param FormEvent $event
+//     */
+//    public function postSetData(FormEvent $event): void
+//    {
+////        if (!$event->getData() || !$event->getData()->getFilename()) {
+////            return;
+////        }
+////
+////        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+////
+////            $image = $event->getData();
+////            $imageName = $image->getFilename()->getFilename();
+////
+////            $image->setFilename($imageName);
+////        }
+//    }
 }

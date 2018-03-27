@@ -2,24 +2,24 @@
 
 namespace App\Form\Extension;
 
-use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class VideoTypeExtension extends AbstractTypeExtension
 {
 
     public function getExtendedType()
     {
-        return FileType::class;
+        return TextType::class;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        // Makes it legal for FileType fields to have an video_property option
+        // Makes it legal for TextType fields to have a video_property option
        $resolver->setDefined([
           'video_property'
        ]);
@@ -35,7 +35,7 @@ class VideoTypeExtension extends AbstractTypeExtension
             if (null !== $parentData) {
                 $accessor = PropertyAccess::createPropertyAccessor();
                 $video = $accessor->getValue($parentData, $options['video_property']);
-                $videoUrl = '/uploads/images/' . $video->getEmbed();
+                $videoUrl = $video;
             }
 
             // Sets a 'video_url' variable that will be available when rendering this field

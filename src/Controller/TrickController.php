@@ -124,6 +124,7 @@ class TrickController extends Controller
         $form = $this->createForm(TrickEditType::class, $trick)
                      ->handleRequest($request);
 
+
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 

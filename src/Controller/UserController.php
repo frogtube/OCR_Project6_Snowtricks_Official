@@ -42,21 +42,20 @@ class UserController extends Controller
                 }
 
                 $image = $user->getImage();
-                $image->createAvatar($user, $fileUploader);
+                $image->setUser($user);
 
+                dump($user);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($image);
                 $em->flush();
             }
 
             // Deleting image entity if no file was uploaded
-            if($user->getImage()->getFilename() == null)
-            {
+            if($user->getImage()->getFilename() == null) {
                 $user->setImage(null);
             }
-
+            dump($user);
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($user);
             $em->flush();
 

@@ -27,10 +27,9 @@ class ImageTypeExtension extends AbstractTypeExtension
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-            if (isset($options['image_property'])) {
-                $parentData = $form->getParent()->getData();
-//                dump($parentData);
+        if (isset($options['image_property'])) {
 
+            $parentData = $form->getParent()->getData();
             $imageUrl = null;
             if (null !== $parentData) {
                 $accessor = PropertyAccess::createPropertyAccessor();
@@ -40,7 +39,6 @@ class ImageTypeExtension extends AbstractTypeExtension
 
             // Sets an 'image_url' variable that will be available when rendering this field
             $view->vars['image_url'] = $imageUrl;
-//            dump($view->vars);
         }
     }
 

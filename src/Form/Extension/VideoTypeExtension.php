@@ -29,6 +29,7 @@ class VideoTypeExtension extends AbstractTypeExtension
     {
 
         if (isset($options['video_property'])) {
+
             $parentData = $form->getParent()->getData();
 
             $videoUrl = null;
@@ -40,7 +41,6 @@ class VideoTypeExtension extends AbstractTypeExtension
 
             // Sets a 'video_url' variable that will be available when rendering this field
             $view->vars['video_url'] = $videoUrl;
-
         }
     }
 

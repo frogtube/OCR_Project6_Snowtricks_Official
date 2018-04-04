@@ -1,12 +1,36 @@
-{# templates/form/fields.html.twig #}
 {% extends 'form_div_layout.html.twig' %}
 
 {% block file_widget %}
     {% spaceless %}
+        {% if image_url is defined %}
+            {% if image_url is not null %}
+                <div class="hidden">
+                    {{ block('form_widget') }}
+                </div>
+                <img src="{{ asset(image_url) }}"/>
+            {% else %}
+                {{ block('form_widget') }}
+            {% endif %}
+        {% else %}
+            {{ block('form_widget') }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
 
-        {{ block('form_widget') }}
-        {% if image_url is not null %}
-            <img src="{{ asset(image_url) }}"/>
+
+{% block text_widget %}
+    {% spaceless %}
+        {% if video_url is defined %}
+            {% if video_url is not null %}
+                <div class="hidden">
+                    {{ block('form_widget') }}
+                </div>
+                <iframe width="420" height="315" src="{{ video_url }}"></iframe>
+            {% else %}
+                {{ block('form_widget') }}
+            {% endif %}
+        {% else %}
+            {{ block('form_widget') }}
         {% endif %}
 
     {% endspaceless %}

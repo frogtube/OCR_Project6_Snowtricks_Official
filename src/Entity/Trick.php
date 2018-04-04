@@ -26,7 +26,7 @@ class Trick
     }
 
     // SETTERS
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -36,7 +36,7 @@ class Trick
         $this->slug = $slug;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -46,7 +46,7 @@ class Trick
         $this->createdAt = $createdAt;
     }
 
-    public function setTrickGroup(TrickGroup $trickGroup): void
+    public function setTrickGroup(?TrickGroup $trickGroup): void
     {
         $this->trickGroup = $trickGroup;
     }

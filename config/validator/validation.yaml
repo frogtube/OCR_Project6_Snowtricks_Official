@@ -3,11 +3,11 @@ App\Entity\Trick:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
     properties:
         name:
-            - NotBlank: { message: "Ton nouveau trick possède bien un nom ?" }
+            - NotBlank: { message: "N'oublies pas de donner un nom au trick" }
         description:
-            - NotBlank: { message: "Penses bien à décrir un minimum le trick pour que l'on sache de quoi il sagit" }
+            - NotBlank: { message: "N'oublies pas de décrire le trick pour que l'on sache de quoi il sagit" }
         trickGroup:
-            - NotBlank: { message: "Il te faut absolument saisir un type de trick" }
+            - NotBlank: { message: "N'oublies pas de saisir une catégorie" }
 
 App\Entity\Comment:
     properties:
@@ -24,9 +24,11 @@ App\Entity\User:
                 groups: ['registration']
         email:
             - NotBlank:
-                message: "Il entrer un email"
-                groups: ['registration']
+                message: "Il faut entrer un email"
         plainPassword:
             - NotBlank:
                 message: "Il faut entrer ton mot de passe pour sécuriser ton compte"
                 groups: ['registration']
+        firstname:
+            - NotBlank:
+                message: "Il faut entrer ton mot de passe pour sécuriser ton compte"

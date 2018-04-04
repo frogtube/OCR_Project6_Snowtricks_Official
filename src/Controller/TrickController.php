@@ -117,6 +117,8 @@ class TrickController extends Controller
             $imagesDb[$image->getId()] = $image->getFilename();
             $file = new File($this->getParameter('images_directory').'/'.$image->getFilename());
             $image->setFilename($file);
+            // Storing images files in case of validation error
+            $files[] = $file;
         }
 
         $form = $this->createForm(TrickEditType::class, $trick)
@@ -125,7 +127,6 @@ class TrickController extends Controller
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            dump($form); die();
             // Setting trick_id to videos
             foreach ($trick->getVideos() as $video) {
                 $video->setTrick($trick);
@@ -139,8 +140,6 @@ class TrickController extends Controller
                 $image->setTrick($trick);
             }
 
-            dump($form->getData()); die();
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
@@ -153,7 +152,16 @@ class TrickController extends Controller
             return $this->redirectToRoute('trick_list');
         }
 
-        return $this->render('trick/editTrick.html.twig', array(
+        // Rescuing image files from form validation error
+        if ($form->isSubmitted() && !$form->isValid()) {
+
+            for ($i = 0; $i < count($trick->getImages()); $i++) {
+                $trick->getImages()[$i]->setFilename($files[$i]);
+            }
+
+        }
+
+            return $this->render('trick/editTrick.html.twig', array(
             'form' => $form->createView(),
             'trick' => $trick,
         ));

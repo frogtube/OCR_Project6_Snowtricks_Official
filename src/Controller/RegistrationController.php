@@ -14,8 +14,7 @@ class RegistrationController extends Controller
     public function registrationAction(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        \Swift_Mailer $mailer
-        )
+        \Swift_Mailer $mailer)
     {
         // Building the form
         $user = new User();
@@ -51,7 +50,7 @@ class RegistrationController extends Controller
                 ->setBody(
                     $this->renderView(
                     // templates/emails/registration.html.twig
-                        'Emails/registration,html.twig',
+                        'Emails/registration.html.twig',
                         array('username' => $username)
                     ),
                     'text/html'

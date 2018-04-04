@@ -59,7 +59,7 @@ class TrickEditType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Trick::class
+            'data_class' => Trick::class,
         ));
     }
 }

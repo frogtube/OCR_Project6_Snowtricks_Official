@@ -21,8 +21,8 @@ class UserController extends Controller
     {
         $user = $this->getUser();
 
-        $form = $this->createForm(UserEditType::class, $user);
-        $form->handleRequest($request);
+        $form = $this->createForm(UserEditType::class, $user)
+                     ->handleRequest($request);
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {

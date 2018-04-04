@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
-    use App\Entity\Video;
-    use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilderInterface;
-    use Symfony\Component\OptionsResolver\OptionsResolver;
-    use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Entity\Video;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class VideoType extends AbstractType
 {
@@ -15,7 +15,7 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('embed', TextType::class, [
-                //'video_property' => 'embed',
+                'video_property' => 'embed',
                 'label' => false,
             ])
         ;

@@ -26,7 +26,7 @@ class Trick
     }
 
     // SETTERS
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -36,7 +36,7 @@ class Trick
         $this->slug = $slug;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -46,7 +46,7 @@ class Trick
         $this->createdAt = $createdAt;
     }
 
-    public function setTrickGroup(TrickGroup $trickGroup): void
+    public function setTrickGroup(?TrickGroup $trickGroup): void
     {
         $this->trickGroup = $trickGroup;
     }
@@ -57,11 +57,19 @@ class Trick
     }
 
     public function setImages($image): void
+{
+    if ($this->getImages()->contains($image)) {
+        return;
+    }
+    $this->images[] = $image;
+}
+
+    public function setVideos($video): void
     {
-        if ($this->getImages()->contains($image)) {
+        if ($this->getVideos()->contains($video)) {
             return;
         }
-        $this->images[] = $image;
+        $this->videos[] = $video;
     }
 
     // GETTERS
@@ -124,7 +132,33 @@ class Trick
         return $this->images;
     }
 
-    public function createTrick($trickName, User $user)
+    public function addImage(Image $image)
+    {
+        $this->images->add($image);
+    }
+
+    public function removeImage(Image $image)
+    {
+        if (!$this->images->contains($image)) {
+            return;
+        }
+        $this->images->removeElement($image);
+    }
+
+    public function addVideo(Video $video)
+    {
+        $this->videos->add($video);
+    }
+
+    public function removeVideo(Video $video)
+    {
+        if (!$this->videos->contains($video)) {
+            return;
+        }
+        $this->videos->removeElement($video);
+    }
+
+    public function createTrick($trickName, $user)
     {
         $this->setName(ucfirst($trickName));
         $this->setSlug(strtolower(str_replace(' ', '-', $trickName)));

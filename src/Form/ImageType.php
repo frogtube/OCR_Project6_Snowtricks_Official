@@ -2,13 +2,12 @@
 
 namespace App\Form;
 
-    use App\Entity\Image;
-    use Symfony\Component\Form\AbstractType;
-    use App\Subscriber\ProfileImageSubscriber;
-    use Symfony\Component\Form\FormBuilderInterface;
-    use Symfony\Component\OptionsResolver\OptionsResolver;
-    use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use App\Entity\Image;
+use Symfony\Component\Form\AbstractType;
+use App\Subscriber\ProfileImageSubscriber;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ImageType extends AbstractType
 {
@@ -22,7 +21,10 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('filename', FileType::class) // Getting an UploadedFile
+            ->add('filename', FileType::class, [
+                'image_property' => 'filename',
+                'label' => false,
+            ]) // Getting an UploadedFile
             ->addEventSubscriber($this->profileImageSubscriber); // Converting into Image entity
         ;
     }

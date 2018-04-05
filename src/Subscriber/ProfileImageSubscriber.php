@@ -13,6 +13,7 @@ class ProfileImageSubscriber implements EventSubscriberInterface
 {
     private $tokenStorage;
     private $fileUploader;
+    private $filename;
 
     /**
      * ProfileImageSubscriber constructor.
@@ -31,8 +32,27 @@ class ProfileImageSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::SUBMIT => 'onSubmit'
+            FormEvents::PRE_SUBMIT => 'preSubmit',
+            FormEvents::SUBMIT => 'onSubmit',
+//            FormEvents::POST_SET_DATA => 'postSetData',
         ];
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function preSubmit(FormEvent $event): void
+    {
+
+        if (!$event->getData()['filename']) {
+            return;
+        }
+
+        foreach ($event->getData() as $uploadedFile) {
+            $filename = $this->fileUploader->upload($uploadedFile); // Name of the local image
+            $this->filename = $filename;
+        }
+
     }
 
     /**
@@ -40,19 +60,30 @@ class ProfileImageSubscriber implements EventSubscriberInterface
      */
     public function onSubmit(FormEvent $event): void
     {
-        die();
+
         if (!$event->getData()) {
             return;
         }
 
-        $filename = $this->fileUploader->upload($event->getData()); // Name of the local image
-        dump($filename); die();
+        $event->getData()->setFilename($this->filename);
 
-        $image = new Image();
-        $image->setFilename($filename); // Image entity created
-        $image->setUser($this->tokenStorage->getToken()->getUser()); // Image entity with User relationship
-
-        $event->getForm()->setData($image);
     }
 
+//    /**
+//     * @param FormEvent $event
+//     */
+//    public function postSetData(FormEvent $event): void
+//    {
+////        if (!$event->getData() || !$event->getData()->getFilename()) {
+////            return;
+////        }
+////
+////        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+////
+////            $image = $event->getData();
+////            $imageName = $image->getFilename()->getFilename();
+////
+////            $image->setFilename($imageName);
+////        }
+//    }
 }

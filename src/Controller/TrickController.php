@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Image;
 use App\Entity\Trick;
+use App\Form\TrickType;
 use App\Form\CommentType;
 use App\Form\TrickEditType;
-use App\Form\TrickType;
-use App\Service\FileUploader;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TrickController extends Controller
 {
@@ -62,22 +60,33 @@ class TrickController extends Controller
             'trick' => $trick,
             'form' => $form->createView(),
         ));
-
     }
 
     // DISPLAYING FORM TO CREATE A NEW TRICK
     public function createAction(Request $request)
     {
         $trick = new Trick();
+
         $form = $this->createForm(TrickType::class, $trick)
                      ->handleRequest($request);
-
 
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Creating the new trickAdding required trick entity attributes
-            $trick = $form->getData()->setUser($this->getUser());
+            // Creating the new trick
+            $trick = $form->getData();
+
+            // Adding required data to the new trick
+            $trick->createTrick($trick->getName(), $this->getUser());
+
+            // Setting trick_id to images
+            foreach ($trick->getImages() as $image) {
+                $image->setTrick($trick);
+            }
+            // Setting trick_id to videos
+            foreach ($trick->getVideos() as $video) {
+                $video->setTrick($trick);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
@@ -102,21 +111,39 @@ class TrickController extends Controller
         $trick = $this->getDoctrine()->getRepository(Trick::class)
                                      ->getTrickWithImage($slug);
 
+        $imagesDb = [];
+        // Create a File in the filename attribute of the Image entity
         foreach ($trick->getImages() as $image) {
-            $trick->setImages(new File(
-                $this->getParameter('images_directory').'/'.$image->getFilename()
-            ));
+            $imagesDb[$image->getId()] = $image->getFilename();
+            $file = new File($this->getParameter('images_directory').'/'.$image->getFilename());
+            $image->setFilename($file);
+            // Storing images files in case of validation error
+            $files[] = $file;
         }
-
-        dump($trick); die();
 
         $form = $this->createForm(TrickEditType::class, $trick)
                      ->handleRequest($request);
 
+
         // Validation and submission of the form
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->getDoctrine()->getManager()->flush();
+            // Setting trick_id to videos
+            foreach ($trick->getVideos() as $video) {
+                $video->setTrick($trick);
+            }
+
+            // Restoring filename if image not deleted
+            foreach ($trick->getImages() as $image) {
+                if ($image->getFilename() == null && array_key_exists($image->getId(), $imagesDb)) {
+                    $image->setFilename($imagesDb[$image->getId()]);
+                }
+                $image->setTrick($trick);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();
 
             $this->addFlash(
                 'success',
@@ -126,7 +153,16 @@ class TrickController extends Controller
             return $this->redirectToRoute('trick_list');
         }
 
-        return $this->render('trick/editTrick.html.twig', array(
+        // Rescuing image files from form validation error
+        if ($form->isSubmitted() && !$form->isValid()) {
+
+            for ($i = 0; $i < count($trick->getImages()); $i++) {
+                $trick->getImages()[$i]->setFilename($files[$i]);
+            }
+
+        }
+
+            return $this->render('trick/editTrick.html.twig', array(
             'form' => $form->createView(),
             'trick' => $trick,
         ));
@@ -149,7 +185,6 @@ class TrickController extends Controller
         );
 
         return $this->redirectToRoute('trick_list');
-
     }
 
 }

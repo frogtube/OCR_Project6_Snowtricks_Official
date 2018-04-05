@@ -32,7 +32,7 @@ class TrickRepository extends EntityRepository
     public function getTricksWithImage()
     {
         return $this->createQueryBuilder('trick')
-            ->orderBy('trick.name', 'ASC')
+            ->orderBy('trick.createdAt', 'DESC')
             ->leftJoin('trick.images', 'image')
             ->addSelect('image')
             ->getQuery()

@@ -45,10 +45,13 @@ App\Entity\Trick:
       mappedBy: trick
       nullable: true
       cascade: ["persist", "remove"]
+      orphanRemoval: true
     images:
       targetEntity: App\Entity\Image
       mappedBy: trick
       nullable: true
       cascade: ["persist", "remove"]
+      orphanRemoval: true
+
 
 

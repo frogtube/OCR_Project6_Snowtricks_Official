@@ -22,6 +22,9 @@ security:
             logout:
                 path:   /logout
                 target: /
+        secured_area:
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
 
     # To be removed later on
     access_control:

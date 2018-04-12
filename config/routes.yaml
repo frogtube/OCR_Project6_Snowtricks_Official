@@ -37,6 +37,14 @@ login:
 logout:
     path: /logout
 
+reset_password:
+    path: /reset-password
+    controller: App\Controller\SecurityController::resetPassword
+
+reset_password_request:
+    path: /reset-password-request
+    controller: App\Controller\SecurityController::resetPasswordRequest
+
 admin:
     path: /admin
     controller: App\Controller\SecurityController::admin

@@ -8,15 +8,14 @@ use Doctrine\ORM\Query\Expr;
 
 class UserRepository extends EntityRepository
 {
-    /* NOT USED
-    public function countExistingUsers($username)
+    public function findUserWithEmailAndUsername($username, $email)
     {
         return $this->createQueryBuilder('user')
-            ->andwhere('user.username = :username')
+            ->andWhere('user.username = :username')
+            ->andWhere('user.email = :email')
             ->setParameter('username', $username)
-            ->select('COUNT(user)')
+            ->setParameter('email', $email)
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getOneOrNullResult();
     }
-    */
 }

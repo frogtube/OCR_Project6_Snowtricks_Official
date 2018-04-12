@@ -25,4 +25,8 @@
 
         <button type="submit">login</button>
     </form>
+    <p>Lost password?</p>
+    <form action={{ path('reset_password_request') }}>
+        <input type="submit" value="Reset password" />
+    </form>
 {% endblock %}

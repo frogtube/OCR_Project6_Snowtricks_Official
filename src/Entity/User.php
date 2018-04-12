@@ -29,7 +29,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActive = false;
         $this->resetPasswordToken = null;
         $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();

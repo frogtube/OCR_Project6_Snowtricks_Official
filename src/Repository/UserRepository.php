@@ -18,4 +18,13 @@ class UserRepository extends EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findUserWithActivationToken($activationToken)
+    {
+        return $this->createQueryBuilder('user')
+            ->andWhere('user.activationToken = :activationToken')
+            ->setParameter('activationToken', $activationToken)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

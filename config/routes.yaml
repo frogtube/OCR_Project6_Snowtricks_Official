@@ -30,6 +30,10 @@ register:
     path: /register
     controller: App\Controller\RegistrationController:registrationAction
 
+account_activation:
+    path: /account-activation
+    controller: App\Controller\RegistrationController:accountActivation
+
 login:
     path: /login
     controller: App\Controller\SecurityController::login
@@ -37,6 +41,10 @@ login:
 logout:
     path: /logout
 
-admin:
-    path: /admin
-    controller: App\Controller\SecurityController::admin
+reset_password:
+    path: /reset-password
+    controller: App\Controller\SecurityController::resetPassword
+
+reset_password_request:
+    path: /reset-password-request
+    controller: App\Controller\SecurityController::resetPasswordRequest

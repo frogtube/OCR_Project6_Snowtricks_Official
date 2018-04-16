@@ -20,11 +20,11 @@ App\Entity\User:
     properties:
         username:
             - NotBlank:
-                message: "Il te faut un pseudo ;)"
+                message: "Il faut entre ton pseudo ;)"
                 groups: ['registration']
         email:
             - NotBlank:
-                message: "Il faut entrer un email"
+                message: "Il faut entrer ton email"
         plainPassword:
             - NotBlank:
                 message: "Il faut entrer ton mot de passe pour sécuriser ton compte"

@@ -20,13 +20,17 @@ class User implements AdvancedUserInterface, \Serializable
     private $roles = [];
     private $isActive;
     private $createdAt;
+    private $resetPasswordToken;
+    private $resetPasswordTokenTimestamp;
+    private $activationToken;
     private $image;
     private $tricks;
     private $comments;
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActive = false;
+        $this->resetPasswordToken = null;
         $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -81,6 +85,21 @@ class User implements AdvancedUserInterface, \Serializable
     public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function setResetPasswordToken(?string $resetPasswordToken): void
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+    }
+
+    public function setResetPasswordTokenTimestamp(?\DateTime $resetPasswordTokenTimestamp): void
+    {
+        $this->resetPasswordTokenTimestamp = $resetPasswordTokenTimestamp;
+    }
+
+    public function setActivationToken(?string $activationToken): void
+    {
+        $this->activationToken = $activationToken;
     }
 
     public function setImage(Image $image = null): void
@@ -142,6 +161,21 @@ class User implements AdvancedUserInterface, \Serializable
     public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    public function getResetPasswordTokenTimestamp(): ?\DateTime
+    {
+        return $this->resetPasswordTokenTimestamp;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
     }
 
     public function getImage(): ?Image

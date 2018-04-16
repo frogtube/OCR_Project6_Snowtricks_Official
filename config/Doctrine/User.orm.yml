@@ -38,6 +38,17 @@ App\Entity\User:
       default: true
     createdAt:
       type: datetime
+    resetPasswordToken:
+      type: string
+      length: 25
+      nullable: true
+    resetPasswordTokenTimestamp:
+      type: datetime
+      nullable: true
+    activationToken:
+      type: string
+      length: 25
+      nullable: true
   oneToMany:
     tricks:
       targetEntity: App\Entity\Trick

@@ -7,6 +7,10 @@
     {% endif %}
 
     <form action="{{ path('login') }}" method="post">
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+
         <label for="username">Username:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
@@ -20,5 +24,9 @@
         #}
 
         <button type="submit">login</button>
+    </form>
+    <p>Lost password?</p>
+    <form action={{ path('reset_password_request') }}>
+        <input type="submit" value="Reset password" />
     </form>
 {% endblock %}

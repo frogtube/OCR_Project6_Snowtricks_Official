@@ -4,69 +4,72 @@
 {#{% form_theme form 'bootstrap_4_layout.html.twig' 'Form/fields.html.twig' %}#}
 {#{% form_theme form 'bootstrap_4_layout.html.twig' 'Form/imageFields.html.twig' 'Form/videoFields.html.twig'%}#}
 
-{% block title %}Edit trick{% endblock %}
+{% block title %}Edit trick {{ trick.name }}{% endblock %}
 
 {% block body %}
+    <div class="container topmargin">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 bordered">
 
-    <h1>Modification d'un trick</h1>
+                <h1>Edit trick '{{trick.name }}'</h1>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
 
-    {{ form_row(form.name, {
-        'label': 'Nom du trick'
-    }) }}
+                {{ form_row(form.name, {
+                    'label': 'Nom du trick'
+                }) }}
 
-    {{ form_row(form.description, {
-        'label': 'Description du trick'
-    }) }}
+                {{ form_row(form.description, {
+                    'label': 'Description du trick'
+                }) }}
 
-    {{ form_row(form.trickGroup, {
-        'label': 'Sélectionnez une catégorie de saut'
-    }) }}
+                {{ form_row(form.trickGroup, {
+                    'label': 'Sélectionnez une catégorie de saut'
+                }) }}
 
-    <h3>Images</h3>
-    <div class="row js-trick-image-wrapper">
-        <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-            {% for image in form.images %}
-                <div class="col-xs-4 js-trick-image-item">
-                    <a href="#" class="js-remove-image pull-right">
-                        <span class="fa fa-close"></span>
-                    </a>
-                    {{ form_row(image) }}
+                <h3>Images</h3>
+                <div class="row js-trick-image-wrapper">
+                    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                        {% for image in form.images %}
+                            <div class="col-lg-4 col-md-4 col-xs- js-trick-image-item">
+                                <a href="#" class="js-remove-image pull-right">
+                                    <span class="fa fa-close"></span>
+                                </a>
+                                {{ form_row(image) }}
+                            </div>
+                        {% endfor %}
+                    </ul>
                 </div>
-            {% endfor %}
-        </ul>
-    </div>
 
 
-    <h3>Videos</h3>
-    <div class="js-trick-video-wrapper">
-        <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-            {% for video in form.videos %}
-                <div class="js-trick-video-item">
-                    <a href="#" class="js-remove-video pull-right">
-                        <span class="fa fa-close"></span>
-                    </a>
-                    {{ form_row(video) }}
+                <h3>Videos</h3>
+                <div class="js-trick-video-wrapper">
+                    <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                        {% for video in form.videos %}
+                            <div class="js-trick-video-item">
+                                <a href="#" class="js-remove-video pull-right">
+                                    <span class="fa fa-close"></span>
+                                </a>
+                                {{ form_row(video) }}
+                            </div>
+                        {% endfor %}
+                    </ul>
                 </div>
-            {% endfor %}
-        </ul>
+
+                <button type="submit" class="btn btn-success btn-block" formnovalidate>Save</button>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
     </div>
-
-    <button type="submit" formnovalidate>Save</button>
-
-    {{ form_end(form) }}
-
-
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
-
     <script>
-
 
     // SCRIPT TO REMOVE AN IMAGE
         jQuery(document).ready(function() {

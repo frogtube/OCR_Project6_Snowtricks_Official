@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Image;
 use App\Entity\User;
 use App\Form\UserRegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -37,9 +38,18 @@ class RegistrationController extends Controller
             // Generating the url for the activation of the account
             $accountActivationUrl = 'http://localhost:8000/account-activation'.'?token='.$activationToken;
 
+            // Setting the default avatar
+            $avatar = new Image();
+            $avatar->setFilename('avatar_default.png');
+            $avatar->setUser($user);
+
+//            $user->setImage($avatar);
+
+//            dump($user, $avatar); die();
             // Saving the user
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
+            $em->persist($avatar);
             $em->flush();
 
             // Adding success flash message

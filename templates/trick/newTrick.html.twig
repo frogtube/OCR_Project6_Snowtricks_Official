@@ -6,41 +6,45 @@
 
 {% block body %}
 
-    <h1>Ajout d'un nouveau trick</h1>
+    <div class="container topmargin">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 bordered">
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+                <h2>Add a new trick</h2>
 
-    {{ form_row(form.name, {
-        'label': 'Nom du trick'
-    }) }}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
 
-    {{ form_row(form.description, {
-        'label': 'Description du trick'
-    }) }}
+                {{ form_row(form.name, {
+                    'label': 'Name'
+                }) }}
 
-    {{ form_row(form.trickGroup, {
-        'label': 'Sélectionnez une catégorie de saut'
-    }) }}
+                {{ form_row(form.description, {
+                    'label': 'Description'
+                }) }}
 
-    <div>
-        <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-        </ul>
+                {{ form_row(form.trickGroup, {
+                    'label': 'Category'
+                }) }}
+
+                <div>
+                    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                    </ul>
+                </div>
+
+                <div>
+                    <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                    </ul>
+                </div>
+
+
+                <button type="submit" class="btn btn-success btn-block" formnovalidate>Save</button>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
     </div>
-
-    <div>
-        <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-        </ul>
-    </div>
-
-    {{ form_row(form.videos, {
-        'label': 'Sélectionnez une catégorie de saut'
-    }) }}
-
-    <button type="submit" formnovalidate>Save</button>
-
-    {{ form_end(form) }}
-
 
 {% endblock %}
 
@@ -53,7 +57,7 @@
         var $collectionHolder;
 
         // setup an "add an image" link
-        var $addImageLink = $('<a href="#" class="add_image_link">Add an image</a>');
+        var $addImageLink = $('<a href="#" class="add_image_link"><i class="fa fa-camera"></i> Add an image</a>');
         var $newLinkLi = $('<li></li>').append($addImageLink);
 
         jQuery(document).ready(function() {
@@ -105,7 +109,7 @@
         var $collectionHolder2;
 
         // setup an "add a video" link
-        var $addVideoLink = $('<a href="#" class="add_video_link">Add a video</a>');
+        var $addVideoLink = $('<a href="#" class="add_video_link"><i class="fa fa-video-camera"></i> Add a video</a>');
         var $newLinkLi2 = $('<li></li>').append($addVideoLink);
 
         jQuery(document).ready(function() {

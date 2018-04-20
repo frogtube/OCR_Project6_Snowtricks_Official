@@ -3,38 +3,96 @@
 {% block title %}Liste des tricks{% endblock %}
 
 {% block body %}
+    <div class="container topmargin">
+        <div class="row">
+            <div class="col-lg-12 bordered">
 
-    <h1>{{ trick.name }}</h1>
-    <h2>{{ trick.trickGroup }}</h2>
-    <p>{{ trick.description }}</p>
+                {% for image in trick.images|slice(0, 1) %}
+                    <h1 class="centered">{{ trick.name }}</h1>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="pull-right">
+                            <a href="{{ path('trick_edit', { 'slug':trick.slug }) }}"><i class="fa fa-pencil-square-o fa-fw pull-right"></i></a>
+                            <a href="{{ path('trick_delete', { 'slug':trick.slug }) }}"><i class="fa fa-trash fa-fw pull-right"></i></a>
+                        </div>
+                        {% endif %}
+                    <img class="card-img-top" src="{{ asset('uploads/images/'~image.filename) }}" alt="">
+                {% endfor %}
 
-    <h2>Les images</h2>
-    {% for image in trick.images %}
-        <img src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
-    {% endfor %}
+            </div>
 
-    <h2>Les videos</h2>
-    {% for video in trick.videos %}
+            <div class="container">
+                <div class="row">
 
-        <iframe width="420" height="315"
-                src="{{ video.embed }}">
-        </iframe>
+                    {% for image in trick.images|slice(1, 1000) %}
+                        <div class="col-lg-2 col-md-3 bordered">
+                            <img class="photo" src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
+                        </div>
+                    {% endfor %}
 
-    {% endfor %}
+                    {% for video in trick.videos %}
+                        <div class="col-lg-2 col-md-3 bordered">
+                            <iframe class="photo" src="{{ video.embed }}"></iframe>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div class="container trickDescription">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1">
+                        {{ trick.description|raw }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 trickInfos">
+                        {{ trick.trickGroup }} | {{ trick.createdAt | date("d/m/Y") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 trickInfos">
+
+                        {% if is_granted('ROLE_USER') %}
+                            <hr>
+                            {{ include('trick/_commentForm.html.twig') }}
+                        {% endif %}
+                        <hr>
 
 
-    <h2>Vos commentaires</h2>
-    {% for comment in trick.comments %}
-        <p>
-        {{ comment.user.username }}, le {{ comment.createdAt|date("d/m/Y") }} : {{ comment.content }}
-        </p>
-    {% endfor %}
+                    </div>
+                </div>
+            </div>
 
-    {% if is_granted('ROLE_USER') %}
+            <div class="container">
+                <div class="row">
 
-        <h1>Ajout d'un nouveau commentaire</h1>
-        {{ include('trick/_commentForm.html.twig') }}
+                    {% for comment in trick.comments %}
+                        <div class="col-lg-2 offset-lg-2 comment">
+                            <img class="avatar" src="{{ asset('uploads/images/'~comment.user.image) }}" alt=""/>
+                            <div class="commentInfos">
+                                {{ comment.user.username }}
+                                {{ comment.createdAt|date("d/m/Y") }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 comment">
+                            {{ comment.content }}
+                        </div>
+                    {% endfor %}
 
-    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 
 {% endblock %}

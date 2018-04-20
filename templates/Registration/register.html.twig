@@ -3,12 +3,20 @@
 {% form_theme form 'bootstrap_4_layout.html.twig'%}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 text-center bordered topmargin">
 
-    <button type="submit" formnovalidate>Register!</button>
-    {{ form_end(form) }}
+                {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}
+                <button class="btn btn-success btn-block" type="submit" formnovalidate>Register!</button>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

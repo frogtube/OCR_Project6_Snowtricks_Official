@@ -132,31 +132,31 @@ class Trick
         return $this->images;
     }
 
-    public function addImage(Image $image)
-    {
-        $this->images->add($image);
-    }
-
-    public function removeImage(Image $image)
-    {
-        if (!$this->images->contains($image)) {
-            return;
-        }
-        $this->images->removeElement($image);
-    }
-
-    public function addVideo(Video $video)
-    {
-        $this->videos->add($video);
-    }
-
-    public function removeVideo(Video $video)
-    {
-        if (!$this->videos->contains($video)) {
-            return;
-        }
-        $this->videos->removeElement($video);
-    }
+//    public function addImage(Image $image)
+//    {
+//        $this->images->add($image);
+//    }
+//
+//    public function removeImage(Image $image)
+//    {
+//        if (!$this->images->contains($image)) {
+//            return;
+//        }
+//        $this->images->removeElement($image);
+//    }
+//
+//    public function addVideo(Video $video)
+//    {
+//        $this->videos->add($video);
+//    }
+//
+//    public function removeVideo(Video $video)
+//    {
+//        if (!$this->videos->contains($video)) {
+//            return;
+//        }
+//        $this->videos->removeElement($video);
+//    }
 
     public function createTrick($trickName, $user)
     {
@@ -164,5 +164,17 @@ class Trick
         $this->setSlug(strtolower(str_replace(' ', '-', $trickName)));
         $this->setCreatedAt(new \DateTime());
         $this->setUser($user);
+    }
+
+    public function addDefaultImage($trick)
+    {
+        if(count($trick->getImages()) == 0) {
+
+            $defaultImage = new Image();
+            $defaultImage->setFilename('trick_default.jpg');
+            $trick->setImages($defaultImage);
+            $defaultImage->setTrick($trick);
+
+        }
     }
 }

@@ -18,7 +18,9 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, array(
+                'attr' => array('class' => 'tinymce'),
+                ))
             ->add('trickGroup', EntityType::class, array(
                 'class' => 'App\Entity\TrickGroup',
                 'required' => false,
@@ -30,11 +32,13 @@ class TrickType extends AbstractType
                 'entry_type' => ImageType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
+                'label' => false,
                 ])
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
+                'label' => false,
                 ])
         ;
     }

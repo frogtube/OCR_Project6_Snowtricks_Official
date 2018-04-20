@@ -13,7 +13,7 @@ class ImageTest extends TestCase
     public function testSettingName()
     {
         $image = new Image();
-        $this->assertSame(null, $image->getFilename());
+        $this->assertNull($image->getFilename());
 
         $image->setFilename('backflip.jpg');
         $this->assertSame('backflip.jpg', $image->getFilename());
@@ -22,7 +22,7 @@ class ImageTest extends TestCase
     public function testSettingCaption()
     {
         $image = new Image();
-        $this->assertSame(null, $image->getCaption());
+        $this->assertNull($image->getCaption());
 
         $image->setCaption('A guy doing a backflip in snowboard');
         $this->assertSame('A guy doing a backflip in snowboard', $image->getCaption());

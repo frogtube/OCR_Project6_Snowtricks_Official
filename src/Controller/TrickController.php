@@ -48,7 +48,7 @@ class TrickController extends Controller
             $comment = $form->getData();
             $comment->createComment($trick, $this->getUser());
 
-            // Persisting the comment
+            // Saving comment to database
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
@@ -79,19 +79,25 @@ class TrickController extends Controller
             // Adding required data to the new trick
             $trick->createTrick($trick->getName(), $this->getUser());
 
+            // Adding default image if trick has no image
+            $trick->addDefaultImage($trick);
+
             // Setting trick_id to images
             foreach ($trick->getImages() as $image) {
                 $image->setTrick($trick);
             }
+
             // Setting trick_id to videos
             foreach ($trick->getVideos() as $video) {
                 $video->setTrick($trick);
             }
 
+            // Saving to database
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
 
+            // Setting flash message
             $this->addFlash(
                 'success',
                 'Your new trick '.$trick->getName().' is saved'
@@ -140,6 +146,9 @@ class TrickController extends Controller
                 }
                 $image->setTrick($trick);
             }
+
+            // Adding default image if trick has no image
+            $trick->addDefaultImage($trick);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);

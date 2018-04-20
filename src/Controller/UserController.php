@@ -44,7 +44,6 @@ class UserController extends Controller
                 $image = $user->getImage();
                 $image->setUser($user);
 
-                dump($user);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($image);
                 $em->flush();
@@ -54,7 +53,6 @@ class UserController extends Controller
             if($user->getImage()->getFilename() == null) {
                 $user->setImage(null);
             }
-            dump($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

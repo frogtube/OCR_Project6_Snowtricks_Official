@@ -6,39 +6,50 @@
 
 {% block body %}
 
-    <h1>Formulaire d'enregistrement</h1>
+    <div class="container topmargin">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-2 col-md-8 offset-md-1 col-xs-10 offset-xs-1 bordered">
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
 
-    {{ form_row(form.firstname, {
-        'label': 'Ton prénom'
-    }) }}
+                {{ form_row(form.firstname, {
+                    'label': 'Your firstname'
+                }) }}
 
-    {{ form_row(form.lastname, {
-        'label': 'Ton nom'
-    }) }}
+                {{ form_row(form.lastname, {
+                    'label': 'Your name'
+                }) }}
 
-    {{ form_row(form.email, {
-        'label': 'Ton email'
-    }) }}
+                {{ form_row(form.email, {
+                    'label': 'Your email'
+                }) }}
+            </div>
 
-    {% if (user.image == null) %}
-        {{ form_row(form.image.filename, {
-            'label': 'Ton avatar'
-        }) }}
-    {% endif %}
+            <div class="col-lg-2 col-md-2 col-xs-10 offset-xs-1">
+                {% if (user.image == null) %}
+                    {{ form_row(form.image.filename, {
+                        'label': 'Your avatar'
+                    }) }}
+                {% endif %}
 
 
-    {% if (user.image != null) %}
+                {% if (user.image != null) %}
+                    <p>Your avatar</p>
+                    <img class="avatarLarge" src="{{ asset('uploads/images/'~user.image.filename) }}" alt="{{ user.image.caption }}"/>
+                    <a href="{{ path('user_avatar_delete') }}" type="button" class="btn btn-sm btn-default btnMargin">Delete avatar</a>
 
-        <img src="{{ asset('uploads/images/'~user.image.filename) }}" alt="{{ user.image.caption }}"/>
-        <a href="{{ path('user_avatar_delete') }}" type="button" class="btn">Delete</a>
+                {% endif %}
+            </div>
 
-    {% endif %}
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-xs-10 offset-xs-1">
+                <button type="submit" class="btn btn-success btn-block btnMargin" formnovalidate>Save</button>
+            </div>
 
-    <button type="submit" formnovalidate>Save</button>
 
-    {{ form_end(form) }}
+            {{ form_end(form) }}
+
+        </div>
+    </div>
 
 {% endblock %}

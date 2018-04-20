@@ -4,69 +4,98 @@
 {#{% form_theme form 'bootstrap_4_layout.html.twig' 'Form/fields.html.twig' %}#}
 {#{% form_theme form 'bootstrap_4_layout.html.twig' 'Form/imageFields.html.twig' 'Form/videoFields.html.twig'%}#}
 
-{% block title %}Edit trick{% endblock %}
+{% block title %}Edit trick {{ trick.name }}{% endblock %}
 
 {% block body %}
+    <div class="container topmargin">
+        <div class="row">
+            <h1 class="">Editing trick "{{ trick.name }}"</h1>
 
-    <h1>Modification d'un trick</h1>
+            <div class="col-lg-12 bordered">
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
 
-    {{ form_row(form.name, {
-        'label': 'Nom du trick'
-    }) }}
+                <div class="row js-trick-image-wrapper">
+                    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
 
-    {{ form_row(form.description, {
-        'label': 'Description du trick'
-    }) }}
+                        {% for image in form.images|slice(0, 1) %}
 
-    {{ form_row(form.trickGroup, {
-        'label': 'Sélectionnez une catégorie de saut'
-    }) }}
+                            <div class="js-trick-image-item">
+                                <a href="#" class="js-remove-image pull-right topRight">
+                                    <span class="fa fa-trash fa-fw"></span>
+                                </a>
+                                {{ form_row(image) }}
+                            </div>
+                        {% endfor %}
 
-    <h3>Images</h3>
-    <div class="row js-trick-image-wrapper">
-        <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-            {% for image in form.images %}
-                <div class="col-xs-4 js-trick-image-item">
-                    <a href="#" class="js-remove-image pull-right">
-                        <span class="fa fa-close"></span>
-                    </a>
-                    {{ form_row(image) }}
+                        <div class="container">
+                            <div class="row">
+                                {% for image in form.images|slice(1, 1000) %}
+                                    <div class="js-trick-image-item col-lg-2 col-md-3 bordered">
+                                        <a href="#" class="js-remove-image pull-right topRight">
+                                            <span class="fa fa-trash fa-fw"></span>
+                                        </a>
+                                        {{ form_row(image) }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </ul>
                 </div>
-            {% endfor %}
-        </ul>
-    </div>
 
 
-    <h3>Videos</h3>
-    <div class="js-trick-video-wrapper">
-        <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-            {% for video in form.videos %}
-                <div class="js-trick-video-item">
-                    <a href="#" class="js-remove-video pull-right">
-                        <span class="fa fa-close"></span>
-                    </a>
-                    {{ form_row(video) }}
+
+                <div class="container" id="videoContainer">
+                    <div class="row">
+                        <div class="js-trick-video-wrapper">
+                            <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                                <div class="container">
+                                    <div class="row">
+
+                                        {% for video in form.videos %}
+                                            <div class="js-trick-video-item col-lg-2 col-md-3 bordered">
+                                                <a href="#" class="js-remove-video pull-right topRight">
+                                                    <span class="fa fa-trash fa-fw"></span>
+                                                </a>
+                                                {{ form_row(video) }}
+                                            </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
-            {% endfor %}
-        </ul>
+
+
+                {{ form_row(form.name, {
+                    'label': 'Name'
+                }) }}
+
+                {{ form_row(form.description, {
+                    'label': 'Description'
+                }) }}
+
+                {{ form_row(form.trickGroup, {
+                    'label': 'Category'
+                }) }}
+
+                <button type="submit" class="btn btn-success btn-block" formnovalidate>Save</button>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
     </div>
-
-    <button type="submit" formnovalidate>Save</button>
-
-    {{ form_end(form) }}
-
-
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
-
     <script>
-
 
     // SCRIPT TO REMOVE AN IMAGE
         jQuery(document).ready(function() {
@@ -99,7 +128,7 @@
         var $collectionHolder;
 
         // setup an "add an image" link
-        var $addImageLink = $('<a href="#" class="add_image_link">Add an image</a>');
+        var $addImageLink = $('<a id="addImage" href="#" class="add_image_link"><span class="fa fa-plus-circle"></span> Add an image</a>');
         var $newLinkLi = $('<li></li>').append($addImageLink);
 
         jQuery(document).ready(function() {
@@ -151,7 +180,7 @@
         var $collectionHolder2;
 
         // setup an "add a video" link
-        var $addVideoLink = $('<a href="#" class="add_video_link">Add a video</a>');
+        var $addVideoLink = $('<a href="#" class="add_video_link"><span class="fa fa-plus-circle"> Add a video</a>');
         var $newLinkLi2 = $('<li></li>').append($addVideoLink);
 
         jQuery(document).ready(function() {

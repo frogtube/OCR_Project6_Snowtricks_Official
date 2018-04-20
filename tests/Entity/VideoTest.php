@@ -11,7 +11,7 @@ class VideoTest extends TestCase
     public function testSettingName()
     {
         $trick = new Video();
-        $this->assertSame(null, $trick->getEmbed());
+        $this->assertNull($trick->getEmbed());
 
         $trick->setEmbed('https://www.youtube.com/embed/XGSy3_Czz8k');
         $this->assertSame('https://www.youtube.com/embed/XGSy3_Czz8k', $trick->getEmbed());
@@ -20,7 +20,7 @@ class VideoTest extends TestCase
     public function testSettingNEmbed()
     {
         $trick = new Video();
-        $this->assertSame(null, $trick->getEmbed());
+        $this->assertNull($trick->getEmbed());
 
         $trick->setEmbed('https://www.youtube.com/embed/XGSy3_Czz8k');
         $this->assertSame('https://www.youtube.com/embed/XGSy3_Czz8k', $trick->getEmbed());
@@ -29,7 +29,7 @@ class VideoTest extends TestCase
     public function testSettingNCaption()
     {
         $trick = new Video();
-        $this->assertSame(null, $trick->getCaption());
+        $this->assertNull($trick->getCaption());
 
         $trick->setCaption('A girl singing');
         $this->assertSame('A girl singing', $trick->getCaption());

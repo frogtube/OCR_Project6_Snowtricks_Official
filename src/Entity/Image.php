@@ -79,12 +79,12 @@ class Image
 //        $this->setCaption('Un snowboarder fait un '. $trick->getName());
 //    }
 
-    public function createAvatar(User $user, $fileUploader)
-    {
+//    public function createAvatar(User $user, $fileUploader)
+//    {
 //        $file = $user->getImage()->getFilename();
 //        $filename = $fileUploader->upload($file);
 //        $this->setFilename($filename);
 //        $this->setUser($user);
-    }
+//    }
 
 }

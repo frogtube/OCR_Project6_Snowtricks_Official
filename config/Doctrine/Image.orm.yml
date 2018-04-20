@@ -10,10 +10,6 @@ App\Entity\Image:
       type: string
       length: 100
       nullable: true
-    caption:
-      type: string
-      length: 100
-      nullable: true
   manyToOne:
     trick:
       targetEntity: App\Entity\Trick

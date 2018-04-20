@@ -150,6 +150,9 @@ class TrickController extends Controller
             // Adding default image if trick has no image
             $trick->addDefaultImage($trick);
 
+            // Setting the modification date
+            $trick->setModifiedAt(new \DateTime());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();

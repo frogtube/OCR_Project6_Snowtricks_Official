@@ -16,7 +16,6 @@ class User implements AdvancedUserInterface, \Serializable
     private $lastname;
     private $plainPassword;
     private $password;
-    private $avatar;
     private $roles = [];
     private $isActive;
     private $createdAt;
@@ -31,6 +30,9 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->isActive = false;
         $this->resetPasswordToken = null;
+        $this->setCreatedAt(new \DateTime('now'));
+        $this->setRoles(array('ROLE_USER'));
+
         $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -65,11 +67,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function setPassword(string $password): void
     {
         $this->password = $password;
-    }
-
-    public function setAvatar(string $avatar): void
-    {
-        $this->avatar = $avatar;
     }
 
     public function setRoles(array $roles): void
@@ -141,11 +138,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPassword(): ?string
     {
         return $this->password;
-    }
-
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
     }
 
     public function getRoles(): ?array
@@ -246,8 +238,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function createUser($password, User $user)
     {
         $user->setPassword($password);
-        $user->setCreatedAt(new \DateTime('now'));
-        $user->setRoles(array('ROLE_USER'));
+
     }
 
 

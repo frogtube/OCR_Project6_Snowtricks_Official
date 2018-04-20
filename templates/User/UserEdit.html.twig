@@ -36,7 +36,7 @@
 
                 {% if (user.image != null) %}
                     <p>Your avatar</p>
-                    <img class="avatarLarge" src="{{ asset('uploads/images/'~user.image.filename) }}" alt="{{ user.image.caption }}"/>
+                    <img class="avatarLarge" src="{{ asset('uploads/images/'~user.image.filename) }}" alt=""/>
                     <a href="{{ path('user_avatar_delete') }}" type="button" class="btn btn-sm btn-default btnMargin">Delete avatar</a>
 
                 {% endif %}

@@ -14,8 +14,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 8; $i++) {
 
             $video = new Video();
-            $video->setEmbed('Video ' . $i);
-            $video->setCaption('Ceci est la description de la video '.$i);
+            $video->setEmbed('Vhttps://www.youtube.com/watch?v=X9DIG3Ux79E');
             $video->setTrick($this->getReference('trick-fixture '.mt_rand(0,9)));
 
             $manager->persist($video);

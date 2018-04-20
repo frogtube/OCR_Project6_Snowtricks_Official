@@ -8,7 +8,6 @@ class Image
 {
     private $id;
     private $filename;
-    private $caption;
     private $trick;
     private $user;
 
@@ -27,11 +26,6 @@ class Image
     public function setFilename($filename): void
     {
         $this->filename = $filename;
-    }
-
-    public function setCaption(string $caption): void
-    {
-        $this->caption = $caption;
     }
 
     public function setTrick(Trick $trick): void
@@ -55,11 +49,6 @@ class Image
         return $this->filename;
     }
 
-    public function getCaption(): ?string
-    {
-        return $this->caption;
-    }
-
     public function getTrick(): ?Trick
     {
         return $this->trick;
@@ -76,7 +65,6 @@ class Image
 //        // $filename = $fileUploader->upload($file);
 //        $this->setFilename($filename);
 //        $this->setTrick($trick);
-//        $this->setCaption('Un snowboarder fait un '. $trick->getName());
 //    }
 
 //    public function createAvatar(User $user, $fileUploader)

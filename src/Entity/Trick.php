@@ -12,6 +12,7 @@ class Trick
     private $slug;
     private $description;
     private $createdAt;
+    private $modifiedAt = null;
     private $trickGroup;
     private $user;
     private $comments;
@@ -20,6 +21,8 @@ class Trick
 
     public function __construct()
     {
+        $this->setCreatedAt(new \DateTime());
+
         $this->comments = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->images = new ArrayCollection();
@@ -44,6 +47,11 @@ class Trick
     public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function setModifiedAt(\DateTime $modifiedAt): void
+    {
+        $this->modifiedAt = $modifiedAt;
     }
 
     public function setTrickGroup(?TrickGroup $trickGroup): void
@@ -93,9 +101,14 @@ class Trick
         return $this->description;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getModifiedAt(): ?\DateTime
+    {
+        return $this->modifiedAt;
     }
 
     public function getTrickGroup(): ?TrickGroup
@@ -162,7 +175,6 @@ class Trick
     {
         $this->setName(ucfirst($trickName));
         $this->setSlug(strtolower(str_replace(' ', '-', $trickName)));
-        $this->setCreatedAt(new \DateTime());
         $this->setUser($user);
     }
 

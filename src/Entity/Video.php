@@ -6,7 +6,6 @@ class Video
 {
     private $id;
     private $embed;
-    private $caption;
     private $trick;
 
     // SETTERS
@@ -19,11 +18,6 @@ class Video
     {
         $embed = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/", $url);
         $this->embed = $embed;
-    }
-
-    public function setCaption(string $caption): void
-    {
-        $this->caption = $caption;
     }
 
     public function setTrick(Trick $trick): void
@@ -40,11 +34,6 @@ class Video
     public function getEmbed(): ?string
     {
         return $this->embed;
-    }
-
-    public function getCaption(): ?string
-    {
-        return $this->caption;
     }
 
     public function getTrick(): ?Trick

@@ -26,10 +26,6 @@ App\Entity\User:
     password:
       type: string
       length: 100
-    avatar:
-      type: string
-      length: 100
-      nullable: true
     roles:
       type: array
       length: 100

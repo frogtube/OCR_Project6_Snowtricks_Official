@@ -28,7 +28,6 @@ class UserFixtures extends Fixture
             $user->setLastname('lastname'.$i);
             $encodedPassword = $this->encoder->encodePassword($user, 'qwertz');
             $user->setPassword($encodedPassword);
-            $user->setAvatar('avatar');
             $user->setRoles(array('ROLE_USER'));
             $user->setIsActive(true);
             $user->setCreatedAt(new \DateTime('now'));

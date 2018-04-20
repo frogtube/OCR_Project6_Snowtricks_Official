@@ -26,6 +26,16 @@ security:
             form_login:
                 csrf_token_generator: security.csrf.token_manager
 
-    # To be removed later on
     access_control:
-            - { path: ^/admin, role: ROLE_ADMIN }
+            - { path: ^/trick/new, role: ROLE_USER }
+            - { path: ^/trick/.*/edit, role: ROLE_USER }
+            - { path: ^/trick/.*/delete, role: ROLE_USER }
+            - { path: ^/user/edit, role: ROLE_USER }
+            - { path: ^/user/edit/delete, role: ROLE_USER }
+            - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+            - { path: ^/reset-password-request, role: ROLE_USER }
+
+            - { path: ^/reset-password, role: ROLE_USER, methods: [POST, PUT] }
+
+

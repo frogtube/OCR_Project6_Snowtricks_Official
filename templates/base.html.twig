@@ -23,6 +23,12 @@
         <link href="{{ asset('css/creative.min.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+        <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+        <script type="text/javascript">
+            tinymce.init({
+                selector: '.tinymce'
+            });
+        </script>
 
     </head>
 
@@ -84,7 +90,7 @@
         <!-- Displays flash messages -->
         {% for label, messages in app.flashes %}
             {% for message in messages %}
-                <div class="flash-{{ label }}">
+                <div class="alert alert-{{ label }}">
                     {{ message }}
                 </div>
             {% endfor %}

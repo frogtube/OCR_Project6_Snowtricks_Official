@@ -18,7 +18,9 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, array(
+                'attr' => array('class' => 'tinymce'),
+                ))
             ->add('trickGroup', EntityType::class, array(
                 'class' => 'App\Entity\TrickGroup',
                 'required' => false,

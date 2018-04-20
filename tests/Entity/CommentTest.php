@@ -12,7 +12,7 @@ class CommentTest extends TestCase
     public function testSettingContent()
     {
         $trick = new Comment();
-        $this->assertSame(null, $trick->getContent());
+        $this->assertNull($trick->getContent());
 
         $trick->setContent('so great!');
         $this->assertSame('so great!', $trick->getContent());

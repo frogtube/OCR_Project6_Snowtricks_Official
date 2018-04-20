@@ -100,7 +100,20 @@ class SecurityController extends Controller
     {
 
         // Generating the resetPasswordToken from url
-        $urlToken = substr($_GET['token'], 0, 25);
+        if(isset($_GET['token'])) {
+            $urlToken = substr($_GET['token'], 0, 25);
+        } else {
+            // Redirection to first step of the procedure
+            $this->addFlash(
+                'error',
+                'Your password has not been reset. Please start again the procedure'
+            );
+            return $this->redirectToRoute('reset_password_request');
+
+        }
+
+
+
 
         $form = $this->createForm(ResetPasswordType::class);
         $form->handleRequest($request);

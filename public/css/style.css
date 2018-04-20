@@ -6,6 +6,15 @@
     margin-top: 120px !important;
 }
 
+.loginBtn {
+    margin-top: 40px;
+}
+
+.alert {
+    margin-top: 60px !important;
+    margin-bottom: 0px !important;
+}
+
 ul {
     list-style-type: none;
 }
@@ -15,6 +24,18 @@ ul {
     width: 100% !important;
     /*height: auto !important;*/
     margin-top: 20px;
+}
+
+#videoContainer {
+    padding-left: 0 !important;
+}
+
+#addImage {
+    font-size: 13px !important;
+}
+
+.cover {
+    background-size: cover !important;
 }
 
 .avatar {
@@ -42,6 +63,10 @@ ul {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.topRight {
+    margin-left: -17px;
 }
 
 .trickDescription {

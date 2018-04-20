@@ -1,4 +1,6 @@
-{% extends 'form_div_layout.html.twig' %}
+{#{% extends 'form_div_layout.html.twig' %}#}
+{#{% form_theme form 'bootstrap_4_layout.html.twig'%}#}
+
 
 {% block file_widget %}
     {% spaceless %}
@@ -7,16 +9,18 @@
                 <div class="hidden">
                     {{ block('form_widget') }}
                 </div>
-                <img src="{{ asset(image_url) }}"/>
+                <img class="photo" src="{{ asset(image_url) }}"/>
             {% else %}
-                {{ block('form_widget') }}
+                {{ form_widget(form, { 'attr': {'class': 'btn btn-default'} }) }}
+                <button type="button" class="btn btn-default">Default</button>
+
+
             {% endif %}
         {% else %}
-            {{ block('form_widget') }}
+            {#{{ block('form_widget') }}#} <p>1dsfds</p>
         {% endif %}
     {% endspaceless %}
 {% endblock %}
-
 
 {% block text_widget %}
     {% spaceless %}
@@ -25,7 +29,7 @@
                 <div class="hidden">
                     {{ block('form_widget') }}
                 </div>
-                <iframe width="420" height="315" src="{{ video_url }}"></iframe>
+                <iframe class="photo" src="{{ video_url }}"></iframe>
             {% else %}
                 {{ block('form_widget') }}
             {% endif %}

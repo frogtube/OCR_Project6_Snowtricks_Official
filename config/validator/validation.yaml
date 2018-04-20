@@ -3,16 +3,16 @@ App\Entity\Trick:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
     properties:
         name:
-            - NotBlank: { message: "N'oublies pas de donner un nom au trick" }
+            - NotBlank: { message: "Your new trick needs a name" }
         description:
-            - NotBlank: { message: "N'oublies pas de décrire le trick pour que l'on sache de quoi il sagit" }
+            - NotBlank: { message: "Quickly describe your new trick" }
         trickGroup:
-            - NotBlank: { message: "N'oublies pas de saisir une catégorie" }
+            - NotBlank: { message: "Select a category" }
 
 App\Entity\Comment:
     properties:
         content:
-            - NotBlank: { message: "Ton commentaire est vide..." }
+            - NotBlank: { message: "Your comment is empty" }
 
 App\Entity\User:
     constraints:
@@ -20,15 +20,21 @@ App\Entity\User:
     properties:
         username:
             - NotBlank:
-                message: "Il faut entre ton pseudo ;)"
+                message: "You need a username ;)"
                 groups: ['registration']
         email:
             - NotBlank:
-                message: "Il faut entrer ton email"
+                message: "Please enter your email"
         plainPassword:
             - NotBlank:
-                message: "Il faut entrer ton mot de passe pour sécuriser ton compte"
+                message: "Please enter your password"
                 groups: ['registration']
-        firstname:
-            - NotBlank:
-                message: "Il faut entrer ton mot de passe pour sécuriser ton compte"
+
+App\Entity\Image:
+    properties:
+        filename:
+            - Image:
+                minWidth: 200
+                maxWidth: 400
+                minHeight: 200
+                maxHeight: 400

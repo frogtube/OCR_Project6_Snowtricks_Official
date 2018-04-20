@@ -9,6 +9,12 @@
 
                 {% for image in trick.images|slice(0, 1) %}
                     <h1 class="centered">{{ trick.name }}</h1>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="pull-right">
+                            <a href="{{ path('trick_edit', { 'slug':trick.slug }) }}"><i class="fa fa-pencil-square-o fa-fw pull-right"></i></a>
+                            <a href="{{ path('trick_delete', { 'slug':trick.slug }) }}"><i class="fa fa-trash fa-fw pull-right"></i></a>
+                        </div>
+                        {% endif %}
                     <img class="card-img-top" src="{{ asset('uploads/images/'~image.filename) }}" alt="">
                 {% endfor %}
 
@@ -17,7 +23,7 @@
             <div class="container">
                 <div class="row">
 
-                    {% for image in trick.images %}
+                    {% for image in trick.images|slice(1, 1000) %}
                         <div class="col-lg-2 col-md-3 bordered">
                             <img class="photo" src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
                         </div>
@@ -35,7 +41,7 @@
             <div class="container trickDescription">
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1">
-                        {{ trick.description }}
+                        {{ trick.description|raw }}
                     </div>
                 </div>
             </div>
@@ -53,8 +59,11 @@
                     <div class="col-lg-12 trickInfos">
 
                         {% if is_granted('ROLE_USER') %}
+                            <hr>
                             {{ include('trick/_commentForm.html.twig') }}
                         {% endif %}
+                        <hr>
+
 
                     </div>
                 </div>
@@ -63,18 +72,18 @@
             <div class="container">
                 <div class="row">
 
-                        {% for comment in trick.comments %}
-                            <div class="col-lg-2 offset-lg-2 comment">
-                                <img class="avatar" src="{{ asset('uploads/images/'~comment.user.image) }}" alt=""/>
-                                <div class="commentInfos">
-                                    {{ comment.user.username }}
-                                    {{ comment.createdAt|date("d/m/Y") }}
-                                </div>
+                    {% for comment in trick.comments %}
+                        <div class="col-lg-2 offset-lg-2 comment">
+                            <img class="avatar" src="{{ asset('uploads/images/'~comment.user.image) }}" alt=""/>
+                            <div class="commentInfos">
+                                {{ comment.user.username }}
+                                {{ comment.createdAt|date("d/m/Y") }}
                             </div>
-                            <div class="col-lg-6 comment">
-                                {{ comment.content }}
-                            </div>
-                        {% endfor %}
+                        </div>
+                        <div class="col-lg-6 comment">
+                            {{ comment.content }}
+                        </div>
+                    {% endfor %}
 
                 </div>
             </div>

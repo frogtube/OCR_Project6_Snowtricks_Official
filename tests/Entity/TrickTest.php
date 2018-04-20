@@ -5,14 +5,20 @@ namespace App\Tests\Entity;
 use App\Entity\Trick;
 use App\Entity\TrickGroup;
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 
 class TrickTest extends TestCase
 {
+    public function testConstructor()
+    {
+
+    }
+
     public function testSettingName()
     {
         $trick = new Trick();
-        $this->assertSame(null, $trick->getName());
+        $this->assertNull($trick->getName());
 
         $trick->setName('backflip');
         $this->assertSame('backflip', $trick->getName());
@@ -28,7 +34,7 @@ class TrickTest extends TestCase
     public function testSettingDescription()
     {
         $trick = new Trick();
-        $this->assertSame(null, $trick->getDescription());
+        $this->assertNull($trick->getDescription());
 
         $trick->setDescription('360 degres backwards');
         $this->assertSame('360 degres backwards', $trick->getDescription());
@@ -55,6 +61,18 @@ class TrickTest extends TestCase
         $user = new User();
         $trick = new Trick();
         $trick->setUser($user);
+        $this->assertSame($user, $trick->getUser());
+    }
+
+    public function testCreatingTrick()
+    {
+        $user = new User();
+        $name= 'backflip 180';
+        $trick = new Trick();
+        $trick->createTrick($name, $user);
+
+        $this->assertSame('Backflip 180', $trick->getName());
+        $this->assertSame('backflip-180', $trick->getSlug());
         $this->assertSame($user, $trick->getUser());
     }
 

@@ -14,8 +14,7 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 100; $i++) {
 
             $image = new Image();
-            $image->setFilename('Image ' . $i);
-            $image->setCaption('Ceci est la description de l\'image '.$i);
+            $image->setFilename('trick_default.jpg');
             $image->setUser(null);
             $image->setTrick($this->getReference('trick-fixture '.mt_rand(0,9)));
 

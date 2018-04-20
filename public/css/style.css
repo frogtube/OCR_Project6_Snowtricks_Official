@@ -26,6 +26,15 @@ ul {
     margin-top: 20px;
 }
 
+#title {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+}
+
 #videoContainer {
     padding-left: 0 !important;
 }

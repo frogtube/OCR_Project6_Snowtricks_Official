@@ -62,12 +62,11 @@ class RegistrationController extends Controller
             $username = $user->getUsername();
             $email = $user->getEmail();
             $message = (new \Swift_Message('Registration confirmation'))
-                ->setFrom('send@example.com')
+                ->setFrom('registration@snowtricks.com')
                 ->setTo($email)
                 ->setBody(
                     $this->renderView(
-                    // templates/emails/registration.html.twig
-                        'Emails/registration.html.twig',
+                        'Emails/registrationEmail.html.twig',
                         array(
                             'username' => $username,
                             'url' => $accountActivationUrl,

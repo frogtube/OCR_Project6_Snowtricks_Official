@@ -23,6 +23,9 @@ App\Entity\Trick:
     createdAt:
       type: datetime
       nullable: false
+    modifiedAt:
+      type: datetime
+      nullable: true
   manyToOne:
     user:
       targetEntity: App\Entity\User

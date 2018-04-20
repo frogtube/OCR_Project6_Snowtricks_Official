@@ -8,7 +8,7 @@
             <div class="col-lg-12 bordered">
 
                 {% for image in trick.images|slice(0, 1) %}
-                    <h1 class="centered">{{ trick.name }}</h1>
+                    <h1 id="title" class="centered">{{ trick.name }}</h1>
                     {% if is_granted('ROLE_USER') %}
                         <div class="pull-right">
                             <a href="{{ path('trick_edit', { 'slug':trick.slug }) }}"><i class="fa fa-pencil-square-o fa-fw pull-right"></i></a>
@@ -25,7 +25,7 @@
 
                     {% for image in trick.images|slice(1, 1000) %}
                         <div class="col-lg-2 col-md-3 bordered">
-                            <img class="photo" src="{{ asset('uploads/images/'~image.filename) }}" alt="{{ image.caption }}"/>
+                            <img class="photo" src="{{ asset('uploads/images/'~image.filename) }}" alt=""/>
                         </div>
                     {% endfor %}
 
@@ -49,7 +49,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 trickInfos">
-                        {{ trick.trickGroup }} | {{ trick.createdAt | date("d/m/Y") }}
+                        Group: {{ trick.trickGroup }}
+                        | Created at: {{ trick.createdAt | date("d/m/Y H:i") }}
+                        {% if trick.modifiedAt is not null %}
+                            | Last modified on {{ trick.modifiedAt|date("d/m/Y H:i") }}
+                        {% endif %}
                     </div>
                 </div>
             </div>

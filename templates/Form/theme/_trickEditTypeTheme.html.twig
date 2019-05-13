@@ -1,0 +1,36 @@
+{% form_theme form _self %}
+
+{% block form %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{- form_row(form.name) -}}
+    {{- form_row(form.description) -}}
+    {{- form_row(form.trickGroup) -}}
+    {{- form_row(form.images) -}}
+    {{- form_row(form.videos) -}}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block form_row %}
+    <div>
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {% if image_url is defined %}
+            {% if image_url is not null %}
+                <img src="{{ asset(image_url) }}"/>
+            {% endif %}
+        {% elseif video_url is defined %}
+            {%  if video_url is not null %}
+                <iframe class="photo" src="{{ video_url }}"></iframe>
+            {% endif %}
+        {% else %}
+            {{ parent() }}
+        {% endif %}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}
+
+{% block form_widget %}
+
+
+{% endblock %}

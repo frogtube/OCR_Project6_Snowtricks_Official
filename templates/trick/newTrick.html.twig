@@ -1,8 +1,161 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des tricks{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}New trick{% endblock %}
 
 {% block body %}
-    <h1>Ajout d'un nouveau trick</h1>
+
+    <div class="container topmargin">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 bordered">
+
+                <h2>Add a new trick</h2>
+
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                {{ form_row(form.name, {
+                    'label': 'Name'
+                }) }}
+
+                {{ form_row(form.description, {
+                    'label': 'Description'
+                }) }}
+
+                {{ form_row(form.trickGroup, {
+                    'label': 'Category'
+                }) }}
+
+                <div>
+                    <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                    </ul>
+                </div>
+
+                <div>
+                    <ul class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                    </ul>
+                </div>
+
+
+                <button type="submit" class="btn btn-success btn-block" formnovalidate>Save</button>
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        // Script to insert new image
+        var $collectionHolder;
+
+        // setup an "add an image" link
+        var $addImageLink = $('<a href="#" class="add_image_link"><i class="fa fa-camera"></i> Add an image</a>');
+        var $newLinkLi = $('<li></li>').append($addImageLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of images
+            $collectionHolder = $('ul.images');
+
+            // add the "add an image" anchor and li to the images ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addImageLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new image form (see next code block)
+                addImageForm($collectionHolder, $newLinkLi);
+            });
+        });
+
+        function addImageForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your images field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add an image" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+
+        // Script to insert new video
+        var $collectionHolder2;
+
+        // setup an "add a video" link
+        var $addVideoLink = $('<a href="#" class="add_video_link"><i class="fa fa-video-camera"></i> Add a video</a>');
+        var $newLinkLi2 = $('<li></li>').append($addVideoLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of images
+            $collectionHolder2 = $('ul.videos');
+
+            // add the "add an image" anchor and li to the images ul
+            $collectionHolder2.append($newLinkLi2);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder2.data('index', $collectionHolder2.find(':input').length);
+
+            $addVideoLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new image form (see next code block)
+                addVideoForm($collectionHolder2, $newLinkLi2);
+            });
+        });
+
+        function addVideoForm($collectionHolder2, $newLinkLi2) {
+            // Get the data-prototype explained earlier
+            var prototype2 = $collectionHolder2.data('prototype');
+
+            // get the new index
+            var index2 = $collectionHolder2.data('index');
+
+            var newForm2 = prototype2;
+            // You need this only if you didn't set 'label' => false in your images field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm2 = newForm2.replace(/__name__/g, index2);
+
+            // increase the index with one for the next item
+            $collectionHolder2.data('index', index2 + 1);
+
+            // Display the form in the page in an li, before the "Add an image" link li
+            var $newFormLi2 = $('<li></li>').append(newForm2);
+            $newLinkLi2.before($newFormLi2);
+        }
+    </script>
 
 {% endblock %}

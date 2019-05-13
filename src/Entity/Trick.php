@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Trick
 {
     private $id;
     private $name;
+    private $slug;
     private $description;
-    private $group;
     private $createdAt;
+    private $modifiedAt = null;
+    private $trickGroup;
     private $user;
     private $comments;
     private $videos;
@@ -18,40 +21,63 @@ class Trick
 
     public function __construct()
     {
+        $this->setCreatedAt(new \DateTime());
+
         $this->comments = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
 
     // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    public function setDescription(string $description): void
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    public function setGroup(string $group): void
-    {
-        $this->group = $group;
-    }
-
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function setUser(string $user): void
+    public function setModifiedAt(\DateTime $modifiedAt): void
+    {
+        $this->modifiedAt = $modifiedAt;
+    }
+
+    public function setTrickGroup(?TrickGroup $trickGroup): void
+    {
+        $this->trickGroup = $trickGroup;
+    }
+
+    public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    public function setImages($image): void
+{
+    if ($this->getImages()->contains($image)) {
+        return;
+    }
+    $this->images[] = $image;
+}
+
+    public function setVideos($video): void
+    {
+        if ($this->getVideos()->contains($video)) {
+            return;
+        }
+        $this->videos[] = $video;
     }
 
     // GETTERS
@@ -65,38 +91,102 @@ class Trick
         return $this->name;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getGroup(): ?string
-    {
-        return $this->group;
-    }
-
-    public function getCreatedAt(): ?string
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    public function getUser(): ?int
+    public function getModifiedAt(): ?\DateTime
+    {
+        return $this->modifiedAt;
+    }
+
+    public function getTrickGroup(): ?TrickGroup
+    {
+        return $this->trickGroup;
+    }
+
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function getComments(): ArrayCollection
+    /**
+     * @return  ArrayCollection|Comment[]
+     */
+    public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function getVideos(): ArrayCollection
+    /**
+     * @return ArrayCollection|Video[]
+     */
+    public function getVideos(): Collection
     {
         return $this->videos;
     }
 
-    public function getImages(): ArrayCollection
+    /**
+     * @return ArrayCollection|Image[]
+     */
+    public function getImages(): Collection
     {
         return $this->images;
+    }
+
+//    public function addImage(Image $image)
+//    {
+//        $this->images->add($image);
+//    }
+//
+//    public function removeImage(Image $image)
+//    {
+//        if (!$this->images->contains($image)) {
+//            return;
+//        }
+//        $this->images->removeElement($image);
+//    }
+//
+//    public function addVideo(Video $video)
+//    {
+//        $this->videos->add($video);
+//    }
+//
+//    public function removeVideo(Video $video)
+//    {
+//        if (!$this->videos->contains($video)) {
+//            return;
+//        }
+//        $this->videos->removeElement($video);
+//    }
+
+    public function createTrick($trickName, $user)
+    {
+        $this->setName(ucfirst($trickName));
+        $this->setSlug(strtolower(str_replace(' ', '-', $trickName)));
+        $this->setUser($user);
+    }
+
+    public function addDefaultImage($trick)
+    {
+        if(count($trick->getImages()) == 0) {
+
+            $defaultImage = new Image();
+            $defaultImage->setFilename('trick_default.jpg');
+            $trick->setImages($defaultImage);
+            $defaultImage->setTrick($trick);
+
+        }
     }
 }

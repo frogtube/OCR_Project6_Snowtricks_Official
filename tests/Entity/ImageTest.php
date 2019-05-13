@@ -3,45 +3,45 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Image;
+use App\Entity\Trick;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 
 class ImageTest extends TestCase
 {
     public function testSettingName()
     {
-        $trick = new Image();
-        $this->assertSame(null, $trick->getFilename());
+        $image = new Image();
+        $this->assertNull($image->getFilename());
 
-        $trick->setFilename('backflip.jpg');
-        $this->assertSame('backflip.jpg', $trick->getFilename());
+        $image->setFilename('backflip.jpg');
+        $this->assertSame('backflip.jpg', $image->getFilename());
     }
 
     public function testSettingCaption()
     {
-        $trick = new Image();
-        $this->assertSame(null, $trick->getCaption());
+        $image = new Image();
+        $this->assertNull($image->getCaption());
 
-        $trick->setCaption('A guy doing a backflip in snowboard');
-        $this->assertSame('A guy doing a backflip in snowboard', $trick->getCaption());
+        $image->setCaption('A guy doing a backflip in snowboard');
+        $this->assertSame('A guy doing a backflip in snowboard', $image->getCaption());
     }
 
     public function testSettingTrick()
     {
-        $trick = new Image();
-        $this->assertSame(null, $trick->getTrick());
-
-        $trick->setTrick(6);
-        $this->assertSame(6, $trick->getTrick());
+        $trick = new Trick();
+        $image = new Image();
+        $image->setTrick($trick);
+        $this->assertSame($trick, $image->getTrick());
     }
 
     public function testSettingUser()
     {
-        $trick = new Image();
-        $this->assertSame(null, $trick->getUser());
-
-        $trick->setUser(4);
-        $this->assertSame(4, $trick->getUser());
+        $user = new User();
+        $image = new Image();
+        $image->setUser($user);
+        $this->assertSame($user, $image->getUser());
     }
-
 
 }

@@ -1,5 +1,6 @@
 App\Entity\Trick:
   type: entity
+  repositoryClass: App\Repository\TrickRepository
   id:
     id:
       type: integer
@@ -8,17 +9,31 @@ App\Entity\Trick:
     name:
       type: string
       length: 100
+      nullable: false
+      unique: true
+    slug:
+      type: string
+      length: 100
+      nullable: true
+      unique: true
     description:
       type: text
       length: 2000
-    group:
-      type: string
-      lenght: 100
+      nullable: false
     createdAt:
       type: datetime
+      nullable: false
+    modifiedAt:
+      type: datetime
+      nullable: true
   manyToOne:
     user:
       targetEntity: App\Entity\User
+      inversedBy: tricks
+      joinColumn:
+        nullable: true
+    trickGroup:
+      targetEntity: App\Entity\TrickGroup
       inversedBy: tricks
       joinColumn:
         nullable: true
@@ -26,10 +41,20 @@ App\Entity\Trick:
     comments:
       targetEntity: App\Entity\Comment
       mappedBy: trick
+      nullable: true
+      cascade: ["persist", "remove"]
     videos:
       targetEntity: App\Entity\Video
       mappedBy: trick
+      nullable: true
+      cascade: ["persist", "remove"]
+      orphanRemoval: true
     images:
       targetEntity: App\Entity\Image
       mappedBy: trick
+      nullable: true
+      cascade: ["persist", "remove"]
+      orphanRemoval: true
+
+
 

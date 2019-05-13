@@ -1,0 +1,40 @@
+App\Entity\Trick:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: { message: "Your new trick needs a name" }
+        description:
+            - NotBlank: { message: "Quickly describe your new trick" }
+        trickGroup:
+            - NotBlank: { message: "Select a category" }
+
+App\Entity\Comment:
+    properties:
+        content:
+            - NotBlank: { message: "Your comment is empty" }
+
+App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+    properties:
+        username:
+            - NotBlank:
+                message: "You need a username ;)"
+                groups: ['registration']
+        email:
+            - NotBlank:
+                message: "Please enter your email"
+        plainPassword:
+            - NotBlank:
+                message: "Please enter your password"
+                groups: ['registration']
+
+App\Entity\Image:
+    properties:
+        filename:
+            - Image:
+                minWidth: 200
+                maxWidth: 400
+                minHeight: 200
+                maxHeight: 400

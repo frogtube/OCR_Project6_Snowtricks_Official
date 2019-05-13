@@ -1,14 +1,12 @@
 App\Entity\Image:
   type: entity
+  repositoryClass: App\Repository\ImageRepository
   id:
     id:
       type: integer
       generator: { strategy: AUTO }
   fields:
     filename:
-      type: string
-      length: 100
-    caption:
       type: string
       length: 100
       nullable: true
@@ -21,7 +19,7 @@ App\Entity\Image:
   oneToOne:
     user:
       targetEntity: App\Entity\User
-      inversedBy: cart
+      inversedBy: image
       joinColumn:
         nullable: true
 

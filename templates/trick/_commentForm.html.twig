@@ -1,0 +1,13 @@
+{% form_theme form 'bootstrap_4_layout.html.twig'%}
+
+{{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.content, {
+        'label': 'Any comments?'
+    }) }}
+
+    <button class="btn btn-block" type="submit" formnovalidate>Send my comment</button>
+
+{{ form_end(form) }}

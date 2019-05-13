@@ -1,0 +1,119 @@
+.hidden {
+    display: none !important;
+}
+
+.topmargin {
+    margin-top: 120px !important;
+}
+
+.loginBtn {
+    margin-top: 40px;
+}
+
+.alert {
+    margin-top: 60px !important;
+    margin-bottom: 0px !important;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.photo {
+    display: block;
+    width: 100% !important;
+    /*height: auto !important;*/
+    margin-top: 20px;
+}
+
+#title {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+}
+
+#videoContainer {
+    padding-left: 0 !important;
+}
+
+#addImage {
+    font-size: 13px !important;
+}
+
+.cover {
+    background-size: cover !important;
+}
+
+.avatar {
+    width: 40px !important;
+}
+
+.avatarLarge {
+    width: 120px !important;
+}
+
+.btnMargin {
+    margin-top: 17px;
+}
+
+.comment {
+    margin-top: 20px !important;
+}
+
+.commentInfos {
+    font-size: 12px !important;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.topRight {
+    margin-left: -17px;
+}
+
+.trickDescription {
+    margin-top: 40px;
+}
+
+.trickInfos {
+    text-align: center !important;
+    margin-top: 40px;
+}
+
+
+#contact {
+    background-color: #D8D8D8;
+    margin-top: 60px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px!important;
+}
+
+.navbar,
+.navbar-shrink{
+    background-color: #343A40 !important;
+}
+
+.navbar-shrink .navbar-nav > li.nav-item > a.nav-link {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus,
+.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
+    color: #212529 !important;
+}
+
+.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:active {
+    color: #F05F40 !important;
+}
+
+
+/*#mainNav {*/
+    /*background-color: black !important;*/
+/*}*/

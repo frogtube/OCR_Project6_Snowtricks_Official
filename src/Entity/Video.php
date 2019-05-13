@@ -2,31 +2,25 @@
 
 namespace App\Entity;
 
-
 class Video
 {
     private $id;
     private $embed;
-    private $caption;
     private $trick;
 
     // SETTERS
-    public function setId(int $id): void
+    public function __toString()
     {
-        $this->id = $id;
+        return $this->embed;
     }
 
-    public function setEmbed(string $embed): void
+    public function setEmbed(string $url): void
     {
+        $embed = str_replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/", $url);
         $this->embed = $embed;
     }
 
-    public function setCaption(string $caption): void
-    {
-        $this->caption = $caption;
-    }
-
-    public function setTrick(int $trick): void
+    public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }
@@ -42,12 +36,7 @@ class Video
         return $this->embed;
     }
 
-    public function getCaption(): ?string
-    {
-        return $this->caption;
-    }
-
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }

@@ -11,28 +11,24 @@ class Comment
     private $trick;
     private $user;
 
-   // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
+    // SETTERS
 
     public function setContent(string $content): void
     {
         $this->content = $content;
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function setTrick(int $trick): void
+    public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }
 
-    public function setUser(int $user): void
+    public function setUser(User $user): void
     {
         $this->user = $user;
     }
@@ -48,19 +44,26 @@ class Comment
         return $this->content;
     }
 
-    public function getCreatedAt(): ?string
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    public function createComment(Trick $trick, User $user)
+    {
+        $this->setCreatedAt(new \DateTime());
+        $this->setTrick($trick);
+        $this->setUser($user);
     }
 
 }

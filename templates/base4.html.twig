@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="snowtricks">
+    <meta name="author" content="frogtube">
+
+    <title>{% block title %}Snowtricks{% endblock %}</title>
+
+      <!-- Bootstrap core CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+        <!-- Custom fonts for this template -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">      <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+      <!-- Plugin CSS -->
+      <link href="{{ asset('vendor/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
+
+      <!-- Custom styles for this template -->
+      <link href="{{ asset('css/creative.min.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+
+
+              {#{% if is_granted('ROLE_USER') %}#}
+                  {#<h1>Welcome {{ app.user.username }}!</h1>#}
+                  {#{% if (app.user.image != null) %}#}
+                      {#<img src="{{ asset('uploads/images/'~app.user.image.filename) }}" alt="{{ app.user.image.caption }}"/>#}
+                  {#{% endif %}#}
+              {#{% endif %}#}
+
+              {% if is_granted('ROLE_USER') == false %}
+
+                  <li class="nav-item">
+                      <a class="nav-link js-scroll-trigger" href="{{ path('login') }}">Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link js-scroll-trigger" href="{{ path('register') }}">Register</a>
+                  </li>
+
+              {% endif %}
+
+              {% if is_granted('ROLE_USER') %}
+                  <form action={{ path('logout') }}>
+                      <input type="submit" value="Logout" />
+                  </form>
+                  <form action={{ path('user_edit') }}>
+                      <input type="submit" value="Edit profile" />
+                  </form>
+                  <form action={{ path('trick_create') }}>
+                      <input type="submit" value="New trick" />
+                  </form>
+              {% endif %}
+
+
+
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% block body %}
+    {% endblock %}
+
+    <!-- footer -->
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading">Let's Get In Touch!</h2>
+            <hr class="my-4">
+              <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+              <p>
+                  <a href="mailto:contact@snowtricks.com">Contact us</a>
+              </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../public/vendor/jquery/jquery.min.js"></script>
+    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../public/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="../public/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../public/js/creative.min.js"></script>
+
+  </body>
+
+</html>

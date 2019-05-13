@@ -4,54 +4,64 @@ namespace App\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements AdvancedUserInterface, \Serializable
 {
     private $id;
     private $username;
     private $email;
     private $firstname;
     private $lastname;
+    private $plainPassword;
     private $password;
-    private $avatar;
-    private $role;
-    private $active;
+    private $roles = [];
+    private $isActive;
     private $createdAt;
+    private $resetPasswordToken;
+    private $resetPasswordTokenTimestamp;
+    private $activationToken;
+    private $image;
     private $tricks;
     private $comments;
-    private $image;
-
 
     public function __construct()
     {
+        $this->isActive = false;
+        $this->resetPasswordToken = null;
+        $this->setCreatedAt(new \DateTime('now'));
+        $this->setRoles(array('ROLE_USER'));
+
         $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
     // SETTERS
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
 
-    public function setFirstname(string $firstname): void
+    public function setFirstname(?string $firstname): void
     {
         $this->firstname = $firstname;
     }
 
-    public function setLastname(string $lastname): void
+    public function setLastname(?string $lastname): void
     {
         $this->lastname = $lastname;
+    }
+
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     public function setPassword(string $password): void
@@ -59,27 +69,37 @@ class User
         $this->password = $password;
     }
 
-    public function setAvatar(string $avatar): void
+    public function setRoles(array $roles): void
     {
-        $this->avatar = $avatar;
+        $this->roles = $roles;
     }
 
-    public function setRole(string $role): void
+    public function setIsActive(bool $active): void
     {
-        $this->role = $role;
+        $this->isActive = $active;
     }
 
-    public function setActive(string $active): void
-    {
-        $this->active = $active;
-    }
-
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function setImage(int $image): void
+    public function setResetPasswordToken(?string $resetPasswordToken): void
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+    }
+
+    public function setResetPasswordTokenTimestamp(?\DateTime $resetPasswordTokenTimestamp): void
+    {
+        $this->resetPasswordTokenTimestamp = $resetPasswordTokenTimestamp;
+    }
+
+    public function setActivationToken(?string $activationToken): void
+    {
+        $this->activationToken = $activationToken;
+    }
+
+    public function setImage(Image $image = null): void
     {
         $this->image = $image;
     }
@@ -110,29 +130,49 @@ class User
         return $this->lastname;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function getAvatar(): ?string
+    public function getRoles(): ?array
     {
-        return $this->avatar;
+        return $this->roles;
     }
 
-    public function getRole(): ?string
+    public function isActive(): ?bool
     {
-        return $this->role;
+        return $this->isActive;
     }
 
-    public function getActive(): ?bool
-    {
-        return $this->active;
-    }
-
-    public function getCreatedAt(): ?string
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    public function getResetPasswordTokenTimestamp(): ?\DateTime
+    {
+        return $this->resetPasswordTokenTimestamp;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
     }
 
     public function getTricks(): ?ArrayCollection
@@ -145,9 +185,61 @@ class User
         return $this->comments;
     }
 
-    public function getImage(): ?int
+    public function getSalt()
     {
-        return $this->image;
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
     }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+            ) = unserialize($serialized);
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+
+    public function createUser($password, User $user)
+    {
+        $user->setPassword($password);
+
+    }
+
 
 }

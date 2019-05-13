@@ -2,37 +2,38 @@
 
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\File\File;
 
 class Image
 {
     private $id;
     private $filename;
-    private $caption;
     private $trick;
     private $user;
 
+    public function __toString()
+    {
+        return $this->filename;
+    }
+
     // SETTERS
-    public function setId($id)
+
+    public function setId($id): void
     {
         $this->id = $id;
     }
 
-    public function setFilename(string $filename): void
+    public function setFilename($filename): void
     {
         $this->filename = $filename;
     }
 
-    public function setCaption(string $caption): void
-    {
-        $this->caption = $caption;
-    }
-
-    public function setTrick(int $trick): void
+    public function setTrick(Trick $trick): void
     {
         $this->trick = $trick;
     }
 
-    public function setUser(int $user): void
+    public function setUser(?User $user): void
     {
         $this->user = $user;
     }
@@ -43,24 +44,35 @@ class Image
         return $this->id;
     }
 
-    public function getFilename(): ?string
+    public function getFilename()
     {
         return $this->filename;
     }
 
-    public function getCaption(): ?string
-    {
-        return $this->caption;
-    }
-
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
     }
+
+//    public function createTrickImage(Image $image, Trick $trick, $fileUploader)
+//    {
+//        // $file = $image->getFilename();
+//        // $filename = $fileUploader->upload($file);
+//        $this->setFilename($filename);
+//        $this->setTrick($trick);
+//    }
+
+//    public function createAvatar(User $user, $fileUploader)
+//    {
+//        $file = $user->getImage()->getFilename();
+//        $filename = $fileUploader->upload($file);
+//        $this->setFilename($filename);
+//        $this->setUser($user);
+//    }
 
 }
